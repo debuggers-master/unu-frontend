@@ -1,3 +1,3 @@
 module.exports = {
-  API_URL: ""
-};
+  API_URL: ''
+}

@@ -44,12 +44,13 @@
   },
   "standard": {
     "ignore": [
-      "build/*"
+      "build/*",
+      "serviceWorker.js"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm lint && npm fix"
+      "pre-commit": "npm run lint && npm run fix"
     }
   }
 }
