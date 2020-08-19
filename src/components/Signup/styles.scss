@@ -1,0 +1,44 @@
+@import "../../styles/base";
+
+.signup {
+  position: relative;
+  display: grid;
+  grid-template-columns: 45% 55%;
+  max-width: 800px;
+  background-color: $color-white;
+  &__form {
+    padding: $gap-4;
+  }
+  &__banner {
+    padding: $gap-3;
+    color: $color-white;
+    background-color: green;
+    background-image: url("../../assets/images/signup-banner.jpg");
+    background-position: center;
+    h3 {
+      @include title(lg);
+    }
+  }
+  &__signed-caption {
+    margin-top: $gap-2;
+    display: flex;
+    justify-content: center;
+    @include captions();
+    a {
+      margin-left: 0.5em;
+      color: $color-primary;
+    }
+  }
+  &__close {
+    position: absolute;
+    top: $gap-4;
+    right: $gap-4;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  &__button {
+    display: flex;
+    justify-content: center;
+  }
+}

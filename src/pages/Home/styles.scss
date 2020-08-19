@@ -1,0 +1,19 @@
+@import "../../styles/base";
+.hero-home {
+  background-color: green;
+  display: grid;
+  height: calc(100vh - #{$header-height});
+  place-items: center;
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+  h1 {
+    @include title("lg");
+  }
+  &__button {
+    display: flex;
+    justify-content: center;
+    margin: $gap-3;
+  }
+}

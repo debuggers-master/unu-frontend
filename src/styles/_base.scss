@@ -1,4 +1,4 @@
-//here goes resets, variables, mixins, and any utility classes.
+//here goes variables, mixins, and any utility classes.
 
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap");
 
@@ -15,25 +15,26 @@ $color-neutral: #c9a79d;
 $color-success: #43c797;
 $color-error: #fc1d1d;
 $color-text: $color-black;
-
+$color-inactive: rgba(14, 19, 24, 0.6);
 //Typography
 
-$font-primary: "Noto Sans, sans-serif";
-$font-secondary: "Open Sans, sans-serif";
+$font-primary: "Noto Sans", sans-serif;
+$font-secondary: "Open Sans", sans-serif;
 
-@mixin h1($size) {
+@mixin title($size) {
+  font-size: 32px;
   @if $size == "lg" {
     font-size: 48px;
   }
   @if $size == "sm" {
     font-size: 24px;
   }
-  font-size: 32px;
+
   font-family: $font-primary;
   font-weight: 700;
 }
 
-@mixin h2($size) {
+@mixin subtitle($size) {
   font-family: $font-primary;
   font-weight: 700;
   font-size: 24px;
@@ -46,7 +47,7 @@ $font-secondary: "Open Sans, sans-serif";
   }
 }
 
-@mixin captions($size) {
+@mixin captions($size: "") {
   font-family: $font-secondary;
   font-size: 12px;
   @if $size == "lg" {
@@ -55,7 +56,7 @@ $font-secondary: "Open Sans, sans-serif";
     font-weight: 400;
   }
 }
-@mixin paragraph($size) {
+@mixin paragraph($size: "") {
   font-family: $font-secondary;
   @if $size == "lg" {
     font-weight: 700;
@@ -78,23 +79,3 @@ $header-height: 100px;
 
 // Footer
 $footer-height: 200px;
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-#App {
-  background-color: red;
-  height: 50px;
-  width: 500px;
-}

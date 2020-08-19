@@ -1,0 +1,17 @@
+@import "../../styles/base";
+.header {
+  height: $header-height;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: red;
+  &__left {
+  }
+  &__right {
+    ul {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr) auto;
+      place-items: center;
+    }
+  }
+}

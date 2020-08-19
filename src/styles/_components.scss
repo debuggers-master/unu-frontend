@@ -1,1 +1,47 @@
 // here goes reusable components
+.form-field {
+  position: relative;
+  height: 36px;
+  width: 100%;
+  margin: $gap-4 0;
+  color: $color-inactive;
+  &--active {
+    display: flex;
+  }
+  &__label {
+    position: absolute;
+    top: 25%;
+    left: $gap-1;
+    z-index: 1;
+  }
+  &__label--active {
+    position: absolute;
+    top: -1em;
+    transition: 0.1s;
+    @include captions(lg);
+  }
+  input {
+    position: relative;
+    z-index: 2;
+    border-bottom: 1px solid $color-black;
+    background-color: transparent;
+    padding-left: $gap-1;
+    @include paragraph("lg");
+  }
+}
+
+.button {
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: $color-brand;
+  color: $color-white;
+  font-size: 16px;
+  &--lg {
+    height: 52px;
+    width: 225px;
+  }
+  &--shape {
+    border-radius: 0px 50px;
+  }
+}
