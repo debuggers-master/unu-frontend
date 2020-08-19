@@ -1,4 +1,4 @@
-@import "../../styles/base";
+@import '../../styles/base';
 
 .signup {
   position: relative;
@@ -13,7 +13,7 @@
     padding: $gap-3;
     color: $color-white;
     background-color: green;
-    background-image: url("../../assets/images/signup-banner.jpg");
+    background-image: url('../../assets/images/signup-banner.jpg');
     background-position: center;
     h3 {
       @include title(lg);

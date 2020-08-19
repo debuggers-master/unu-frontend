@@ -1,6 +1,6 @@
 //here goes variables, mixins, and any utility classes.
 
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap');
 
 /*--------------$Variables$-----------------*/
 
@@ -10,7 +10,7 @@ $color-black: #1d1d1d;
 $color-brand: #f57569;
 $color-primary: #194c85;
 $color-primary-darken: #0c315c;
-$color-scondary: #67c1c2;
+$color-secondary: #67c1c2;
 $color-neutral: #c9a79d;
 $color-success: #43c797;
 $color-error: #fc1d1d;
@@ -18,15 +18,15 @@ $color-text: $color-black;
 $color-inactive: rgba(14, 19, 24, 0.6);
 //Typography
 
-$font-primary: "Noto Sans", sans-serif;
-$font-secondary: "Open Sans", sans-serif;
+$font-primary: 'Noto Sans', sans-serif;
+$font-secondary: 'Open Sans', sans-serif;
 
 @mixin title($size) {
   font-size: 32px;
-  @if $size == "lg" {
+  @if $size == 'lg' {
     font-size: 48px;
   }
-  @if $size == "sm" {
+  @if $size == 'sm' {
     font-size: 24px;
   }
 
@@ -38,27 +38,27 @@ $font-secondary: "Open Sans", sans-serif;
   font-family: $font-primary;
   font-weight: 700;
   font-size: 24px;
-  @if size == "lg" {
+  @if size == 'lg' {
     font-size: 32px;
   }
-  @if size == "sm" {
+  @if size == 'sm' {
     font-size: 16px;
     font-weight: 400px;
   }
 }
 
-@mixin captions($size: "") {
+@mixin captions($size: '') {
   font-family: $font-secondary;
   font-size: 12px;
-  @if $size == "lg" {
+  @if $size == 'lg' {
     font-weight: 600;
   } @else {
     font-weight: 400;
   }
 }
-@mixin paragraph($size: "") {
+@mixin paragraph($size: '') {
   font-family: $font-secondary;
-  @if $size == "lg" {
+  @if $size == 'lg' {
     font-weight: 700;
     font-size: 16px;
   } @else {
@@ -78,4 +78,4 @@ $gap-6: $gap-5 + 24px;
 $header-height: 100px;
 
 // Footer
-$footer-height: 200px;
+$footer-height: 64px;

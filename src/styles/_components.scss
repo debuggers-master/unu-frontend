@@ -26,7 +26,7 @@
     border-bottom: 1px solid $color-black;
     background-color: transparent;
     padding-left: $gap-1;
-    @include paragraph("lg");
+    @include paragraph('lg');
   }
 }
 
@@ -36,12 +36,40 @@
   border-radius: 5px;
   background-color: $color-brand;
   color: $color-white;
-  font-size: 16px;
+  @include paragraph('lg');
   &--lg {
     height: 52px;
     width: 225px;
   }
   &--shape {
-    border-radius: 0px 50px;
+    border-radius: 50px 0px;
+  }
+}
+
+.footer {
+  height: $footer-height;
+  background-color: $color-primary;
+  color: $color-white;
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+  }
+  &__right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    div {
+      padding: 0 1em;
+    }
+  }
+  &__left {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
   }
 }
