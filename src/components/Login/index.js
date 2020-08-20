@@ -6,17 +6,17 @@ import Form from './Form'
 const Login = () => {
   return (
     <>
-      <div className="login">
-        <Link to="/">
-          <img className="login__close" src={_close} alt="cerrar" />
+      <div className='login'>
+        <Link to='/'>
+          <img className='login__close' src={_close} alt='cerrar' />
         </Link>
-        <div className="login__form">
+        <div className='login__form'>
           <h1>Login</h1>
           <h2>Que piensas planear hoy?</h2>
           <Form />
-          <div className="login__signed-caption">
+          <div className='login__signed-caption'>
             <span>Aun no tienes cuenta? </span>
-            <Link to="/signup"> Registrate</Link>
+            <Link to='/signup'> Registrate</Link>
           </div>
         </div>
       </div>

@@ -3,21 +3,23 @@ import React, { useState, useEffect } from 'react'
 
 const Form = () => {
   const [clickedField, setClickedField] = useState()
-  useEffect(() => {
-    window.addEventListener('click', evn => {
-      if (clickedField) {
-        const label = clickedField.getElementsByTagName('label')[0]
-        const input = clickedField.getElementsByTagName('input')[0]
-        /* eslint-disable */
-        const isInactive = evn.target != input;
-        /* eslint-enable */
-        const isFill = input.value
-        if (isInactive && !isFill) {
-          label.classList.remove('form-field__label--active')
-        }
+
+  const handleOutsideClick = evn => {
+    if (clickedField) {
+      const label = clickedField.getElementsByTagName('label')[0]
+      const input = clickedField.getElementsByTagName('input')[0]
+      /* eslint-disable */
+      const isInactive = evn.target != input
+      /* eslint-enable */
+      const isFill = input.value
+      if (isInactive && !isFill) {
+        label.classList.remove('form-field__label--active')
       }
-    })
-  }, [clickedField])
+    }
+  }
+  useEffect(() => {
+    window.addEventListener('click', handleOutsideClick)
+  }, [handleOutsideClick])
 
   const handleClick = evn => {
     const formField = evn.currentTarget
@@ -25,14 +27,21 @@ const Form = () => {
     const activeLabel = formField.getElementsByTagName('label')[0]
     activeLabel.classList.add('form-field__label--active')
   }
+  const handleChange = evn => {
+    console.log('change')
+  }
   return (
     <>
       <form>
         <div onClick={handleClick} className='form-field'>
           <label className='form-field__label'>Email</label>
-          <input type='text' name='' />
+          <input type='text' name='email' />
         </div>
-        <div onClick={handleClick} className='form-field'>
+        <div
+          onClick={handleClick}
+          onChange={handleChange}
+          className='form-field'
+        >
           <label className='form-field__label'>Contraseña</label>
           <input type='text' name='' />
         </div>
