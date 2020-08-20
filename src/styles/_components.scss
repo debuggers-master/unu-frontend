@@ -5,8 +5,12 @@
   width: 100%;
   margin: $gap-4 0;
   color: $color-inactive;
+  border-bottom: 1px solid $color-black;
   &--active {
-    display: flex;
+    border-bottom: 1px solid $color-primary;
+  }
+  &--error {
+    border-bottom: 1px solid red;
   }
   &__label {
     position: absolute;
@@ -14,16 +18,21 @@
     left: $gap-1;
     z-index: 1;
   }
+  &__error {
+    @include captions('sm');
+    padding-left: $gap-1;
+    margin-top: 5px;
+    color: red;
+  }
   &__label--active {
     position: absolute;
     top: -1em;
     transition: 0.1s;
-    @include captions(lg);
+    @include captions('lg');
   }
   input {
     position: relative;
     z-index: 2;
-    border-bottom: 1px solid $color-black;
     background-color: transparent;
     padding-left: $gap-1;
     @include paragraph('lg');
@@ -43,6 +52,9 @@
   }
   &--shape {
     border-radius: 50px 0px;
+  }
+  &--disabled {
+    color: $color-inactive;
   }
 }
 
