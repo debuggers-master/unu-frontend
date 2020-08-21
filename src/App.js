@@ -1,18 +1,20 @@
 import React from 'react'
-import Login from './pages/Login'
-import Signup from './pages/Signup'
-import Home from './pages/Home'
-import { BrowserRouter, Switch } from 'react-router-dom'
-// function App () {
-//   return <div id='App'>All works fine!</div>
-// }
-function App () {
+import Login from './containers/Login'
+import Signup from './containers/Signup'
+import Home from './containers/Home'
+
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+const Dashboard = () => {
+  return <div>Bienvenido, Logeado exitosamente</div>
+}
+function App ({ isAuth }) {
   return (
     <BrowserRouter>
       <Switch>
-        <Home exact path='/' />
+        <Route exact path='/' component={Home} />
         <Login exact path='/login' />
         <Signup exact path='/signup' />
+        <Route exact path='/dashboard' component={isAuth ? Dashboard : Login} />
       </Switch>
     </BrowserRouter>
   )

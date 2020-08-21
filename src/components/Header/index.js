@@ -17,7 +17,7 @@ const Header = () => {
             <ul>
               <li>Inicio</li>
               <li>Proceso</li>
-              <li>Equipo</li>
+              <Link to='/dashboard'>Equipo</Link>
               <li>
                 <Link to='/login'>
                   <button className='button button--shape'>Login</button>

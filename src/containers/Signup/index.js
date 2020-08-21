@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom'
 import './styles.scss'
 import _logo from '../../assets/images/logo-white.svg'
 import _close from '../../assets/images/close-button.svg'
-import Form from './Form'
+import Form from '../../components/SignupForm'
 const Signup = () => {
   return (
-    <>
+    <div className='getStarted-grid'>
       <div className='signup'>
         <img className='signup__close' src={_close} alt='cerrar' />
-
         <div className='signup__banner'>
           <img src={_logo} alt='Logotipo' />
           <h3>Start making awesome websites</h3>
@@ -25,7 +24,8 @@ const Signup = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
+
 export default Signup

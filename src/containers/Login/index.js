@@ -2,10 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './styles.scss'
 import _close from '../../assets/images/close-button.svg'
-import Form from './Form'
+import Form from '../../components/LoginForm'
+
 const Login = () => {
   return (
-    <>
+    <div className='getStarted-grid'>
       <div className='login'>
         <Link to='/'>
           <img className='login__close' src={_close} alt='cerrar' />
@@ -16,11 +17,11 @@ const Login = () => {
           <Form />
           <div className='login__signed-caption'>
             <span>Aun no tienes cuenta? </span>
-            <Link to='/signup'> Registrate</Link>
+            <Link to='/dashboard'> Registrate</Link>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 export default Login

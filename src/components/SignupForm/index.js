@@ -1,17 +1,31 @@
-/* Issue: when a input field is selected by tabs */
-/* Issue: must be delete add event listeners into if statement from handleOutisdeClick */
 import React, { useState, useEffect } from 'react'
-
-const Form = () => {
-  const [modifiedFields, setModifiedFields] = useState({})
+import fieldValidator from '../../utils/formValidator'
+import { registerUser } from '../../actions'
+import { connect } from 'react-redux'
+const SignupForm = props => {
+  const [inputValues, setInputValues] = useState({})
   const [errors, setErrors] = useState({
     email: '',
     password: '',
-    name: ''
+    name: '',
+    lastName: '',
+    passwordConfirm: ''
   })
   const [enableSubmit, setEnableSubmit] = useState()
-  const handleClick = evn => {
-    const formField = evn.currentTarget
+
+  const handleSubmit = evn => {
+    evn.preventDefault()
+    const form = {
+      email: inputValues.email,
+      firstName: inputValues.name,
+      lastName: inputValues.lastName,
+      password: inputValues.password
+    }
+    props.registerUser(form)
+  }
+
+  const handleFocus = evn => {
+    const formField = evn.currentTarget.parentNode
     const activeLabel = formField.getElementsByTagName('label')[0]
     activeLabel.classList.add('form-field__label--active')
     formField.classList.add('form-field--active')
@@ -19,8 +33,14 @@ const Form = () => {
   const handleChange = evn => {
     const fieldName = evn.target.name
     const fieldValue = evn.target.value
-    console.log(fieldName)
-    setModifiedFields({ ...modifiedFields, [fieldName]: fieldValue })
+    setInputValues({ ...inputValues, [fieldName]: fieldValue })
+    const fieldError = fieldValidator({
+      field: fieldName,
+      value: fieldValue,
+      state: inputValues
+    })
+    console.log(fieldError)
+    setErrors({ ...errors, [fieldName]: fieldError })
   }
   const handleBur = evn => {
     const field = evn.currentTarget
@@ -30,24 +50,6 @@ const Form = () => {
     if (!isFill) {
       label.classList.remove('form-field__label--active')
       field.classList.remove('form-field--active')
-    }
-    validateFields(modifiedFields)
-  }
-  const handleSubmit = () => {}
-  const validateFields = fields => {
-    const validators = {
-      email: emailValidator,
-      name: nameValidator,
-      lastName: nameValidator,
-      password: passwordValidator,
-      passwordConfirm: passwordConfirmValidator
-    }
-    for (const type in fields) {
-      const value = fields[type]
-      if (validators[type]) {
-        const fieldError = validators[type](value)
-        setErrors({ ...errors, [type]: fieldError })
-      }
     }
   }
   useEffect(() => {
@@ -62,49 +64,29 @@ const Form = () => {
     }
     return true
   }
-  const emailValidator = email => {
-    if (/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/.test(email)) {
-      return null
-    }
-    if (email.trim() === '') {
-      return 'Ingresa un email'
-    }
-    return 'Ingresa un email valido'
-  }
-  const nameValidator = name => {
-    if (name.trim() === '') {
-      return 'Ingresa un nombre'
-    }
-    return null
-  }
-  const passwordValidator = password => {
-    if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password)) {
-      return null
-    }
-    if (password.trim() === '') {
-      return 'Ingresa una contraseña'
-    }
-    return 'Ingresa una contraseña correcta'
-  }
-  const passwordConfirmValidator = pass => {
-    if (pass === modifiedFields.password) {
-      return null
-    }
-    return 'Las contraseñas no son iguales'
-  }
   return (
     <>
       <form onSubmit={handleSubmit} autoComplete='off'>
-        <div onBlur={handleBur} onClick={handleClick} className='form-field'>
+        <div onBlur={handleBur} className='form-field'>
           <label className='form-field__label'>Nombre</label>
-          <input onChange={handleChange} type='text' name='name' />
+          <input
+            onFocus={handleFocus}
+            onChange={handleChange}
+            type='text'
+            name='name'
+          />
           {errors.name && (
             <div className='form-field__error'>{errors.name}</div>
           )}
         </div>
-        <div onBlur={handleBur} onClick={handleClick} className='form-field'>
+        <div onBlur={handleBur} className='form-field'>
           <label className='form-field__label'>Apellido</label>
-          <input onChange={handleChange} type='text' name='lastName' />
+          <input
+            onFocus={handleFocus}
+            onChange={handleChange}
+            type='text'
+            name='lastName'
+          />
           {errors.lastName && (
             <div className='form-field__error'>{errors.lastName}</div>
           )}
@@ -112,27 +94,37 @@ const Form = () => {
 
         <div
           onBlur={handleBur}
-          onClick={handleClick}
           className={
             errors.email ? 'form-field form-field--error' : 'form-field'
           }
         >
           <label className='form-field__label'>Email</label>
-          <input onChange={handleChange} type='text' name='email' />
+          <input
+            onFocus={handleFocus}
+            onChange={handleChange}
+            type='text'
+            name='email'
+          />
           {errors.email && (
             <div className='form-field__error'>{errors.email}</div>
           )}
         </div>
-        <div onBlur={handleBur} onClick={handleClick} className='form-field'>
+        <div onBlur={handleBur} className='form-field'>
           <label className='form-field__label'>Contraseña</label>
-          <input onChange={handleChange} type='password' name='password' />
+          <input
+            onFocus={handleFocus}
+            onChange={handleChange}
+            type='name'
+            name='password'
+          />
           {errors.password && (
             <div className='form-field__error'>{errors.password}</div>
           )}
         </div>
-        <div onBlur={handleBur} onClick={handleClick} className='form-field'>
+        <div onBlur={handleBur} className='form-field'>
           <label className='form-field__label'>Confirmar Contraseña</label>
           <input
+            onFocus={handleFocus}
             onChange={handleChange}
             type='password'
             name='passwordConfirm'
@@ -154,4 +146,7 @@ const Form = () => {
     </>
   )
 }
-export default Form
+const mapDispatchToProps = {
+  registerUser
+}
+export default connect(null, mapDispatchToProps)(SignupForm)
