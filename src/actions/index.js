@@ -3,26 +3,27 @@ import { API_URL } from '../config'
 
 export const registerRequest = payload => ({
   type: 'REGISTER_REQUEST',
-  payload
+  payload,
 })
 export const loginRequest = payload => ({
   type: 'LOGIN_REQUEST',
-  payload
+  payload,
 })
 export const redirect = payload => ({
   type: 'REDIRECT_TO_URL',
-  payload
+  payload,
 })
 
 export const registerUser = payload => {
   return async dispatch => {
     try {
-      const data = await axios({
+      await axios({
         url: `${API_URL}/auth/signup`,
         method: 'post',
-        data: payload
+        data: payload,
       })
-      dispatch(loginRequest(data.data.user))
+      window.location.href = '/login'
+      // dispatch(loginRequest(data.data.user))
     } catch (error) {
       console.log(error)
     }
@@ -31,17 +32,18 @@ export const registerUser = payload => {
 export const loginUser = (payload, redirectUrl) => {
   return async dispatch => {
     try {
-      const data = await axios({
+      const { data } = await axios({
         url: `${API_URL}/auth/login`,
         method: 'post',
-        data: payload
+        data: payload,
       })
-      dispatch(loginRequest(data.data.user))
+      dispatch(loginRequest(data.user))
       document.cookie = `token=${data.access_token}`
-      document.cookie = `userID=${data.user_id}`
+      document.cookie = `userID=${data.user.user_id}`
       console.log(redirectUrl)
-      dispatch(redirect(redirectUrl))
-      // window.location.href = redirectUrl
+      console.log(data)
+      sessionStorage.setItem('myData', JSON.stringify(data.user))
+      window.location.href = redirectUrl
     } catch (error) {
       console.log(error)
     }

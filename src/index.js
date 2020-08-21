@@ -7,7 +7,10 @@ import { createStore, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import * as serviceWorker from './serviceWorker'
 import reducers from './reducers'
-const initialState = { user: {} }
+const initialState = {
+  user: JSON.parse(sessionStorage.getItem('myData')) || {},
+}
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
