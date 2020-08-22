@@ -3,15 +3,15 @@ import { API_URL } from '../config'
 
 export const registerRequest = payload => ({
   type: 'REGISTER_REQUEST',
-  payload,
+  payload
 })
 export const loginRequest = payload => ({
   type: 'LOGIN_REQUEST',
-  payload,
+  payload
 })
 export const redirect = payload => ({
   type: 'REDIRECT_TO_URL',
-  payload,
+  payload
 })
 
 export const registerUser = payload => {
@@ -20,7 +20,7 @@ export const registerUser = payload => {
       await axios({
         url: `${API_URL}/auth/signup`,
         method: 'post',
-        data: payload,
+        data: payload
       })
       window.location.href = '/login'
       // dispatch(loginRequest(data.data.user))
@@ -35,14 +35,14 @@ export const loginUser = (payload, redirectUrl) => {
       const { data } = await axios({
         url: `${API_URL}/auth/login`,
         method: 'post',
-        data: payload,
+        data: payload
       })
       dispatch(loginRequest(data.user))
       document.cookie = `token=${data.access_token}`
       document.cookie = `userID=${data.user.user_id}`
-      console.log(redirectUrl)
-      console.log(data)
+      /*eslint-disable */
       sessionStorage.setItem('myData', JSON.stringify(data.user))
+      /* eslint-enable */
       window.location.href = redirectUrl
     } catch (error) {
       console.log(error)
