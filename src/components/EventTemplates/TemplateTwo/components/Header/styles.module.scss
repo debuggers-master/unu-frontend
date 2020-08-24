@@ -1,4 +1,5 @@
-@import '../../styles/base';
+@import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import '../../styles.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
 .header {
   position: fixed;
@@ -9,14 +10,13 @@
   justify-content: center;
   height: $header-height;
   color: $color-white;
+  background-color: $color-6;
   a {
-    cursor: pointer;
     text-decoration: none;
     &:visited {
       color: white;
     }
   }
-  @include paragraph('lg');
   &__container {
     display: flex;
     justify-content: space-between;
@@ -28,16 +28,13 @@
   &__left {
   }
   &--bg {
-    background-color: $color-primary;
+    background-color: $color-2;
   }
   &__right {
     ul {
       display: grid;
       grid-template-columns: repeat(4, 1fr) auto;
       place-items: center;
-      a {
-        cursor: pointer;
-      }
     }
   }
   &__logo {

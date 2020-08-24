@@ -1,0 +1,14 @@
+@import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import '../../styles.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+
+$template: 'two';
+.associates {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: $gap-6;
+  @include section @if $template == 'two' {
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}

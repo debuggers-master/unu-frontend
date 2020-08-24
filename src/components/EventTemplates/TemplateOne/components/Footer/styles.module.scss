@@ -1,0 +1,22 @@
+.footer-templates {
+  background-color: #eeee;
+  height: 435px;
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  &__left,
+  &__right {
+    height: 100%;
+    display: grid;
+    place-items: center;
+  }
+  &__title {
+    div:first-child {
+      font-size: 36px;
+    }
+  }
+}

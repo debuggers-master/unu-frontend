@@ -1,7 +1,7 @@
 /* Issue: when a input field is selected by tabs */
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { loginUser } from '../../actions'
+import { loginUser } from '../../../../../../actions'
 import { useHistory } from 'react-router-dom'
 const LoginForm = props => {
   const [inputValues, setInputValues] = useState({})
@@ -47,6 +47,24 @@ const LoginForm = props => {
     <>
       <form onSubmit={handleSubmit}>
         <div onBlur={handleBur} className="form-field">
+          <label className="form-field__label">Nombre</label>
+          <input
+            onFocus={handleFocus}
+            onChange={handleChange}
+            type="name"
+            name="name"
+          />
+        </div>
+        <div onBlur={handleBur} className="form-field">
+          <label className="form-field__label">Apellido</label>
+          <input
+            onFocus={handleFocus}
+            onChange={handleChange}
+            type="name"
+            name="lastName"
+          />
+        </div>
+        <div onBlur={handleBur} className="form-field">
           <label className="form-field__label">Email</label>
           <input
             onFocus={handleFocus}
@@ -55,17 +73,8 @@ const LoginForm = props => {
             name="email"
           />
         </div>
-        <div onBlur={handleBur} className="form-field">
-          <label className="form-field__label">Contraseña</label>
-          <input
-            onFocus={handleFocus}
-            onChange={handleChange}
-            type="password"
-            name="password"
-          />
-        </div>
         <div className="login__button">
-          <button className="button" type="submit">
+          <button className="button button-templates" type="submit">
             Login
           </button>
         </div>

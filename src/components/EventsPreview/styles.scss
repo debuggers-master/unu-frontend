@@ -1,0 +1,18 @@
+@import '../../styles/base';
+.event-preview-section {
+  margin-top: $header-height;
+  text-align: center;
+  &__title {
+    margin: 0 auto;
+    padding: $gap-3 0;
+    color: $color-brand;
+    border-bottom: 3px solid $color-brand;
+    @include title('lg');
+  }
+  &__subtitle {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: $gap-3 0;
+    @include title('sm');
+  }
+}
