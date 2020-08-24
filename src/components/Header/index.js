@@ -9,20 +9,20 @@ const Header = props => {
   return (
     <>
       <div className={containerClassName}>
-        <div className="header__container">
-          <div className="header__left">
-            <div className="header__logo">
-              <img src={_logo} alt="Logotipo" />
+        <div className='header__container'>
+          <div className='header__left'>
+            <div className='header__logo'>
+              <img src={_logo} alt='Logotipo' />
             </div>
           </div>
-          <div className="header__right">
+          <div className='header__right'>
             <ul>
-              <Link to="/">Inicio</Link>
-              <Link to="/dashboard">Equipo</Link>
-              <Link to="/events">Eventos</Link>
+              <Link to='/'>Inicio</Link>
+              <Link to='/dashboard'>Equipo</Link>
+              <Link to='/events'>Eventos</Link>
               <li>
-                <Link to="/login">
-                  <button className="button button--shape">Login</button>
+                <Link to='/login'>
+                  <button className='button button--shape'>Login</button>
                 </Link>
               </li>
             </ul>

@@ -5,7 +5,7 @@ const EventHero = () => {
   return (
     <div className={styles['event-hero']}>
       <div className={styles['event-hero__img']}>
-        <img alt="nombre del evento" />
+        <img alt='nombre del evento' />
       </div>
       <div className={styles['event-hero__description']}>
         Lorem Ipsum es simplemente el texto de relleno de las imprentas y

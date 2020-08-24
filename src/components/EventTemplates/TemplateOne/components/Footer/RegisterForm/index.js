@@ -9,7 +9,7 @@ const LoginForm = props => {
     evn.preventDefault()
     const form = {
       email: inputValues.email,
-      password: inputValues.password,
+      password: inputValues.password
     }
     props.loginUser(form, '/dashboard')
   }
@@ -46,50 +46,50 @@ const LoginForm = props => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div onBlur={handleBur} className="form-field">
-          <label className="form-field__label">Nombre</label>
+        <div onBlur={handleBur} className='form-field'>
+          <label className='form-field__label'>Nombre</label>
           <input
             onFocus={handleFocus}
             onChange={handleChange}
-            type="name"
-            name="name"
+            type='name'
+            name='name'
           />
         </div>
-        <div onBlur={handleBur} className="form-field">
-          <label className="form-field__label">Apellido</label>
+        <div onBlur={handleBur} className='form-field'>
+          <label className='form-field__label'>Apellido</label>
           <input
             onFocus={handleFocus}
             onChange={handleChange}
-            type="name"
-            name="lastName"
+            type='name'
+            name='lastName'
           />
         </div>
-        <div onBlur={handleBur} className="form-field">
-          <label className="form-field__label">Email</label>
+        <div onBlur={handleBur} className='form-field'>
+          <label className='form-field__label'>Email</label>
           <input
             onFocus={handleFocus}
             onChange={handleChange}
-            type="email"
-            name="email"
+            type='email'
+            name='email'
           />
         </div>
-        <div className="login__button">
-          <button className="button button-templates" type="submit">
+        <div className='login__button'>
+          <button className='button button-templates' type='submit'>
             Login
           </button>
         </div>
         {props.signError && (
-          <div className="form-field__error">{props.signError}</div>
+          <div className='form-field__error'>{props.signError}</div>
         )}
       </form>
     </>
   )
 }
 const mapDispatchToProps = {
-  loginUser,
+  loginUser
 }
 const mapStateToProps = state => ({
   redirectTo: state.redirectTo,
-  signError: state.errors.signError,
+  signError: state.errors.signError
 })
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)

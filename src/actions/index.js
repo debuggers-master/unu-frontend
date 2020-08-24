@@ -3,19 +3,19 @@ import { API_URL } from '../config'
 
 export const registerRequest = payload => ({
   type: 'REGISTER_REQUEST',
-  payload,
+  payload
 })
 export const loginRequest = payload => ({
   type: 'LOGIN_REQUEST',
-  payload,
+  payload
 })
 export const redirect = payload => ({
   type: 'REDIRECT_TO_URL',
-  payload,
+  payload
 })
 export const signError = payload => ({
   type: 'SIGN_ERROR',
-  payload,
+  payload
 })
 
 export const registerUser = (payload, redirectUrl) => {
@@ -24,7 +24,7 @@ export const registerUser = (payload, redirectUrl) => {
       const { data } = await axios({
         url: `${API_URL}/auth/signup`,
         method: 'post',
-        data: payload,
+        data: payload
       })
       dispatch(registerRequest(data.user))
       document.cookie = `token=${data.access_token}`
@@ -47,7 +47,7 @@ export const loginUser = (payload, redirectUrl) => {
       const { data } = await axios({
         url: `${API_URL}/auth/login`,
         method: 'post',
-        data: payload,
+        data: payload
       })
       dispatch(loginRequest(data.user))
       document.cookie = `token=${data.access_token}`

@@ -3,22 +3,22 @@ const reducers = (state, action) => {
     case 'REGISTER_REQUEST':
       return {
         ...state,
-        user: action.payload,
+        user: action.payload
       }
     case 'LOGIN_REQUEST':
       return {
         ...state,
-        user: action.payload,
+        user: action.payload
       }
     case 'REDIRECT_TO_URL':
       return {
         ...state,
-        redirectTo: action.payload,
+        redirectTo: action.payload
       }
     case 'SIGN_ERROR':
       return {
         ...state,
-        errors: { signError: action.payload },
+        errors: { signError: action.payload }
       }
 
     default:

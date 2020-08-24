@@ -2,18 +2,18 @@ import React from 'react'
 import styles from './styles.module.scss'
 
 const Meet = props => {
-  const containerClassName = `${styles['meet']} ${styles[props.styleType] ||
+  const containerClassName = `${styles.meet} ${styles[props.styleType] ||
     ''}`
 
   return (
     <div className={containerClassName}>
-      <div className={styles['meet__left']}>
-        <div className={styles['meet__img']}>
-          <img alt="nombre de la conferencia" />
+      <div className={styles.meet__left}>
+        <div className={styles.meet__img}>
+          <img alt='nombre de la conferencia' />
         </div>
       </div>
-      <div className={styles['meet__right']}>
-        <div className={styles['meet__title']}>
+      <div className={styles.meet__right}>
+        <div className={styles.meet__title}>
           <h2>Jorge Gonzalez</h2>
           <span>Icono</span>
         </div>

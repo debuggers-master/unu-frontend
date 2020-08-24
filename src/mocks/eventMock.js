@@ -1,8 +1,8 @@
 export const eventMock = {
-  _id: `ObjectId`,
+  _id: 'ObjectId',
   eventId: '7677',
   organizationId: '0899',
-  organizationUrl: 'str', //Generated automatly
+  organizationUrl: 'str', // Generated automatly
   organizationName: 'Space X',
   name: 'Starlink Conf',
   url: 'str',
@@ -26,7 +26,7 @@ export const eventMock = {
       twitter: 'https://twitter.com/boblazar',
       rol: 'UFO Investigator',
       speakerPhoto:
-        'https://ufocongress.com/wp-content/uploads/2020/06/Nick-Pope-web.jpg',
+        'https://ufocongress.com/wp-content/uploads/2020/06/Nick-Pope-web.jpg'
     },
     {
       speakerId: '12345',
@@ -36,8 +36,8 @@ export const eventMock = {
       twitter: 'twitter.com/boblazar',
       rol: 'UFO Investigator',
       speakerPhoto:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Bob-Lazar.jpg/250px-Bob-Lazar.jpg',
-    },
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Bob-Lazar.jpg/250px-Bob-Lazar.jpg'
+    }
   ],
   agenda: [
     {
@@ -54,37 +54,37 @@ export const eventMock = {
           speakerName: 'Nick Pope',
           rol: 'UK Ministre of Defense',
           speakerPhoto:
-            'https://ufocongress.com/wp-content/uploads/2020/06/Nick-Pope-web.jpg',
-        },
-      ],
-    },
+            'https://ufocongress.com/wp-content/uploads/2020/06/Nick-Pope-web.jpg'
+        }
+      ]
+    }
   ],
   associates: [
     {
       name: 'UFO Congresss',
       url: 'https://ufocongress.com/',
       logo:
-        'https://ufocongress.com/wp-content/uploads/2019/02/logo_iufoc_460-1.png', //url
+        'https://ufocongress.com/wp-content/uploads/2019/02/logo_iufoc_460-1.png' // url
     },
     {
       name: 'UFO Congresss',
       url: 'https://ufocongress.com/',
       logo:
-        'https://ufocongress.com/wp-content/uploads/2019/02/logo_iufoc_460-1.png', //url
+        'https://ufocongress.com/wp-content/uploads/2019/02/logo_iufoc_460-1.png' // url
     },
     {
       name: 'UFO Congresss',
       url: 'https://ufocongress.com/',
       logo:
-        'https://ufocongress.com/wp-content/uploads/2019/02/logo_iufoc_460-1.png', //url
-    },
+        'https://ufocongress.com/wp-content/uploads/2019/02/logo_iufoc_460-1.png' // url
+    }
   ],
   collaborators: [
     {
       userId: '989',
       name: 'Miguel',
-      email: 'miguel@gmail.com',
-    },
+      email: 'miguel@gmail.com'
+    }
   ],
-  publicationStatus: true, // True if is accesible to all public
+  publicationStatus: true // True if is accesible to all public
 }

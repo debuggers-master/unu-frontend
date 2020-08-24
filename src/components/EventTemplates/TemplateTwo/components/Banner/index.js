@@ -30,4 +30,4 @@ const Banner = props => {
   )
 }
 export default Banner
-//event_title
+// event_title

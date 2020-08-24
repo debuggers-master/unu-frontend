@@ -5,21 +5,21 @@ import styles from './styles.module.scss'
 const Header = props => {
   return (
     <>
-      <div className={styles['header']}>
-        <div className={styles['header__container']}>
-          <div className={styles['header__left']}>
-            <div className={styles['header__logo']}>
-              <img src={_logo} alt="Logotipo" />
+      <div className={styles.header}>
+        <div className={styles.header__container}>
+          <div className={styles.header__left}>
+            <div className={styles.header__logo}>
+              <img src={_logo} alt='Logotipo' />
             </div>
           </div>
-          <div className={styles['header__right']}>
+          <div className={styles.header__right}>
             <ul>
-              <Link to="/">Inicio</Link>
-              <Link to="/dashboard">Que es</Link>
-              <Link to="/events">Conferencistas</Link>
+              <Link to='/'>Inicio</Link>
+              <Link to='/dashboard'>Que es</Link>
+              <Link to='/events'>Conferencistas</Link>
               <li>
-                <Link to="/login">
-                  <button className="button button-templates">Login</button>
+                <Link to='/login'>
+                  <button className='button button-templates'>Login</button>
                 </Link>
               </li>
             </ul>

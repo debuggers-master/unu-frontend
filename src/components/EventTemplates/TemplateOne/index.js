@@ -21,30 +21,30 @@ const TemplateOne = ({ templateData }) => {
     <div>
       <Header handleClick={executeScroll} />
       <Banner data={templateData} />
-      <h2 ref={banner} className="main-title section-title section">
+      <h2 ref={banner} className='main-title section-title section'>
         {templateData.name}
       </h2>
       <EventHero data={templateData} />
-      <section className="section">
-        <h1 ref={conferences} className="main-title section-subtitle ">
+      <section className='section'>
+        <h1 ref={conferences} className='main-title section-subtitle '>
           Agenda
         </h1>
         {templateData.agenda.map(shedule => (
           <Shedule data={shedule} key={shedule.dayId} />
         ))}
       </section>
-      <section className="section">
-        <h1 className="main-title section-subtitle ">Conferencistas</h1>
+      <section className='section'>
+        <h1 className='main-title section-subtitle '>Conferencistas</h1>
         {speakers.map((speaker, index) =>
           index % 2 === 0 ? (
-            <Meet data={speaker} styleType={'meet--inverse'} />
+            <Meet data={speaker} styleType='meet--inverse' />
           ) : (
             <Meet data={speaker} />
           )
         )}
       </section>
-      <section className="section">
-        <h1 className="main-title section-subtitle ">Associates</h1>
+      <section className='section'>
+        <h1 className='main-title section-subtitle '>Associates</h1>
         <Associates data={associates} />
       </section>
       <Footer />

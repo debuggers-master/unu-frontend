@@ -6,7 +6,7 @@ const EventHero = props => {
   return (
     <div className={styles['event-hero']}>
       <div className={styles['event-hero__img']}>
-        <img src={imageEvent} alt="nombre del evento" />
+        <img src={imageEvent} alt='nombre del evento' />
       </div>
       <div className={styles['event-hero__description']}>{description}</div>
     </div>

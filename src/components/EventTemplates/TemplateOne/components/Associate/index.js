@@ -5,7 +5,7 @@ const Associate = props => {
   return (
     <div className={styles.associate}>
       <div className={styles.associate__img}>
-        <img src={logo} alt="nombre del asociado"></img>
+        <img src={logo} alt='nombre del asociado' />
       </div>
       <div className={styles.associate__name}>
         <a href={url}>{name}</a>

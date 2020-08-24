@@ -9,7 +9,7 @@ const SignupForm = props => {
     password: '',
     name: '',
     lastName: '',
-    passwordConfirm: '',
+    passwordConfirm: ''
   })
   const [enableSubmit, setEnableSubmit] = useState()
 
@@ -19,7 +19,7 @@ const SignupForm = props => {
       email: inputValues.email,
       firstName: inputValues.name,
       lastName: inputValues.lastName,
-      password: inputValues.password,
+      password: inputValues.password
     }
     props.registerUser(form, '/dashboard')
   }
@@ -37,7 +37,7 @@ const SignupForm = props => {
     const fieldError = fieldValidator({
       field: fieldName,
       value: fieldValue,
-      state: inputValues,
+      state: inputValues
     })
     console.log(fieldError)
     setErrors({ ...errors, [fieldName]: fieldError })
@@ -66,29 +66,29 @@ const SignupForm = props => {
   }
   return (
     <>
-      <form onSubmit={handleSubmit} autoComplete="off">
-        <div onBlur={handleBur} className="form-field">
-          <label className="form-field__label">Nombre</label>
+      <form onSubmit={handleSubmit} autoComplete='off'>
+        <div onBlur={handleBur} className='form-field'>
+          <label className='form-field__label'>Nombre</label>
           <input
             onFocus={handleFocus}
             onChange={handleChange}
-            type="text"
-            name="name"
+            type='text'
+            name='name'
           />
           {errors.name && (
-            <div className="form-field__error">{errors.name}</div>
+            <div className='form-field__error'>{errors.name}</div>
           )}
         </div>
-        <div onBlur={handleBur} className="form-field">
-          <label className="form-field__label">Apellido</label>
+        <div onBlur={handleBur} className='form-field'>
+          <label className='form-field__label'>Apellido</label>
           <input
             onFocus={handleFocus}
             onChange={handleChange}
-            type="text"
-            name="lastName"
+            type='text'
+            name='lastName'
           />
           {errors.lastName && (
-            <div className="form-field__error">{errors.lastName}</div>
+            <div className='form-field__error'>{errors.lastName}</div>
           )}
         </div>
 
@@ -98,61 +98,61 @@ const SignupForm = props => {
             errors.email ? 'form-field form-field--error' : 'form-field'
           }
         >
-          <label className="form-field__label">Email</label>
+          <label className='form-field__label'>Email</label>
           <input
             onFocus={handleFocus}
             onChange={handleChange}
-            type="text"
-            name="email"
+            type='text'
+            name='email'
           />
           {errors.email && (
-            <div className="form-field__error">{errors.email}</div>
+            <div className='form-field__error'>{errors.email}</div>
           )}
         </div>
-        <div onBlur={handleBur} className="form-field">
-          <label className="form-field__label">Contraseña</label>
+        <div onBlur={handleBur} className='form-field'>
+          <label className='form-field__label'>Contraseña</label>
           <input
             onFocus={handleFocus}
             onChange={handleChange}
-            type="password"
-            name="password"
+            type='password'
+            name='password'
           />
           {errors.password && (
-            <div className="form-field__error">{errors.password}</div>
+            <div className='form-field__error'>{errors.password}</div>
           )}
         </div>
-        <div onBlur={handleBur} className="form-field">
-          <label className="form-field__label">Confirmar Contraseña</label>
+        <div onBlur={handleBur} className='form-field'>
+          <label className='form-field__label'>Confirmar Contraseña</label>
           <input
             onFocus={handleFocus}
             onChange={handleChange}
-            type="password"
-            name="passwordConfirm"
+            type='password'
+            name='passwordConfirm'
           />
           {errors.passwordConfirm && (
-            <div className="form-field__error">{errors.passwordConfirm}</div>
+            <div className='form-field__error'>{errors.passwordConfirm}</div>
           )}
         </div>
-        <div className="signup__button">
+        <div className='signup__button'>
           <button
             disabled={!enableSubmit}
             className={enableSubmit ? 'button' : 'button button--disabled'}
-            type="submit"
+            type='submit'
           >
             Registrate
           </button>
         </div>
         {props.signError && (
-          <div className="form-field__error">{props.signError}</div>
+          <div className='form-field__error'>{props.signError}</div>
         )}
       </form>
     </>
   )
 }
 const mapDispatchToProps = {
-  registerUser,
+  registerUser
 }
 const mapStateToProps = state => ({
-  signError: state.errors.signError,
+  signError: state.errors.signError
 })
 export default connect(mapStateToProps, mapDispatchToProps)(SignupForm)

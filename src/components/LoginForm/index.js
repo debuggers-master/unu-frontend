@@ -9,7 +9,7 @@ const LoginForm = props => {
     evn.preventDefault()
     const form = {
       email: inputValues.email,
-      password: inputValues.password,
+      password: inputValues.password
     }
     props.loginUser(form, '/dashboard')
   }
@@ -46,41 +46,41 @@ const LoginForm = props => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div onBlur={handleBur} className="form-field">
-          <label className="form-field__label">Email</label>
+        <div onBlur={handleBur} className='form-field'>
+          <label className='form-field__label'>Email</label>
           <input
             onFocus={handleFocus}
             onChange={handleChange}
-            type="email"
-            name="email"
+            type='email'
+            name='email'
           />
         </div>
-        <div onBlur={handleBur} className="form-field">
-          <label className="form-field__label">Contraseña</label>
+        <div onBlur={handleBur} className='form-field'>
+          <label className='form-field__label'>Contraseña</label>
           <input
             onFocus={handleFocus}
             onChange={handleChange}
-            type="password"
-            name="password"
+            type='password'
+            name='password'
           />
         </div>
-        <div className="login__button">
-          <button className="button" type="submit">
+        <div className='login__button'>
+          <button className='button' type='submit'>
             Login
           </button>
         </div>
         {props.signError && (
-          <div className="form-field__error">{props.signError}</div>
+          <div className='form-field__error'>{props.signError}</div>
         )}
       </form>
     </>
   )
 }
 const mapDispatchToProps = {
-  loginUser,
+  loginUser
 }
 const mapStateToProps = state => ({
   redirectTo: state.redirectTo,
-  signError: state.errors.signError,
+  signError: state.errors.signError
 })
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
