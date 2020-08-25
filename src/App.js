@@ -43,4 +43,4 @@ function App ({ isAuth }) {
   )
 }
 
-
+export default App
