@@ -26,7 +26,7 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App isAuth={initialState.user.user_id} />
+      <App isAuth={initialState.user.userId} />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -32,10 +32,10 @@ const Dashboard = () => {
             <div className='dashboard-container__Right'>
               <h2>Editar - Eventos</h2>
               <div className='dashboard-container__Right-container'>
-                <Link to='/events/edit/organizationName/eventId'>
+                <Link to='/dashboard/organizationName/eventId/edit'>
                   <CardEvento />
                 </Link>
-                <Link to='/events/edit/organizationName/eventId'>
+                <Link to='/dashboard/organizationName/eventId/edit'>
                   <CardEvento />
                 </Link>
               </div>
