@@ -38,10 +38,10 @@ $font-secondary: 'Open Sans', sans-serif;
   font-family: $font-primary;
   font-weight: 700;
   font-size: 24px;
-  @if size == 'lg' {
+  @if $size == 'lg' {
     font-size: 32px;
   }
-  @if size == 'sm' {
+  @if $size == 'sm' {
     font-size: 16px;
     font-weight: 400px;
   }

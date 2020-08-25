@@ -1,0 +1,44 @@
+@import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+
+@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+
+$template: 'two'; //one or two
+
+.talk {
+  display: flex;
+  min-height: 300px;
+  margin-bottom: $gap-4;
+  @if $template == 'two' {
+    flex-direction: row-reverse;
+  }
+  h2 {
+    @include raleway('md');
+    color: $color-4;
+  }
+  h3 {
+    @include raleway('sm');
+    text-transform: capitalize;
+  }
+  &__img {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      @if $template == 'two' {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+      }
+    }
+  }
+  &__left {
+    width: 80%;
+  }
+  &__right {
+    width: 20%;
+  }
+}

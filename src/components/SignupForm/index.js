@@ -21,7 +21,7 @@ const SignupForm = props => {
       lastName: inputValues.lastName,
       password: inputValues.password
     }
-    props.registerUser(form)
+    props.registerUser(form, '/dashboard')
   }
 
   const handleFocus = evn => {
@@ -114,7 +114,7 @@ const SignupForm = props => {
           <input
             onFocus={handleFocus}
             onChange={handleChange}
-            type='name'
+            type='password'
             name='password'
           />
           {errors.password && (
@@ -142,6 +142,9 @@ const SignupForm = props => {
             Registrate
           </button>
         </div>
+        {props.signError && (
+          <div className='form-field__error'>{props.signError}</div>
+        )}
       </form>
     </>
   )
@@ -149,4 +152,7 @@ const SignupForm = props => {
 const mapDispatchToProps = {
   registerUser
 }
-export default connect(null, mapDispatchToProps)(SignupForm)
+const mapStateToProps = state => ({
+  signError: state.errors.signError
+})
+export default connect(mapStateToProps, mapDispatchToProps)(SignupForm)

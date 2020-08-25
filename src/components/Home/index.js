@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
@@ -8,6 +8,9 @@ import _d3 from '../../assets/images/D3.svg'
 import _e1 from '../../assets/images/E1.svg'
 import './styles.scss'
 const Home = () => {
+  useEffect(() => {
+    window.addEventListener('scroll', console.log)
+  })
   return (
     <>
       <Header />

@@ -1,0 +1,23 @@
+@import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+$template: '';
+.countdown {
+  @include raleway('md');
+  grid-area: countdown;
+  text-align: end;
+  span {
+    @if $template == 'two' {
+      display: block;
+      text-align: end;
+      margin: 0.5em 0;
+      &:first-child {
+        margin-top: calc(100% - #{$gap-4});
+      }
+    }
+  }
+  &__num {
+    display: inline-block;
+    width: 1.5em;
+    text-align: center;
+  }
+}

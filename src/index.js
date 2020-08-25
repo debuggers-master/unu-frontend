@@ -12,6 +12,7 @@ const initialState = {
   /*eslint-disable */
   user: JSON.parse(sessionStorage.getItem('myData')) || {},
   /* eslint-enable */
+  errors: {}
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

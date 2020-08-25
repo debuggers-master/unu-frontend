@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom'
 
 import _logo from '../../assets/images/logo-white.svg'
 import './styles.scss'
-const Header = () => {
+const Header = props => {
+  const containerClassName = `header ${props.styleType || ''}`
+
   return (
     <>
-      <div className='header'>
+      <div className={containerClassName}>
         <div className='header__container'>
           <div className='header__left'>
             <div className='header__logo'>
@@ -15,9 +17,9 @@ const Header = () => {
           </div>
           <div className='header__right'>
             <ul>
-              <li>Inicio</li>
-              <li>Proceso</li>
+              <Link to='/'>Inicio</Link>
               <Link to='/dashboard'>Equipo</Link>
+              <Link to='/events'>Eventos</Link>
               <li>
                 <Link to='/login'>
                   <button className='button button--shape'>Login</button>
