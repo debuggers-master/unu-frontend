@@ -12,6 +12,7 @@ const initialState = {
   /*eslint-disable */
   user: JSON.parse(sessionStorage.getItem('myData')) || {},
   /* eslint-enable */
+  newEvent: {},
   errors: {}
 }
 
