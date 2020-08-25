@@ -23,6 +23,51 @@ $color-inactive: rgba(14, 19, 24, 0.6);
 $font-primary: 'Noto Sans', sans-serif;
 $font-secondary: 'Open Sans', sans-serif;
 
+@mixin title($size) {
+  font-size: 32px;
+  @if $size == 'lg' {
+    font-size: 48px;
+  }
+  @if $size == 'sm' {
+    font-size: 24px;
+  }
+
+  font-family: $font-primary;
+  font-weight: 700;
+}
+
+@mixin subtitle($size) {
+  font-family: $font-primary;
+  font-weight: 700;
+  font-size: 24px;
+  @if $size == 'lg' {
+    font-size: 32px;
+  }
+  @if $size == 'sm' {
+    font-size: 16px;
+    font-weight: 400px;
+  }
+}
+
+@mixin captions($size: '') {
+  font-family: $font-secondary;
+  font-size: 12px;
+  @if $size == 'lg' {
+    font-weight: 600;
+  } @else {
+    font-weight: 400;
+  }
+}
+@mixin paragraph($size: '') {
+  font-family: $font-secondary;
+  @if $size == 'lg' {
+    font-weight: 700;
+    font-size: 16px;
+  } @else {
+    font-weight: 400;
+    font-size: 14px;
+  }
+}
 //Spacing
 
 $gap-1: 8px;

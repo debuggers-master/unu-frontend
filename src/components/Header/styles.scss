@@ -9,6 +9,13 @@
   justify-content: center;
   height: $header-height;
   color: $color-white;
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    &:visited {
+      color: white;
+    }
+  }
   @include paragraph('lg');
   &__container {
     display: flex;
@@ -20,11 +27,17 @@
   }
   &__left {
   }
+  &--bg {
+    background-color: $color-primary;
+  }
   &__right {
     ul {
       display: grid;
       grid-template-columns: repeat(4, 1fr) auto;
       place-items: center;
+      a {
+        cursor: pointer;
+      }
     }
   }
   &__logo {

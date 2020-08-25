@@ -15,6 +15,12 @@ const reducers = (state, action) => {
         ...state,
         redirectTo: action.payload
       }
+    case 'SIGN_ERROR':
+      return {
+        ...state,
+        errors: { signError: action.payload }
+      }
+
     default:
       return state
   }

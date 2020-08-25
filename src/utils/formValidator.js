@@ -14,8 +14,7 @@ const nameValidator = name => {
   return null
 }
 const passwordValidator = password => {
-  console.log(password)
-  if (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
+  if (/^(?=.*[0-9])(?=.*[a-z]).{8,32}$/.test(password)) {
     return null
   }
   if (password.trim() === '') {

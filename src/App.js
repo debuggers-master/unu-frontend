@@ -1,5 +1,8 @@
 import React from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Login from './containers/Login'
+import EventsPreview from './components/EventsPreview'
+import PublicEvents from './components/PublicEvents'
 import Signup from './containers/Signup'
 import Home from './containers/Home'
 import Dashboard from './containers/Dashboard'
@@ -10,14 +13,20 @@ import EditEvent from './containers/EditEvent'
 import EditInfo from './containers/EditInfo'
 import EditSchedule from './containers/EditSchedule'
 import EditDay from './containers/EditDay'
+import TemplateOne from './components/EventTemplates/TemplateOne'
+import TemplateTwo from './components/EventTemplates/TemplateTwo'
 
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { eventMock } from './mocks/eventMock.js'
 
 function App ({ isAuth }) {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path='/' component={Home} />
+        <PublicEvents exact path='/:corp/:event' />
+        <TemplateOne templateData={eventMock} exact path='/t1' />
+        <TemplateTwo templateData={eventMock} exact path='/t2' />
+        <Home exact path='/' />
+        <EventsPreview exact path='/events' />
         <Login exact path='/login' />
         <Signup exact path='/signup' />
         <Route exact path='/dashboard' component={isAuth ? Dashboard : Login} />
@@ -28,9 +37,10 @@ function App ({ isAuth }) {
         <Route exact path='/events/edit/info/organizationName/eventId' component={isAuth ? EditInfo : Login} />
         <Route exact path='/events/edit/agenda/organizationName/eventId' component={isAuth ? EditSchedule : Login} />
         <Route exact path='/events/edit/agenda/organizationName/eventId/dayId' component={isAuth ? EditDay : Login} />
+        <EventsPreview exact path='/events' />
       </Switch>
     </BrowserRouter>
   )
 }
 
-export default App
+

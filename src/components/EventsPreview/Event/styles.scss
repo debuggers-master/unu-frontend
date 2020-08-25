@@ -1,0 +1,55 @@
+@import '../../../styles/base';
+.event {
+  width: 100%;
+  max-width: 1200px;
+  margin: $gap-3 auto;
+  height: 400px;
+  &__container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
+  &--reverse {
+    flex-direction: row-reverse;
+  }
+  &__left {
+    width: 53%;
+  }
+  &__image {
+    width: 100%;
+    height: 100%;
+    img {
+      border-radius: 16px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &__right {
+    width: 47%;
+    padding: $gap-6;
+    text-align: center;
+  }
+  &__title {
+    text-transform: uppercase;
+    @include title('sm');
+  }
+  &__description {
+    text-align: center;
+    min-height: 100px;
+    margin: $gap-2 0;
+    @include paragraph();
+  }
+  &__label {
+    span:first-child {
+      padding: $gap-3;
+      border-right: 1px solid black;
+      text-transform: uppercase;
+      @include subtitle('md');
+    }
+    span:last-child {
+      padding: $gap-3;
+      @include subtitle('md');
+      font-weight: 400;
+    }
+  }
+}

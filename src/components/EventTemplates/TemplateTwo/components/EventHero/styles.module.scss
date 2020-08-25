@@ -1,0 +1,32 @@
+@import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+
+$template: 'two'; //one or two
+
+.event-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 480px auto;
+  @include section;
+  @if $template == 'two' {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 480px auto;
+  }
+  &__img {
+    width: 100%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+    }
+  }
+  &__description {
+    display: grid;
+    place-items: center;
+    padding: $gap-4 0;
+    @if $template == 'two' {
+      padding: 0 $gap-4;
+    }
+  }
+}
