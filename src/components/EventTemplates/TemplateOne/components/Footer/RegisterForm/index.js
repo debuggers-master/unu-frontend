@@ -3,6 +3,10 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { loginUser } from '../../../../../../actions'
 import { useHistory } from 'react-router-dom'
+import stylesTemplate from '../../../styles.module.scss'
+
+const buttonClassName = `button ${stylesTemplate['button-templates']}`
+
 const LoginForm = props => {
   const [inputValues, setInputValues] = useState({})
   const handleSubmit = evn => {
@@ -74,8 +78,8 @@ const LoginForm = props => {
           />
         </div>
         <div className='login__button'>
-          <button className='button button-templates' type='submit'>
-            Login
+          <button className={buttonClassName} type='submit'>
+            Registrate
           </button>
         </div>
         {props.signError && (

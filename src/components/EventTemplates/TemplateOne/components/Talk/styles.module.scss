@@ -1,6 +1,6 @@
 @import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
-@import '../../styles.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
 $template: ''; //one or two
 
@@ -17,6 +17,7 @@ $template: ''; //one or two
   }
   h3 {
     @include raleway('sm');
+    text-transform: capitalize;
   }
   &__img {
     height: 100%;

@@ -6,7 +6,7 @@ export const eventMock = {
   organizationName: 'Space X',
   name: 'Starlink Conf',
   url: 'str',
-  startDate: 'str', // Date
+  startDate: 'Sat Sep 26 2020 00:00:00 GMT-0500 (Central Daylight Time)', // Date
   template: 'template01',
   shortDescription:
     'READY FOR THE HARDWIRED EXPERIENCE? OR BUILD YOUR RESUME WITH HARDWIRED ON-DEMAND WORKSHOPS...ON YOUR OWN TIME?',
@@ -49,8 +49,26 @@ export const eventMock = {
           name: 'UFO Meteology',
           description:
             'With the current focus on the Pentagon’s AATIP program, the US Navy sightings and related issues, the UFO community’s spotlight is understandably on the US. But what’s going on in the UK, where the British government quietly announced the release of further UFO files? And with the US Navy confirming that the term UAP (Unidentified Aerial Phenomena) was “a term we borrowed from the UK”, what of the wider British influence? With UK cases showing up in some of the US paperwork, that influence is bigger than most people realize. Former UK government UFO investigator Nick Pope lifts the lid on this seldom-discussed aspect of the story.',
-          startHour: new Date(), // date
-          endHour: new Date(), //  date
+          startHour: String(new Date()), // date
+          endHour: String(new Date()), //  date
+          speakerName: 'Nick Pope',
+          rol: 'UK Ministre of Defense',
+          speakerPhoto:
+            'https://ufocongress.com/wp-content/uploads/2020/06/Nick-Pope-web.jpg'
+        }
+      ]
+    },
+    {
+      dayId: '0002',
+      date: new Date(), // Date
+      conferences: [
+        {
+          conferenceId: '002',
+          name: 'UFO Meteology',
+          description:
+            'With the current focus on the Pentagon’s AATIP program, the US Navy sightings and related issues, the UFO community’s spotlight is understandably on the US. But what’s going on in the UK, where the British government quietly announced the release of further UFO files? And with the US Navy confirming that the term UAP (Unidentified Aerial Phenomena) was “a term we borrowed from the UK”, what of the wider British influence? With UK cases showing up in some of the US paperwork, that influence is bigger than most people realize. Former UK government UFO investigator Nick Pope lifts the lid on this seldom-discussed aspect of the story.',
+          startHour: String(new Date()), // date
+          endHour: String(new Date()), //  date
           speakerName: 'Nick Pope',
           rol: 'UK Ministre of Defense',
           speakerPhoto:

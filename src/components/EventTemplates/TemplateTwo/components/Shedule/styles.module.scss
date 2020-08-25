@@ -1,13 +1,13 @@
 @import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
-@import '../../styles.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
 $template: 'two'; //one or two
 
 .shedule-section {
   display: grid;
   grid-template-columns: 1fr;
-  border-bottom: 3px solid black;
+  margin-bottom: $gap-5;
   @if $template == 'two' {
     grid-template-columns: 20% auto;
   }
@@ -18,5 +18,6 @@ $template: 'two'; //one or two
     width: 100%;
     @include raleway('md');
     color: $color-2;
+    text-transform: capitalize;
   }
 }

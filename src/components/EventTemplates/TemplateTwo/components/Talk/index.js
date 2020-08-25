@@ -1,20 +1,30 @@
 import React from 'react'
 import styles from './styles.module.scss'
-const Talk = () => {
+const Talk = props => {
+  const { name, description, speakerName, rol, speakerPhoto } = props.data
+  // startHour,
+  // endHour,
+  const startHour = new Date(props.data.startHour).toLocaleString('en-US', {
+    hour12: true,
+    hour: '2-digit'
+  })
+  const endHour = new Date(props.data.endHour).toLocaleString('en-US', {
+    hour12: true,
+    hour: '2-digit'
+  })
   return (
     <div className={styles.talk}>
       <div className={styles.talk__left}>
-        <h2>Nombre de la Charla</h2>
-        <h3>Google Developer Expert</h3>
-        <h3>Hora de inicio y hora final</h3>
-        Es un hecho establecido hace demasiado tiempo que un lector se distraerá
-        con el contenido del texto de un sitio mientras que mira su diseño. El
-        punto de usar Lorem Ipsum es que tiene una distribución más o menos
-        normal de las letras, al contrario de usar textos como por ejemplo "
+        <h2>{name}</h2>
+        <h3>{rol}</h3>
+        <h3>
+          {startHour} - {endHour}
+        </h3>
+        {description}
       </div>
       <div className={styles.talk__right}>
         <div className={styles.talk__img}>
-          <img alt='nombre de la charla' />
+          <img src={speakerPhoto} alt={speakerName} />
         </div>
       </div>
     </div>

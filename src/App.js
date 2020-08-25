@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Login from './containers/Login'
 import EventsPreview from './components/EventsPreview'
+import PublicEvents from './components/PublicEvents'
 import Signup from './containers/Signup'
 import Home from './components/Home'
 import TemplateOne from './components/EventTemplates/TemplateOne'
@@ -17,8 +18,9 @@ function App ({ isAuth }) {
   return (
     <BrowserRouter>
       <Switch>
+        <PublicEvents exact path='/:corp/:event' />
         <TemplateOne templateData={eventMock} exact path='/t1' />
-        <TemplateTwo exact path='/t2' />
+        <TemplateTwo templateData={eventMock} exact path='/t2' />
         <Home exact path='/' />
         <EventsPreview exact path='/events' />
         <Login exact path='/login' />

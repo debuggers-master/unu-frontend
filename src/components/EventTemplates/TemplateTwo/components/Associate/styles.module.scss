@@ -1,5 +1,5 @@
 @import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
-@import '../../styles.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
 $template: 'two';
 
@@ -14,6 +14,12 @@ $template: 'two';
   @if $template == 'two' {
     display: block;
     height: 200px;
+  }
+  a {
+    text-decoration: none;
+    &:visited {
+      color: initial;
+    }
   }
   &__name {
     display: flex;

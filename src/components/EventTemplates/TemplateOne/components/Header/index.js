@@ -2,6 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import _logo from '../../../../../assets/images/logo-white.svg'
 import styles from './styles.module.scss'
+import stylesTemplate from '../../styles.module.scss'
+
+const buttonClassName = `button ${stylesTemplate['button-templates']}`
+
 const Header = props => {
   const { handleClick } = props
   return (
@@ -15,14 +19,18 @@ const Header = props => {
           </div>
           <div className={styles.header__right}>
             <ul>
-              <Link>Inicio</Link>
-              <Link onClick={handleClick}>Que es?</Link>
-              <Link onClick={handleClick}>Agenda</Link>
+              <button className={styles.header__link} onClick={handleClick}>
+                Inicio
+              </button>
+              <button className={styles.header__link} onClick={handleClick}>
+                Que es?
+              </button>
+              <button className={styles.header__link} onClick={handleClick}>
+                Agenda
+              </button>
               <li>
                 <Link to='/login'>
-                  <button className='button button-templates'>
-                    Inscribete
-                  </button>
+                  <button className={buttonClassName}>Inscribete</button>
                 </Link>
               </li>
             </ul>

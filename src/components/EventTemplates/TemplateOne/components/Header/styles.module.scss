@@ -1,5 +1,5 @@
 @import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
-@import '../../styles.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
 .header {
   z-index: 2;
@@ -12,6 +12,12 @@
   height: $header-height;
   color: $color-white;
   background-color: $color-6;
+  &__link {
+    background-color: inherit;
+    color: $color-white;
+    font-family: inherit;
+    font-size: inherit;
+  }
   a {
     text-decoration: none;
     &:visited {

@@ -1,30 +1,27 @@
 import React from 'react'
+import _twitterIcon from '../../../../../assets/images/twitter.png'
 import styles from './styles.module.scss'
 
 const Meet = props => {
   const containerClassName = `${styles.meet} ${styles[props.styleType] ||
     ''}`
-
+  const { speakerName, rol, speakerBio, twitter, speakerPhoto } = props.data
   return (
     <div className={containerClassName}>
       <div className={styles.meet__left}>
         <div className={styles.meet__img}>
-          <img alt='nombre de la conferencia' />
+          <img src={speakerPhoto} alt='nombre de la conferencia' />
         </div>
       </div>
       <div className={styles.meet__right}>
         <div className={styles.meet__title}>
-          <h2>Jorge Gonzalez</h2>
-          <span>Icono</span>
+          <h2>{speakerName}</h2>
+          <a href={twitter}>
+            <img src={_twitterIcon} alt='twitter icon' />
+          </a>
         </div>
-        <h3>Subgerente de alguna empresa</h3>
-        Es un hecho establecido hace demasiado tiempo que un lector se distraerá
-        con el contenido del texto de un sitio mientras que mira su diseño. El
-        punto de usar Lorem Ipsum es que tiene una distribución más o menos
-        normal de las letras, al contrario de usar textos como por ejemplo
-        "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un
-        español que se puede leer. Muchos paquetes de autoedición y editores de
-        páginas web usan el Lorem Ipsum
+        <h3>{rol}</h3>
+        {speakerBio}
       </div>
     </div>
   )

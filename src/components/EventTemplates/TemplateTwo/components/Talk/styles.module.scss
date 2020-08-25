@@ -1,12 +1,12 @@
 @import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
-@import '../../styles.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
 $template: 'two'; //one or two
 
 .talk {
   display: flex;
-  height: 300px;
+  min-height: 300px;
   margin-bottom: $gap-4;
   @if $template == 'two' {
     flex-direction: row-reverse;
@@ -17,6 +17,7 @@ $template: 'two'; //one or two
   }
   h3 {
     @include raleway('sm');
+    text-transform: capitalize;
   }
   &__img {
     height: 100%;

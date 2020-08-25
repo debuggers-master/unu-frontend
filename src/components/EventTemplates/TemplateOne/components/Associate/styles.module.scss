@@ -1,5 +1,5 @@
 @import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
-@import '../../styles.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
 $template: '';
 
@@ -37,7 +37,9 @@ $template: '';
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50%;
+    height: 120px;
+    width: 120px;
+    margin: 0 auto;
     @if $template == 'two' {
       width: 100%;
     }

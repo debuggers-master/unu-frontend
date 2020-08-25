@@ -1,5 +1,5 @@
 @import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
-@import '../../styles.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
 $template: '';
 
@@ -33,23 +33,9 @@ $template: '';
     grid-area: title;
     @include raleway('xxg');
   }
-  &__countdown {
-    @include raleway('md');
-    grid-area: countdown;
-    text-align: end;
-    span {
-      @if $template == 'two' {
-        display: block;
-        text-align: end;
-        margin: 0.5em 0;
-        &:first-child {
-          margin-top: calc(100% - #{$gap-4});
-        }
-      }
-    }
-  }
   &__days {
     grid-area: days;
+    text-transform: capitalize;
     @include raleway('sm');
   }
   &__img {

@@ -1,5 +1,5 @@
 @import '../main.scss';
-$color-1: #ffcd3c;
+$color-1: #32e0c4;
 $color-2: #3b6978;
 $color-3: #ffcd3c;
 $color-4: gray;
@@ -9,9 +9,16 @@ $color-6: #222831;
   scroll-behavior: smooth;
 }
 .main-title {
-  margin-top: $gap-4;
-  margin-bottom: $gap-4;
+  padding-top: $gap-4;
+  padding-bottom: $gap-4;
   color: $color-2;
+  border-bottom: 5px solid $color-1;
+}
+.event-title {
+  padding-top: $gap-4;
+  padding-bottom: $gap-4;
+  color: $color-2;
+  font-size: 60px;
 }
 .button-templates {
   background-color: $color-1;

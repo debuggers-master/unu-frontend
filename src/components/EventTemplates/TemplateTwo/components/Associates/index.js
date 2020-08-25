@@ -4,12 +4,9 @@ import Associate from '../Associate'
 const Associates = props => {
   return (
     <div className={styles.associates}>
-      <Associate />
-      <Associate />
-      <Associate />
-      <Associate />
-      <Associate />
-      <Associate />
+      {props.data.map((associate, index) => (
+        <Associate key={index} data={associate} />
+      ))}
     </div>
   )
 }

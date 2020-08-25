@@ -1,6 +1,6 @@
 @import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
-@import '../../styles.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
 .meet {
   display: grid;
@@ -31,8 +31,6 @@
     grid-auto-rows: 50px 50px auto;
     place-items: center;
     width: 100%;
-    height: 305px;
-
     @if $template == 'two' {
       width: 80%;
     }
@@ -46,6 +44,7 @@
     }
     h2 {
       @include roboto('md');
+      margin: 0;
       margin-right: 0.5em;
       color: $color-4;
     }

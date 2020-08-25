@@ -3,8 +3,9 @@ import '../../../main.scss'
 import styles from './styles.module.scss'
 import RegisterForm from './RegisterForm'
 const Footer = props => {
+  const footerClassName = `${styles['footer-templates']} section`
   return (
-    <footer className={styles['footer-templates section']}>
+    <footer className={footerClassName}>
       <div className={styles['footer-templates__container']}>
         <div className={styles['footer-templates__left']}>
           <div className={styles['footer-templates__title']}>
