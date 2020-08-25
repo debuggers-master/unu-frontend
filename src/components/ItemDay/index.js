@@ -15,7 +15,7 @@ export const ItemDay = () => {
               type='date'
               id='start'
               name='EventDay'
-              value='2020-07-22'
+              defaultValue='2020-07-22'
               min='2020-01-01'
               max='2020-12-31'
             />
