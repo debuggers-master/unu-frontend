@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
 
-import {ItemCollaborator} from '../../components/ItemCollaborate'
+import { ItemCollaborator } from '../../components/ItemCollaborate'
 import _edit from '../../assets/images/iconEdit.svg'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
@@ -10,20 +10,20 @@ import './styles.scss'
 const EditEvent = () => {
   return (
     <>
-      <Layout active={'home'}>
+      <Layout active='home'>
         <div className='editEvent'>
           <h2>Stark Industries</h2>
           <div className='editEvent-container'>
             <div className='editEvent-container-left'>
               <div className='editEvent-container-left-edit'>
-              <h2>Presentación Iron Man</h2>
+                <h2>Presentación Iron Man</h2>
                 <ul>
                   <Link to='/events/edit/info/organizationName/eventId'>
                     <li>
                       <p>
                         Editar - Información General del evento
                       </p>
-                      <img src={_edit} alt='icono editar'/>
+                      <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>
                   <Link to='/events/edit/agenda/organizationName/eventId'>
@@ -31,7 +31,7 @@ const EditEvent = () => {
                       <p>
                         Editar - Agenda
                       </p>
-                      <img src={_edit} alt='icono editar'/>
+                      <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>
                   <Link to='/events/edit/sponsors/organizationName/eventId'>
@@ -39,7 +39,7 @@ const EditEvent = () => {
                       <p>
                         Editar - Asociados
                       </p>
-                      <img src={_edit} alt='icono editar'/>
+                      <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>
                 </ul>
@@ -58,21 +58,21 @@ const EditEvent = () => {
               <div className='editEvent-container-right-collaborates'>
                 <ul>
                   {/* devendria un .map con los colaboradores que maneje el evento  */}
-                  <ItemCollaborator 
-                    firstName={'Adriana Fernanda'} 
-                    lastName={'Herrera Lisboa'} 
-                    email={'julioh12@gmail.com'}
+                  <ItemCollaborator
+                    firstName='Adriana Fernanda'
+                    lastName='Herrera Lisboa'
+                    email='julioh12@gmail.com'
                   />
-                  <ItemCollaborator 
-                    firstName={'Julio Armando'} 
-                    lastName={'Herrera Lisboa'} 
-                    email={'julioh12@gmail.com'}
+                  <ItemCollaborator
+                    firstName='Julio Armando'
+                    lastName='Herrera Lisboa'
+                    email='julioh12@gmail.com'
                   />
                 </ul>
               </div>
-              <div className='editEvent-container-right-btn'> 
-                <img src={_plus} alt='boton crear organización'/>
-                </div>
+              <div className='editEvent-container-right-btn'>
+                <img src={_plus} alt='boton crear organización' />
+              </div>
             </div>
           </div>
         </div>

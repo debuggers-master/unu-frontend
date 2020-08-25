@@ -2,14 +2,14 @@ import React from 'react'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
 
-import {CardEvento} from '../../components/CardEvento'
+import { CardEvento } from '../../components/CardEvento'
 import _user from '../../assets/images/iconPerson.svg'
 import './styles.scss'
 
 const OrgPreview = () => {
   return (
     <>
-      <Layout active={'home'}>
+      <Layout active='home'>
         <div className='OrgPreview'>
           <h2>Stark Industries</h2>
           <div className='OrgPreview-container'>
@@ -20,14 +20,14 @@ const OrgPreview = () => {
                 <Link to='#'>
                   <p>Presentación Iron Man</p>
                   <div>
-                    <img src={_user} alt='icono de persona'/>
+                    <img src={_user} alt='icono de persona' />
                     <span>202 registrados</span>
                   </div>
                 </Link>
                 <Link to='#'>
                   <p>Presentación Iron Man</p>
                   <div>
-                    <img src={_user} alt='icono de persona'/>
+                    <img src={_user} alt='icono de persona' />
                     <span>2120 registrados</span>
                   </div>
                 </Link>
@@ -37,10 +37,10 @@ const OrgPreview = () => {
               <h2>Editar - Eventos</h2>
               <div className='OrgPreview-container__Right-container'>
                 <Link to='/events/edit/organizationName/eventId'>
-                  <CardEvento/>
+                  <CardEvento />
                 </Link>
                 <Link to='/events/edit/organizationName/eventId'>
-                  <CardEvento/>
+                  <CardEvento />
                 </Link>
               </div>
             </div>

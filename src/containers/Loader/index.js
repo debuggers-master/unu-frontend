@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import './styles.scss';
+import './styles.scss'
 
 export default class Loader extends Component {
-  render() {
+  render () {
     return (
-      <div className="lds-grid">
+      <div className='lds-grid'>
         <div />
         <div />
         <div />
       </div>
-    );
+    )
   }
 }

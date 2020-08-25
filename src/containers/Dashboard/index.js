@@ -2,14 +2,14 @@ import React from 'react'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
 
-import {CardEvento} from '../../components/CardEvento'
+import { CardEvento } from '../../components/CardEvento'
 import _plus from '../../assets/images/iconPlus.svg'
 import './styles.scss'
 
 const Dashboard = () => {
   return (
     <>
-      <Layout active={'home'}>
+      <Layout active='home'>
         <div className='dashboard'>
           <h2>Hola! - Daniel</h2>
           <div className='dashboard-container'>
@@ -21,10 +21,10 @@ const Dashboard = () => {
                   <p>Stark Industries</p>
                 </Link>
               </div>
-              <div className='dashboard-container__topLeft-NewOrg'> 
+              <div className='dashboard-container__topLeft-NewOrg'>
                 <Link to='/NewOrg'>
-                  <div className='dashboard-container__topLeft-NewOrg-btn'> 
-                  <img src={_plus} alt='boton crear organización'/>
+                  <div className='dashboard-container__topLeft-NewOrg-btn'>
+                    <img src={_plus} alt='boton crear organización' />
                   </div>
                 </Link>
               </div>
@@ -33,10 +33,10 @@ const Dashboard = () => {
               <h2>Editar - Eventos</h2>
               <div className='dashboard-container__Right-container'>
                 <Link to='/events/edit/organizationName/eventId'>
-                  <CardEvento/>
+                  <CardEvento />
                 </Link>
                 <Link to='/events/edit/organizationName/eventId'>
-                  <CardEvento/>
+                  <CardEvento />
                 </Link>
               </div>
             </div>
