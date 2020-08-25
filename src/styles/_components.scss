@@ -39,6 +39,46 @@
   }
 }
 
+.formNewEvent-field {
+  position: relative;
+  height: 36px;
+  width: 100%;
+  margin: $gap-4 0;
+  color: $color-inactive;
+  border-bottom: 1px solid $color-black;
+  &--active {
+    border-bottom: 1px solid $color-primary;
+  }
+  &--error {
+    border-bottom: 1px solid red;
+  }
+  &__label {
+    position: absolute;
+    top: 25%;
+    left: $gap-1;
+    z-index: 1;
+  }
+  &__error {
+    @include captions('sm');
+    padding-left: $gap-1;
+    margin-top: 5px;
+    color: red;
+  }
+  &__label--active {
+    position: absolute;
+    top: -1em;
+    transition: 0.1s;
+    @include captions('lg');
+  }
+  input {
+    position: relative;
+    z-index: 2;
+    background-color: transparent;
+    padding-left: $gap-1;
+    @include paragraph('lg');
+  }
+}
+
 .button {
   width: 200px;
   height: 40px;

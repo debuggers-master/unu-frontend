@@ -1,0 +1,31 @@
+@import '../../styles/base';
+
+li {
+  width: 100%;
+}
+.item {
+  width: 100%;
+  padding: $gap-3 $gap-5;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 32px;
+  align-items: center;
+  & p.item-names {
+    font-weight: 700;
+    font-size: 18px;
+    font-family: $font-secondary;
+  }
+  & p.item-email {
+    font-weight: 400;
+    font-size: 18px;
+    font-family: $font-secondary;
+    color: $color-neutral;
+  }
+}
+
+.line {
+  margin: 0 auto;
+  width: 70%;
+  border-top: solid 2px $color-black;
+  opacity: 0.5;
+}

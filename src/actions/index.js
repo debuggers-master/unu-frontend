@@ -49,6 +49,35 @@ export const loginUser = (payload, redirectUrl) => {
     }
   }
 }
+// export const newEvent = payload => {
+//   return async dispatch => {
+//     try {
+//       await axios({
+//         url: `${API_URL}/events`,
+//         method: 'post',
+//         data: payload
+//       })
+//       window.location.href = '/NewEvent'
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   }
+// }
+
+// export const removeCollaborate = payload => {
+//   return async dispatch =>{
+//     try{
+//       await axios({
+//         url: `${API_URL}/events/collaborators`,
+//         method: 'delete',
+//         data: payload
+//       })
+//       window.location.href = './events/edit/1'
+//     } catch (error){
+//       console.log(error);
+//     }
+//   }
+// }
 // "user": {
 //     "email": "name_lasta@organization.com",
 //     "firstName": "Mario",
