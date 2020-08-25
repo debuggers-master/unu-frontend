@@ -1,0 +1,71 @@
+@import '../../styles/base';
+
+.layout {
+  display: grid;
+  min-height: 100vh;
+  grid-template:
+    'menu content' 1fr
+    'menu content' 1fr/ 88px 1fr;
+  background-color: $color-white;
+  &-menu {
+    grid-area: menu;
+    height: 100%;
+    padding: $gap-1 0px $gap-1 $gap-1;
+    &__container {
+      background-color: $color-primary;
+      border-radius: 12px;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 80px;
+      grid-template-rows: 200px 1fr 89px;
+    }
+    &__logo {
+      width: 100%;
+      padding-top: $gap-3;
+      justify-content: center;
+      display: flex;
+      align-items: flex-start;
+      & img {
+        width: 43px;
+      }
+    }
+    &__accions {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      &-home {
+        @include menuIcon;
+        &-active {
+          background-image: url('../../assets/images/bg-active.svg');
+          @include -status($color-primary);
+        }
+        &-disabled {
+          @include -status($color-white);
+        }
+      }
+      &-newEvent {
+        @include menuIcon;
+        &-active {
+          background-image: url('../../assets/images/bg-active.svg');
+          @include -status($color-primary);
+        }
+        &-disabled {
+          @include -status($color-white);
+        }
+      }
+    }
+    &__logout {
+      @include menuIcon;
+    }
+  }
+  &-content {
+    grid-area: content;
+    & h2 {
+      color: $color-brand;
+      font-family: $font-primary;
+      font-size: 36px;
+      margin: 0px;
+      margin-bottom: $gap-4;
+    }
+  }
+}

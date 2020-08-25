@@ -1,11 +1,12 @@
 //here goes variables, mixins, and any utility classes.
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap');
-
+@import './mixins';
 /*--------------$Variables$-----------------*/
 
 //Colors
 $color-white: #fafafa;
+$color-white-light: #ffffff;
 $color-black: #1d1d1d;
 $color-brand: #f57569;
 $color-primary: #194c85;
@@ -14,6 +15,7 @@ $color-secondary: #67c1c2;
 $color-neutral: #c9a79d;
 $color-success: #43c797;
 $color-error: #fc1d1d;
+$color-gray: #bdbdbd;
 $color-text: $color-black;
 $color-inactive: rgba(14, 19, 24, 0.6);
 //Typography
@@ -67,6 +69,7 @@ $font-secondary: 'Open Sans', sans-serif;
   }
 }
 //Spacing
+
 $gap-1: 8px;
 $gap-2: $gap-1 + 8px;
 $gap-3: $gap-2 + 8px;
@@ -74,8 +77,22 @@ $gap-4: $gap-3 + 8px;
 $gap-5: $gap-4 + 8px;
 $gap-6: $gap-5 + 24px;
 
+//Box-Shadows
+$Shadow-1: 0px 0px 22px
+  rgba(
+    $color: #000000,
+    $alpha: 0.08,
+  );
+$Shadow-2: 0px 0px 22px
+  rgba(
+    $color: #f57569,
+    $alpha: 1,
+  );
+
 // Header
+
 $header-height: 100px;
 
 // Footer
+
 $footer-height: 64px;

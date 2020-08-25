@@ -1,0 +1,52 @@
+@import '../../styles/base';
+
+.OrgPreview {
+  max-height: 100vh;
+  width: 100%;
+  padding: 32px;
+  &-container {
+    display: grid;
+    min-height: 85vh;
+    gap: 28px;
+    grid-template:
+      'topLeft Right' 1fr
+      'bottomLeft Right' 1fr/ 1fr 1fr;
+    &__topLeft {
+      grid-area: topLeft;
+      @include cardDasboard;
+      &-Preview {
+        & a {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        & p {
+          color: $color-secondary;
+          font-size: 24px;
+        }
+        & span {
+          margin-left: $gap-2;
+          color: $color-secondary;
+          font-size: 16px;
+        }
+      }
+    }
+    &__Right {
+      grid-area: Right;
+      @include cardDasboard;
+      &-container {
+        max-height: 87%;
+        overflow: scroll;
+      }
+    }
+    &__bottomLeft {
+      grid-area: bottomLeft;
+      @include cardDasboard;
+      & li {
+        color: #194c85;
+        font-size: 18px;
+        margin-top: 40px;
+      }
+    }
+  }
+}
