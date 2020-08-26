@@ -28,6 +28,12 @@
 }
 
 .formEdit {
+  form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    place-items: flex-end;
+  }
   @include presetsform;
   &-field {
     width: fit-content;
