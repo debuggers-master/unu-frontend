@@ -12,7 +12,6 @@ export const ItemSponsor = () => {
             <p>Nombre del asociado</p>
           </div>
           <div className='ItemTalk-day__Actions'>
-            <p>Guardar</p>
             <Link to='/dashboard/organizationName/eventId/edit/sponsor/edit/sponsorId'>
               <p>Editar</p>
             </Link>

@@ -17,14 +17,6 @@ const ListSponsor = () => {
               <ItemSponsor />
               <ItemSponsor />
             </ul>
-            <div className='check-action'>
-              <button className='check-action__btnLeft'>
-                <p>Cancelar</p>
-              </button>
-              <button className='check-action__btnRight'>
-                <p>Guardar</p>
-              </button>
-            </div>
           </div>
         </div>
       </Layout>

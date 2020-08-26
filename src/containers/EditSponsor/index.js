@@ -14,6 +14,7 @@ const EditSponsor = () => {
           <div className='editInfo-container'>
             <h2>Editar asociados - Presentación Iron Man</h2>
             <form>
+            {/* <form onSubmit={this.props.onSubmit}> */}
               <div className='formEdit-container'>
                 <div className='formEdit-container-formLeft'>
                   <div className='formEdit-field'>
@@ -48,17 +49,17 @@ const EditSponsor = () => {
                   </div>
                 </div>
               </div>
-            </form>
-            <div className='check-action'>
-              <Link to='/events/edit/organizationName/eventId'>
-                <button className='check-action__btnLeft'>
-                  <p>Cancelar</p>
+              <div className='check-action'>
+                <Link to='/events/edit/organizationName/eventId'>
+                  <button className='check-action__btnLeft'>
+                    <p>Cancelar</p>
+                  </button>
+                </Link>
+                <button className='check-action__btnRight'>
+                  <p>Guardar</p>
                 </button>
-              </Link>
-              <button className='check-action__btnRight'>
-                <p>Guardar</p>
-              </button>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
       </Layout>

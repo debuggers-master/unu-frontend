@@ -1,0 +1,47 @@
+@import '../../styles/base';
+
+.newEvent {
+  width: 100%;
+  padding: 32px;
+  &-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+    background-color: none;
+    box-shadow: none;
+    &__card {
+      @include cardDasboard;
+      height: 263px;
+      width: 577px;
+      display: flex;
+      flex-wrap: wrap;
+      background-color: $color-white-light;
+    }
+  }
+}
+
+.formEdit {
+  form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    place-items: flex-end;
+  }
+  @include presetsform;
+  &-field {
+    width: 100%;
+    text-align: center;
+    & h3 {
+      font-size: 36px;
+      font-weight: 400;
+      margin: 0;
+    }
+  }
+}
+
+.check-action {
+  @include checkButtons;
+  justify-content: center;
+  align-items: flex-end;
+}

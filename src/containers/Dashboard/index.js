@@ -6,7 +6,7 @@ import { CardEvento } from '../../components/CardEvento'
 import _plus from '../../assets/images/iconPlus.svg'
 import './styles.scss'
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   return (
     <>
       <Layout active='home'>

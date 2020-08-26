@@ -1,20 +1,171 @@
 @import '../../styles/base';
 
-.newEvent {
+.editInfo {
   max-height: 100vh;
   width: 100%;
   padding: 32px;
-  h2 {
-    color: $color-brand;
-    font-family: $font-primary;
-    font-size: 36px;
-    margin: 0px;
-    margin-bottom: 32px;
-  }
+
   &-container {
     display: grid;
     min-height: 85vh;
     gap: 28px;
+    grid-template: 50px 1fr 30px/ 1fr;
     @include cardDasboard;
+    & h2 {
+      color: $color-brand;
+      font-family: $font-primary;
+      font-size: 24px;
+      margin: 0px;
+      margin-bottom: $gap-4;
+    }
+    &-left {
+      padding-right: $gap-6;
+      padding-right: 64px;
+      display: flex;
+      flex-flow: wrap;
+      align-content: space-between;
+      &-edit {
+        width: 100%;
+        & li {
+          display: flex;
+          justify-content: space-between;
+        }
+        & p {
+          color: $color-secondary;
+        }
+      }
+    }
+    &-right {
+      &-collaborates {
+        & ul {
+          background-color: $color-white;
+          border-radius: $gap-2;
+          max-height: 74vh;
+          min-height: 74vh;
+          overflow: scroll;
+        }
+      }
+      &-btn {
+        background-color: $color-brand;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: $Shadow-2;
+        position: absolute;
+        right: 70px;
+        bottom: 63px;
+      }
+    }
+  }
+}
+
+.check-action {
+  @include checkButtons;
+}
+
+.formEdit {
+  &-field {
+    text-align: start;
+  }
+  &-container {
+    height: 100%;
+    display: grid;
+    grid-template: 1fr / 1fr 1fr;
+    padding: 70px 0px;
+    gap: 84px;
+    text-align: center;
+    h4 {
+      margin: 40px 0;
+      font-size: 20px;
+      font-weight: 400;
+      color: rgba(29, 29, 29, $alpha: 0.15);
+    }
+    h5 {
+      color: $color-secondary;
+      font-size: 20px;
+      text-decoration: underline;
+      font-weight: 400;
+    }
+  }
+  &-content {
+    justify-content: center;
+    text-align: -webkit-center;
+    display: grid;
+  }
+  @include presetsform;
+}
+
+#imgEvent {
+  display: none;
+}
+#imgHeader {
+  display: none;
+}
+
+.paletColor {
+  &-container {
+    background-color: $color-gray;
+    border-radius: $gap-2;
+    padding: $gap-1;
+    display: grid;
+    grid-template: 1fr/ 1fr 1fr 1fr;
+    max-width: 130px;
+    max-height: 47px;
+  }
+  &-uno {
+    height: 30px;
+    width: 100%;
+    background-color: $color-white;
+  }
+  &-dos {
+    height: 30px;
+    width: 100%;
+    background-color: #32e0c4;
+  }
+  &-tres {
+    height: 30px;
+    width: 100%;
+    background-color: $color-black;
+  }
+  &-cuatro {
+    height: 30px;
+    width: 100%;
+    background-color: #ffcd3c;
+  }
+  &-cinco {
+    height: 30px;
+    width: 100%;
+    background-color: #3b6978;
+  }
+  &-seis {
+    height: 30px;
+    width: 100%;
+    background-color: $color-black;
+  }
+}
+
+.typography {
+  display: flex;
+  align-items: center;
+  &-line {
+    margin: 0 20px;
+    border-left: solid 2px #1d1d1d;
+    opacity: 0.5;
+    height: 30px;
+  }
+  &-NotoSans {
+    font-family: $font-primary;
+  }
+  &-OpenSans {
+    font-family: $font-secondary;
+  }
+  &-Raleway {
+    font-family: $font-raleway;
+  }
+  &-Roboto {
+    font-family: $font-roboto;
   }
 }
