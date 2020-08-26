@@ -2,9 +2,7 @@ import React from 'react'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
 
-
 import './styles.scss'
-
 
 const NewEvent = () => {
   return (
@@ -17,16 +15,16 @@ const NewEvent = () => {
             <form>
               <div className='formEdit-container'>
                 <div className='formEdit-container-formLeft'>
-                <div className='formEdit-field'>
-                        <label className='formEdit-field__label'>¿Cúal organización hará el evento?</label>
-                        <select
-                          className='formEdit-field__select'
-                          defaultValue='DEFAULT'
-                        >
-                          <option value='DEFAULT' disabled />
-                          <option value='1:00 am'>1:00 am</option>
-                        </select>
-                      </div>
+                  <div className='formEdit-field'>
+                    <label className='formEdit-field__label'>¿Cúal organización hará el evento?</label>
+                    <select
+                      className='formEdit-field__select'
+                      defaultValue='DEFAULT'
+                    >
+                      <option value='DEFAULT' disabled />
+                      <option value='1:00 am'>1:00 am</option>
+                    </select>
+                  </div>
                   <div className='formEdit-field'>
                     <label className='formEdit-field__label'>Nombre del evento</label>
                     <input
@@ -57,41 +55,41 @@ const NewEvent = () => {
                     <label className='formEdit-field__label'>Elije una plantilla para tu evento</label>
                     <div className='formEdit-field__fileDos'>
                       <div className='formEdit-container'>
-                          <div className='formEdit-content'>
-                            <h2>Plantilla 1</h2>
-                            <h4>Palegta de color</h4>
-                            <div className='paletColor-container'>
-                              <div className='paletColor-uno'></div>
-                              <div className='paletColor-dos'></div>
-                              <div className='paletColor-tres'></div>
-                            </div>
-                            <h4>Tipografía</h4>
-                            <div className='typography'>
-                              <p className='typography-NotoSans'>Noto Sans JP</p>
-                              <div className='typography-line'></div>
-                              <p className='typography-OpenSans'>Open Sans</p>
-                            </div>
-                              <h5>Preview Plantilla 1</h5>
-                            <input type="checkbox" name="myCheckbox" value="1" onclick="selectOnlyThis(this)" />
+                        <div className='formEdit-content'>
+                          <h2>Plantilla 1</h2>
+                          <h4>Palegta de color</h4>
+                          <div className='paletColor-container'>
+                            <div className='paletColor-uno' />
+                            <div className='paletColor-dos' />
+                            <div className='paletColor-tres' />
                           </div>
-                          <div className='formEdit-content'>
-                            <h2>Plantilla 2</h2>
-                            <h4>Palegta de color</h4>
-                            <div className='paletColor-container'>
-                              <div className='paletColor-cuatro'></div>
-                              <div className='paletColor-cinco'></div>
-                              <div className='paletColor-seis'></div>
-                            </div>
-                            <h4>Tipografía</h4>
-                            <div className='typography'>
-                              <p className='typography-Raleway'>Raleway</p>
-                              <div className='typography-line'></div>
-                              <p className='typography-Roboto'>Roboto</p>
-                            </div>
-                            <Link TO='#'>
-                              <h5>Preview Plantilla 2</h5>
-                            </Link>
+                          <h4>Tipografía</h4>
+                          <div className='typography'>
+                            <p className='typography-NotoSans'>Noto Sans JP</p>
+                            <div className='typography-line' />
+                            <p className='typography-OpenSans'>Open Sans</p>
                           </div>
+                          <h5>Preview Plantilla 1</h5>
+                          <input type='checkbox' name='myCheckbox' value='1' onclick='selectOnlyThis(this)' />
+                        </div>
+                        <div className='formEdit-content'>
+                          <h2>Plantilla 2</h2>
+                          <h4>Palegta de color</h4>
+                          <div className='paletColor-container'>
+                            <div className='paletColor-cuatro' />
+                            <div className='paletColor-cinco' />
+                            <div className='paletColor-seis' />
+                          </div>
+                          <h4>Tipografía</h4>
+                          <div className='typography'>
+                            <p className='typography-Raleway'>Raleway</p>
+                            <div className='typography-line' />
+                            <p className='typography-Roboto'>Roboto</p>
+                          </div>
+                          <Link TO='#'>
+                            <h5>Preview Plantilla 2</h5>
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>

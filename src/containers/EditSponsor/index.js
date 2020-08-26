@@ -14,7 +14,7 @@ const EditSponsor = () => {
           <div className='editInfo-container'>
             <h2>Editar asociados - Presentación Iron Man</h2>
             <form>
-            {/* <form onSubmit={this.props.onSubmit}> */}
+              {/* <form onSubmit={this.props.onSubmit}> */}
               <div className='formEdit-container'>
                 <div className='formEdit-container-formLeft'>
                   <div className='formEdit-field'>
