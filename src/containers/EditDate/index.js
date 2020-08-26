@@ -14,7 +14,7 @@ const NewOrg = () => {
                 <div className='formEdit-field'>
                   <label className='formEdit-field__label'>
                     <h3>
-                      ¿Que día quieres elejir?
+                      Nombre de la organización
                     </h3>
                   </label>
                   <input

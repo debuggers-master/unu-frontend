@@ -1,6 +1,7 @@
 //here goes variables, mixins, and any utility classes.
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Roboto:wght@400;700&display=swap');
 @import './mixins';
 /*--------------$Variables$-----------------*/
 
@@ -22,6 +23,8 @@ $color-inactive: rgba(14, 19, 24, 0.6);
 
 $font-primary: 'Noto Sans', sans-serif;
 $font-secondary: 'Open Sans', sans-serif;
+$font-raleway: 'Raleway', sans-serif;
+$font-roboto: 'Roboto', sans-serif;
 
 @mixin title($size) {
   font-size: 32px;

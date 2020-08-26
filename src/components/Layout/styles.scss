@@ -2,7 +2,7 @@
 
 .layout {
   display: grid;
-  min-height: 100vh;
+  max-height: 100vh;
   grid-template:
     'menu content' 1fr
     'menu content' 1fr/ 88px 1fr;

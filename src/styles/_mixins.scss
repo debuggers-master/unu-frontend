@@ -105,6 +105,20 @@
         font-family: $font-secondary;
       }
     }
+    &__select {
+      margin-top: $gap-2;
+      margin-bottom: $gap-4;
+      width: 100%;
+      border-radius: $gap-1;
+      background-color: $color-white;
+      height: 35px;
+      color: $color-brand;
+      border: 1px solid $color-brand;
+      padding-left: $gap-2;
+      &:focus {
+        outline: none;
+      }
+    }
     &__textarea {
       width: 100%;
       margin-top: $gap-2;
@@ -146,6 +160,18 @@
       border-radius: $gap-1;
       background-color: $color-white;
       height: 137px;
+      border: dashed $color-gray 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &__fileDos {
+      width: 100%;
+      margin-top: $gap-2;
+      margin-bottom: $gap-4;
+      border-radius: $gap-1;
+      background-color: $color-white;
+      height: 590px;
       border: dashed $color-gray 2px;
       display: flex;
       align-items: center;

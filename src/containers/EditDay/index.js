@@ -8,9 +8,9 @@ const EditDay = () => {
   return (
     <>
       <Layout active='home'>
-        <div className='editSchedule'>
+        <div className='editDay'>
           <h2>Stark Industries</h2>
-          <div className='editSchedule-container'>
+          <div className='editDay-container'>
             <h2>Editar Agenda - Presentación Iron Man</h2>
             <ul>
               <ItemTalk />

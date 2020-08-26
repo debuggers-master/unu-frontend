@@ -1,17 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export const ItemTalk = () => {
+import './styles.scss'
+
+export const ItemSponsor = () => {
   return (
     <>
       <li>
-        <div className='editSchedule-day'>
-          <div className='editSchedule-day__Count'>
-            <p>Nombre del Asociado</p>
+        <div className='ItemTalk-day'>
+          <div className='ItemTalk-day__Count'>
+            <p>Nombre del asociado</p>
           </div>
-          <div className='editSchedule-day__Actions'>
-            <p>Guardar</p>
-            <Link to='/'>
+          <div className='ItemTalk-day__Actions'>
+            <Link to='/dashboard/organizationName/eventId/edit/sponsor/edit/sponsorId'>
               <p>Editar</p>
             </Link>
             <p>Eliminar</p>
