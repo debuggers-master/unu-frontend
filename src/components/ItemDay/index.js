@@ -23,7 +23,6 @@ export const ItemDay = () => {
             />
           </div>
           <div className='itemDay-day__Actions'>
-            <p>Guardar</p>
             <Link to='/dashboard/organizationName/eventId/edit/schedule/dayId'>
               <p>Editar</p>
             </Link>

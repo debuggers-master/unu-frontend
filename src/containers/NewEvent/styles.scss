@@ -1,6 +1,6 @@
 @import '../../styles/base';
 
-.editInfo {
+.NewEvent {
   max-height: 100vh;
   width: 100%;
   padding: 32px;
@@ -9,7 +9,7 @@
     display: grid;
     min-height: 85vh;
     gap: 28px;
-    grid-template: 50px 1fr 30px/ 1fr;
+    grid-template: 50px 1fr / 1fr;
     @include cardDasboard;
     & h2 {
       color: $color-brand;
@@ -74,11 +74,10 @@
     height: 100%;
     display: grid;
     grid-template: 1fr / 1fr 1fr;
-    padding: 70px 0px;
     gap: 84px;
     text-align: center;
     h4 {
-      margin: 40px 0;
+      margin: 0;
       font-size: 20px;
       font-weight: 400;
       color: rgba(29, 29, 29, $alpha: 0.15);
@@ -94,6 +93,7 @@
     justify-content: center;
     text-align: -webkit-center;
     display: grid;
+    padding: 40px 0px;
   }
   @include presetsform;
 }

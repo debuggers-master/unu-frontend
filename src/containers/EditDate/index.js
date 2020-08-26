@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '../../components/Layout'
 import './styles.scss'
 
-const NewOrg = () => {
+const EditDate = () => {
   return (
     <>
       <Layout active='home'>
@@ -39,4 +39,4 @@ const NewOrg = () => {
   )
 }
 
-export default NewOrg
+export default EditDate

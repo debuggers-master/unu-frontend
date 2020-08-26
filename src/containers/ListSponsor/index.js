@@ -16,6 +16,7 @@ const ListSponsor = () => {
               <ItemSponsor />
               <ItemSponsor />
               <ItemSponsor />
+              <p>Añadir Asociado</p>
             </ul>
           </div>
         </div>

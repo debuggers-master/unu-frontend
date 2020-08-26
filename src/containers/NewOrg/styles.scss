@@ -12,25 +12,25 @@
     box-shadow: none;
     &__card {
       @include cardDasboard;
-      height: 263px;
+      height: 292px;
       width: 577px;
       display: flex;
       flex-wrap: wrap;
       background-color: $color-white-light;
+      & form {
+        width: 100%;
+        display: grid;
+        justify-content: center;
+        place-items: flex-end;
+      }
     }
   }
 }
 
 .formEdit {
-  form {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    place-items: flex-end;
-  }
   @include presetsform;
   &-field {
-    width: 100%;
+    width: fit-content;
     text-align: center;
     & h3 {
       font-size: 36px;
