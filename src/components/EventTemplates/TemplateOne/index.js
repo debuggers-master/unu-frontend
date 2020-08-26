@@ -10,19 +10,23 @@ import styles from './styles.module.scss'
 const TemplateOne = ({ templateData }) => {
   const { speakers, associates } = templateData
   const banner = useRef(null)
+  const home = useRef(null)
   const conferences = useRef(null)
+  const register = useRef(null)
   const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop - 100)
   const executeScroll = evn => {
     const link = evn.currentTarget.textContent
+    link === 'Inicio' && scrollToRef(home)
     link === 'Que es?' && scrollToRef(banner)
     link === 'Agenda' && scrollToRef(conferences)
+    link === 'Inscribete' && scrollToRef(register)
   }
 
   const h1ClassName = `${styles['main-title']} ${styles['section-subtitle']}`
   const titleClassName = `${styles['event-title']} ${styles['section-title']} ${styles.section}`
 
   return (
-    <div>
+    <div ref={home}>
       <Header handleClick={executeScroll} />
       <Banner data={templateData} />
       <h2 ref={banner} className={titleClassName}>
@@ -55,7 +59,9 @@ const TemplateOne = ({ templateData }) => {
         <h1 className={h1ClassName}>Asociados</h1>
         <Associates data={associates} />
       </section>
-      <Footer />
+      <div ref={register}>
+        <Footer />
+      </div>
     </div>
   )
 }
