@@ -58,7 +58,8 @@ export const loginUser = (payload, redirectUrl) => {
       window.location.href = redirectUrl
     } catch (error) {
       console.log(error)
-      error.response.status === 401 && dispatch(signError('Datos incorrectos'))
+      console.log(error.response)
+      // error.response.status === 401 && dispatch(signError('Datos incorrectos'))
     }
   }
 }

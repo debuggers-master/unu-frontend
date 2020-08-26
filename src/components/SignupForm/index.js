@@ -39,7 +39,6 @@ const SignupForm = props => {
       value: fieldValue,
       state: inputValues
     })
-    console.log(fieldError)
     setErrors({ ...errors, [fieldName]: fieldError })
   }
   const handleBur = evn => {

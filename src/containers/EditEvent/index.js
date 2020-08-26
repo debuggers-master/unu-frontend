@@ -7,38 +7,42 @@ import _edit from '../../assets/images/iconEdit.svg'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 
-const EditEvent = () => {
+const EditEvent = props => {
+  const evnMock = {
+    eventId: 1234,
+    organizationName: 'Plazti',
+    name: 'PlatziConf',
+    shortDescription: 'La mejor conferencia del mundo'
+  }
+  const { eventId, organizationName, name } = props.data || evnMock
+
   return (
     <>
       <Layout active='home'>
         <div className='editEvent'>
-          <h2>Stark Industries</h2>
+          <h2>{organizationName}</h2>
           <div className='editEvent-container'>
             <div className='editEvent-container-left'>
               <div className='editEvent-container-left-edit'>
-                <h2>Presentación Iron Man</h2>
+                <h2>{name}</h2>
                 <ul>
-                  <Link to='/events/edit/info/organizationName/eventId'>
+                  <Link to={`/dashboard/organizationName/${eventId}/edit/info`}>
                     <li>
-                      <p>
-                        Editar - Información General del evento
-                      </p>
+                      <p>Editar - Información General del evento</p>
                       <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>
-                  <Link to='/events/edit/agenda/organizationName/eventId'>
+                  <Link
+                    to={`/dashboard/organizationName/${eventId}/edit/schedule`}
+                  >
                     <li>
-                      <p>
-                        Editar - Agenda
-                      </p>
+                      <p>Editar - Agenda</p>
                       <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>
                   <Link to='/events/edit/sponsors/organizationName/eventId'>
                     <li>
-                      <p>
-                        Editar - Asociados
-                      </p>
+                      <p>Editar - Asociados</p>
                       <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>
@@ -82,3 +86,10 @@ const EditEvent = () => {
 }
 
 export default EditEvent
+
+// {
+//       eventId: str,
+//       organizationName: str,
+//       name: str,
+//       shortDescription: str,
+//     }
