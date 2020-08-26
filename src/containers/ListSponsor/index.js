@@ -1,10 +1,10 @@
 import React from 'react'
 import Layout from '../../components/Layout'
 
-import { ItemTalk } from '../../components/ItemTalk'
+import { ItemSponsor } from '../../components/ItemSponsor'
 import './styles.scss'
 
-const EditDay = () => {
+const ListSponsor = () => {
   return (
     <>
       <Layout active='home'>
@@ -13,9 +13,9 @@ const EditDay = () => {
           <div className='editDay-container'>
             <h2>Editar Agenda - Presentación Iron Man</h2>
             <ul>
-              <ItemTalk />
-              <ItemTalk />
-              <ItemTalk />
+              <ItemSponsor />
+              <ItemSponsor />
+              <ItemSponsor />
             </ul>
             <div className='check-action'>
               <button className='check-action__btnLeft'>
@@ -32,4 +32,4 @@ const EditDay = () => {
   )
 }
 
-export default EditDay
+export default ListSponsor

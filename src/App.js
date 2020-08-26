@@ -13,6 +13,9 @@ import EditEvent from './containers/EditEvent'
 import EditInfo from './containers/EditInfo'
 import EditSchedule from './containers/EditSchedule'
 import EditDay from './containers/EditDay'
+import ListSponsor from './containers/ListSponsor'
+import EditSponsor from './containers/EditSponsor'
+import EditTalk from './containers/EditTalk'
 import TemplateOne from './components/EventTemplates/TemplateOne'
 import TemplateTwo from './components/EventTemplates/TemplateTwo'
 
@@ -37,6 +40,9 @@ function App ({ isAuth }) {
         <Route exact path='/dashboard/organizationName/eventId/edit/info' component={isAuth ? EditInfo : Login} />
         <Route exact path='/dashboard/organizationName/eventId/edit/schedule' component={isAuth ? EditSchedule : Login} />
         <Route exact path='/dashboard/organizationName/eventId/edit/schedule/dayId' component={isAuth ? EditDay : Login} />
+        <Route exact path='/dashboard/organizationName/eventId/edit/schedule/dayId/talkId' component={isAuth ? EditTalk : Login} />
+        <Route exact path='/dashboard/organizationName/eventId/edit/sponsor/edit' component={isAuth ? ListSponsor : Login} />
+        <Route exact path='/dashboard/organizationName/eventId/edit/sponsor/edit/sponsorId' component={isAuth ? EditSponsor : Login} />
         <EventsPreview exact path='/events' />
       </Switch>
     </BrowserRouter>

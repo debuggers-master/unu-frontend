@@ -1,15 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import './styles.scss'
+
 export const ItemDay = () => {
   return (
     <>
       <li>
-        <div className='editSchedule-day'>
-          <div className='editSchedule-day__Count'>
+        <div className='itemDay-day'>
+          <div className='itemDay-day__Count'>
             <p>Día 0</p>
           </div>
-          <div className='editSchedule-day__Calendar'>
+          <div className='itemDay-day__Calendar'>
             <label htmlFor='start'>Fecha del día:</label>
             <input
               type='date'
@@ -20,9 +22,9 @@ export const ItemDay = () => {
               max='2020-12-31'
             />
           </div>
-          <div className='editSchedule-day__Actions'>
+          <div className='itemDay-day__Actions'>
             <p>Guardar</p>
-            <Link to='/events/edit/agenda/organizationName/eventId/dayId'>
+            <Link to='/dashboard/organizationName/eventId/edit/schedule/dayId'>
               <p>Editar</p>
             </Link>
             <p>Eliminar</p>

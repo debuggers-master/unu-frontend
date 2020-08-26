@@ -1,7 +1,7 @@
 @import '../../styles/base';
 
 .editEvent {
-  min-height: 100vh;
+  max-height: 100vh;
   width: 100%;
   padding: 32px;
   h2 {
@@ -39,8 +39,8 @@
         & ul {
           background-color: $color-white;
           border-radius: $gap-2;
-          max-height: 74vh;
-          min-height: 74vh;
+          max-height: 71vh;
+          min-height: 70vh;
           overflow: scroll;
         }
       }

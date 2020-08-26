@@ -18,7 +18,7 @@ const EditEvent = () => {
               <div className='editEvent-container-left-edit'>
                 <h2>Presentación Iron Man</h2>
                 <ul>
-                  <Link to='/events/edit/info/organizationName/eventId'>
+                  <Link to='/dashboard/organizationName/eventId/edit/info'>
                     <li>
                       <p>
                         Editar - Información General del evento
@@ -26,7 +26,7 @@ const EditEvent = () => {
                       <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>
-                  <Link to='/events/edit/agenda/organizationName/eventId'>
+                  <Link to='/dashboard/organizationName/eventId/edit/schedule'>
                     <li>
                       <p>
                         Editar - Agenda
@@ -34,7 +34,7 @@ const EditEvent = () => {
                       <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>
-                  <Link to='/events/edit/sponsors/organizationName/eventId'>
+                  <Link to='/dashboard/organizationName/eventId/edit/sponsor/edit'>
                     <li>
                       <p>
                         Editar - Asociados
