@@ -22,9 +22,6 @@
     "lint": "standard",
     "fix": "standard --fix"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -48,6 +45,10 @@
       "build/*",
       "serviceWorker.js"
     ]
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "./node_modules/standard/eslintrc.json"
   },
   "husky": {
     "hooks": {

@@ -33,13 +33,12 @@ const NewEvent = () => {
                     />
                   </div>
                   <div className='formEdit-field'>
-                    <label className='formEdit-field__label' htmlFor='start'>Fecha del día:</label>
+                    <label className='formEdit-field__label' htmlFor='start'>Fecha inicio del evento</label>
                     <input
                       className='formEdit-field__select'
                       type='date'
-                      defaultValue='2020-07-22'
-                      min='2020-01-01'
-                      max='2020-12-31'
+                      min='2020-08-01'
+                      max='2022-12-31'
                     />
                   </div>
                   <div className='formEdit-field'>

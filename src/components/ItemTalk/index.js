@@ -3,17 +3,16 @@ import { Link } from 'react-router-dom'
 
 import './styles.scss'
 
-export const ItemTalk = () => {
+export const ItemTalk = ({ organizationId, eventId, dayId, dataConference }) => {
   return (
     <>
-      <li>
+      <li key={dataConference.conferenceId}>
         <div className='ItemTalk-day'>
           <div className='ItemTalk-day__Count'>
-            <p>Nombre o titulo de la charla</p>
+            <p>{dataConference.name}</p>
           </div>
           <div className='ItemTalk-day__Actions'>
-            <p>Guardar</p>
-            <Link to='/dashboard/organizationName/eventId/edit/schedule/dayId/talkId'>
+            <Link to={`/dashboard/${organizationId}/${eventId}/edit/schedule/${dayId}/talkId`}>
               <p>Editar</p>
             </Link>
             <p>Eliminar</p>

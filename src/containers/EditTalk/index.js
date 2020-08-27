@@ -60,10 +60,9 @@ const EditTalk = () => {
                           className='formEdit-field__select'
                           defaultValue='DEFAULT'
                         >
-                          {/* new Date({props.day.numberAno},{props.day.numberMonth},{props.day.numberDay},{valueform} )  */}
                           <option value='DEFAULT' disabled />
                           <option value={1}>1:00</option>
-                          <option value='2:00 am'>2:00 am</option>
+                          <option value={2}>2:00</option>
                           <option value='3:00 am'>3:00 am</option>
                           <option value='4:00 am'>4:00 am</option>
                           <option value='5:00 am'>5:00 am</option>

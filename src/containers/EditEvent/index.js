@@ -9,12 +9,13 @@ import './styles.scss'
 
 const EditEvent = props => {
   const evnMock = {
+    organizationId: '0899',
     eventId: 1234,
     organizationName: 'Plazti',
     name: 'PlatziConf',
     shortDescription: 'La mejor conferencia del mundo'
   }
-  const { eventId, organizationName, name } = props.data || evnMock
+  const { organizationId, eventId, organizationName, name } = props.data || evnMock
 
   return (
     <>
@@ -26,21 +27,21 @@ const EditEvent = props => {
               <div className='editEvent-container-left-edit'>
                 <h2>{name}</h2>
                 <ul>
-                  <Link to={`/dashboard/organizationName/${eventId}/edit/info`}>
+                  <Link to={`/dashboard/${organizationId}/${eventId}/edit/info`}>
                     <li>
                       <p>Editar - Información General del evento</p>
                       <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>
                   <Link
-                    to={`/dashboard/organizationName/${eventId}/edit/schedule`}
+                    to={`/dashboard/${organizationId}/${eventId}/edit/schedule`}
                   >
                     <li>
                       <p>Editar - Agenda</p>
                       <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>
-                  <Link to='/dashboard/organizationName/eventId/edit/sponsor/edit'>
+                  <Link to={`/dashboard/${organizationId}/${eventId}/edit/sponsor/edit`}>
                     <li>
                       <p>Editar - Asociados</p>
                       <img src={_edit} alt='icono editar' />
