@@ -26,10 +26,10 @@ const PublicEvents = props => {
   }, [props.computedMatch.params])
 
   if (eventData) {
-    if (eventData.template === 'template01') {
+    if (eventData.template === 't01') {
       return <TemplateOne templateData={eventData} />
     }
-    if (eventData.template === 'template02') {
+    if (eventData.template === 't02') {
       return <TemplateTwo templateData={eventData} />
     }
   }

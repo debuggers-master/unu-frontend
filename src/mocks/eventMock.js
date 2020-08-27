@@ -4,10 +4,10 @@ export const eventMock = {
   organizationId: '0899',
   organizationUrl: 'str', // Generated automatly
   organizationName: 'Space X',
-  name: 'Starlink Conf',
-  url: 'str',
+  name: 'International UFO Congress',
+  url: 'http://localhost:3000/OpenMinds/UFOConf',
   startDate: 'Sat Sep 26 2020 00:00:00 GMT-0500 (Central Daylight Time)', // Date
-  template: 'template01',
+  template: 't01',
   shortDescription:
     'READY FOR THE HARDWIRED EXPERIENCE? OR BUILD YOUR RESUME WITH HARDWIRED ON-DEMAND WORKSHOPS...ON YOUR OWN TIME?',
   description:
