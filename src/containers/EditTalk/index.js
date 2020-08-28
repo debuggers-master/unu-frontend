@@ -36,7 +36,6 @@ const EditTalk = props => {
   const handleChange = evn => {
     const fieldName = evn.target.name
     const fieldValue = evn.target.value
-    console.log(fieldName, fieldValue)
     setInputValues({ ...inputValues, [fieldName]: fieldValue })
   }
   const handleUpload = async evn => {
@@ -74,13 +73,14 @@ const EditTalk = props => {
       await axios(`${API_URL}/api/v1/events/conference`, {
         headers: { Authorization: `Bearer ${getCookie('token')}` },
         method: conferenceId ? 'PUT' : 'POST',
-        body: {
+        data: {
           eventId,
           dayId,
           conferenceData
         }
       })
       console.log('Modificados exitosamente')
+      window.location.href = `/dashboard/  ${organizationName}/${eventId}/edit/schedule/${dayId}`
     } catch (error) {
       console.log('ups parece que hubo un error')
     }

@@ -70,6 +70,11 @@ function App ({ isAuth }) {
         />
         <Route
           exact
+          path='/dashboard/:organizationName/:eventId/edit/scheduleDay/:dayId'
+          component={isAuth ? EditDate : Login}
+        />
+        <Route
+          exact
           path='/dashboard/:organizationName/:eventId/edit/schedule/:dayId/new'
           component={isAuth ? EditTalk : Login}
         />

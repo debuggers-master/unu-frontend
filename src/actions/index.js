@@ -22,8 +22,12 @@ export const addCollaboration = payload => ({
   type: 'ADD_COLLABORATION',
   payload
 })
-export const addEvent = payload => ({
-  type: 'ADD_EVENT',
+export const createEvent = payload => ({
+  type: 'CREATE_EVENT',
+  payload
+})
+export const deleteEvent = payload => ({
+  type: 'DELETE_EVENT',
   payload
 })
 export const addOrganization = payload => ({

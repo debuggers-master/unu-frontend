@@ -10,6 +10,24 @@ const reducers = (state, action) => {
         ...state,
         user: action.payload
       }
+    case 'DELETE_EVENT':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          myEvents: state.user.myEvents.filter(
+            ({ eventId }) => eventId !== action.payload
+          )
+        }
+      }
+    case 'CREATE_EVENT':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          myEvents: [...state.user.myEvents, action.payload]
+        }
+      }
 
     case 'REDIRECT_TO_URL':
       return {

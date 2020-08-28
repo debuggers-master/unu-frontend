@@ -19,7 +19,7 @@ const EditDate = props => {
           date: String(new Date(inputValues.date))
         }
       })
-      await axios(`${API_URL}/events/day`, {
+      await axios(`${API_URL}/api/v1/events/day`, {
         method: dayId ? 'PUT' : 'POST',
         headers: { Authorization: `Bearer ${getCookie('token')}` },
         data: {
