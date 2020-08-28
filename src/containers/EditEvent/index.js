@@ -5,7 +5,7 @@ import getCookie from '../../utils/getCookie'
 import { API_URL } from '../../config.js'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
-
+import { deleteEvent } from '../../actions'
 import { ItemCollaborator } from '../../components/ItemCollaborate'
 import _edit from '../../assets/images/iconEdit.svg'
 import _plus from '../..//assets/images/iconPlus.svg'
@@ -50,6 +50,21 @@ const EditEvent = props => {
     )
     setCollaboratorsList(listCollaborator)
   }
+  const deleteEvent = async () => {
+    try {
+      await axios(`${API_URL}/api/v1/events`, {
+        headers: { Authorization: `Bearer ${getCookie('token')}` },
+        method: 'DELETE',
+        params: {
+          eventId
+        }
+      })
+      window.location.href = '/dashboard'
+      props.deleteEvent(eventId)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <>
       <Layout active='home'>
@@ -87,7 +102,7 @@ const EditEvent = props => {
                 </ul>
               </div>
               <div className='check-action'>
-                <button className='check-action__btnLeft'>
+                <button onClick={deleteEvent} className='check-action__btnLeft'>
                   <p>Eliminar</p>
                 </button>
                 <button className='check-action__btnRight'>
@@ -133,5 +148,8 @@ const mapStateToProps = state => {
     user: state.user
   }
 }
+const mapDispatchToProps = {
+  deleteEvent
+}
 
-export default connect(mapStateToProps, null)(EditEvent)
+export default connect(mapStateToProps, mapDispatchToProps)(EditEvent)

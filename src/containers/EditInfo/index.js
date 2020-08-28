@@ -31,7 +31,6 @@ const EditInfo = props => {
           imageHeader: data.imageHeader,
           imageEvent: data.imageEvent
         }
-        console.log(values)
         setInputValues(values)
       } catch (error) {
         console.log(error)
@@ -59,7 +58,6 @@ const EditInfo = props => {
     const eventData = {
       name: inputValues.name,
       titleHeader: inputValues.titleHeader,
-      organizationName: inputValues.organizationName,
       localTime: inputValues.localTime,
       shortDescription: inputValues.shortDescription,
       description: inputValues.description,
@@ -67,7 +65,7 @@ const EditInfo = props => {
       imageEvent: inputValues.imageEvent
     }
     console.log({
-      body: {
+      data: {
         eventId,
         eventData
       }
@@ -76,7 +74,7 @@ const EditInfo = props => {
       await axios(`${API_URL}/api/v1/events`, {
         headers: { Authorization: `Bearer ${getCookie('token')}` },
         method: 'PUT',
-        body: {
+        data: {
           eventId,
           eventData
         }
@@ -141,6 +139,7 @@ const EditInfo = props => {
                     </label>
                     <select
                       onChange={handleChange}
+                      name='localTime'
                       className='formEdit-field__select'
                       defaultValue={inputValues.localTime || 'DEFAULT'}
                     >

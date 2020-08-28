@@ -30,6 +30,10 @@ const EditSchedule = props => {
     getSchedule()
   }, [eventId])
 
+  const deleteDay = dayId => {
+    const list = daysList.filter(day => day.dayId !== dayId)
+    setDaysList(list)
+  }
   return (
     <>
       <Layout active='home'>
@@ -47,6 +51,7 @@ const EditSchedule = props => {
                     eventId={eventId}
                     dayId={day.dayId}
                     date={day.date}
+                    deleteDay={deleteDay}
                   />
                 ))}
               <Link
