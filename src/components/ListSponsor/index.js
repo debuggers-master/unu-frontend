@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import Layout from '../../components/Layout'
+import Layout from '../Layout'
 import axios from 'axios'
 import getCookie from '../../utils/getCookie'
 import { API_URL } from '../../config'
-import { ItemSponsor } from '../../components/ItemSponsor'
+import { ItemSponsor } from '../ItemSponsor'
 import './styles.scss'
 
 const ListSponsor = props => {

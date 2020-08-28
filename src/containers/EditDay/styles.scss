@@ -1,4 +1,4 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
 .editDay {
   max-height: 100vh;
@@ -10,6 +10,18 @@
     font-size: 36px;
     margin: 0px;
     margin-bottom: $gap-4;
+  }
+  & ul {
+    text-align: center;
+  }
+  &-NewDay {
+    margin-left: 32px;
+    font-size: 18px;
+    font-family: $font-primary;
+    font-weight: 400;
+    color: $color-brand;
+    text-decoration: underline;
+    cursor: pointer;
   }
   &-container {
     h2 {

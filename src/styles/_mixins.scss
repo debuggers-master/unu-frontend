@@ -98,6 +98,9 @@
       border-radius: $gap-1;
       background-color: $color-white;
       height: 35px;
+      padding: 0 $gap-2;
+      color: $color-black;
+      font-family: $font-secondary;
       &:focus {
         border: solid 1px $color-brand;
         padding-left: $gap-2;

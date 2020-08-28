@@ -7,10 +7,10 @@ import './styles.scss'
 const NewEvent = () => {
   return (
     <>
-      <Layout active='home'>
-        <div className='editInfo'>
+      <Layout active='new'>
+        <div className='NewEvent'>
           <h2>Hola! - </h2>
-          <div className='editInfo-container'>
+          <div className='NewEvent-container'>
             <h2>Cra un nuevo evento</h2>
             <form>
               <div className='formEdit-container'>
@@ -33,13 +33,12 @@ const NewEvent = () => {
                     />
                   </div>
                   <div className='formEdit-field'>
-                    <label className='formEdit-field__label' htmlFor='start'>Fecha del día:</label>
+                    <label className='formEdit-field__label' htmlFor='start'>Fecha inicio del evento</label>
                     <input
                       className='formEdit-field__select'
                       type='date'
-                      defaultValue='2020-07-22'
-                      min='2020-01-01'
-                      max='2020-12-31'
+                      min='2020-08-01'
+                      max='2022-12-31'
                     />
                   </div>
                   <div className='formEdit-field'>
@@ -70,7 +69,7 @@ const NewEvent = () => {
                             <p className='typography-OpenSans'>Open Sans</p>
                           </div>
                           <h5>Preview Plantilla 1</h5>
-                          <input type='checkbox' name='myCheckbox' value='1' onclick='selectOnlyThis(this)' />
+                          <input type='checkbox' name='myCheckbox' value='1' />
                         </div>
                         <div className='formEdit-content'>
                           <h2>Plantilla 2</h2>
@@ -86,7 +85,7 @@ const NewEvent = () => {
                             <div className='typography-line' />
                             <p className='typography-Roboto'>Roboto</p>
                           </div>
-                          <Link TO='#'>
+                          <Link to='#'>
                             <h5>Preview Plantilla 2</h5>
                           </Link>
                         </div>
@@ -95,17 +94,17 @@ const NewEvent = () => {
                   </div>
                 </div>
               </div>
-            </form>
-            <div className='check-action'>
-              <Link to='/events/edit/organizationName/eventId'>
-                <button className='check-action__btnLeft'>
-                  <p>Cancelar</p>
+              <div className='check-action'>
+                <Link to='/events/edit/organizationName/eventId'>
+                  <button className='check-action__btnLeft'>
+                    <p>Cancelar</p>
+                  </button>
+                </Link>
+                <button className='check-action__btnRight'>
+                  <p>Guardar</p>
                 </button>
-              </Link>
-              <button className='check-action__btnRight'>
-                <p>Guardar</p>
-              </button>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
       </Layout>

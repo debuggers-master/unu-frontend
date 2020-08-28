@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
 import getCookie from '../../utils/getCookie'
 import { API_URL } from '../../config.js'
@@ -11,15 +12,18 @@ import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 
 const EditEvent = props => {
+  const { eventId } = props.match.params
+
   const [collaboratorList, setCollaboratorsList] = useState([])
   const emptyList = collaboratorList.length > 0
-  const evnMock = {
-    eventId: '717658ca-2755-421d-8d48-9b99e7afc04d',
-    organizationName: 'Plazti',
-    name: 'PlatziConf',
-    shortDescription: 'La mejor conferencia del mundo'
-  }
-  const { eventId, organizationName, name } = props.data || evnMock
+  const isMyEvent = props.user.myEvents
+    .filter(event => event.eventId === eventId)
+    .shift()
+  const isCollaboration = props.user.collaborations
+    .filter(event => event.eventId === eventId)
+    .shift()
+
+  const { organizationName, name } = isMyEvent || isCollaboration
 
   useEffect(() => {
     async function getCollaborators () {
@@ -56,14 +60,16 @@ const EditEvent = props => {
               <div className='editEvent-container-left-edit'>
                 <h2>{name}</h2>
                 <ul>
-                  <Link to={`/dashboard/organizationName/${eventId}/edit/info`}>
+                  <Link
+                    to={`/dashboard/${organizationName}/${eventId}/edit/info`}
+                  >
                     <li>
                       <p>Editar - Información General del evento</p>
                       <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>
                   <Link
-                    to={`/dashboard/organizationName/${eventId}/edit/schedule`}
+                    to={`/dashboard/${organizationName}/${eventId}/edit/schedule`}
                   >
                     <li>
                       <p>Editar - Agenda</p>
@@ -122,11 +128,10 @@ const EditEvent = props => {
   )
 }
 
-export default EditEvent
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
 
-// {
-//       eventId: str,
-//       organizationName: str,
-//       name: str,
-//       shortDescription: str,
-//     }
+export default connect(mapStateToProps, null)(EditEvent)

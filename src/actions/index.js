@@ -18,6 +18,19 @@ export const signError = payload => ({
   payload
 })
 
+export const addCollaboration = payload => ({
+  type: 'ADD_COLLABORATION',
+  payload
+})
+export const addEvent = payload => ({
+  type: 'ADD_EVENT',
+  payload
+})
+export const addOrganization = payload => ({
+  type: 'ADD_ORGANIZATION',
+  payload
+})
+
 export const registerUser = (payload, redirectUrl) => {
   return async dispatch => {
     try {
@@ -53,6 +66,7 @@ export const loginUser = (payload, redirectUrl) => {
       document.cookie = `token=${data.access_token}`
       document.cookie = `userID=${data.user.userId}`
       /*eslint-disable */
+      console.log(data.user)
       sessionStorage.setItem('myData', JSON.stringify(data.user))
       /* eslint-enable */
       window.location.href = redirectUrl

@@ -10,6 +10,7 @@ const reducers = (state, action) => {
         ...state,
         user: action.payload
       }
+
     case 'REDIRECT_TO_URL':
       return {
         ...state,

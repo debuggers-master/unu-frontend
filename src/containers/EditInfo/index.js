@@ -10,7 +10,7 @@ import './styles.scss'
 const FileReader = window.FileReader
 
 const EditInfo = props => {
-  const { eventId } = props.match.params
+  const { eventId, organizationName } = props.match.params
 
   const [inputValues, setInputValues] = useState({})
 
@@ -24,6 +24,7 @@ const EditInfo = props => {
         const values = {
           name: data.name,
           titleHeader: data.titleHeader,
+          organizationName: data.organizationName,
           localTime: data.localTime,
           shortDescription: data.shortDescription,
           description: data.description,
@@ -58,6 +59,7 @@ const EditInfo = props => {
     const eventData = {
       name: inputValues.name,
       titleHeader: inputValues.titleHeader,
+      organizationName: inputValues.organizationName,
       localTime: inputValues.localTime,
       shortDescription: inputValues.shortDescription,
       description: inputValues.description,
@@ -91,7 +93,7 @@ const EditInfo = props => {
     <>
       <Layout active='home'>
         <div className='editInfo'>
-          <h2>Stark Industries</h2>
+          <h2>{organizationName}</h2>
           <div className='editInfo-container'>
             <h2>Editar informacion del evento</h2>
             <form onSubmit={handleSubmit}>
@@ -138,6 +140,7 @@ const EditInfo = props => {
                       Zona horaria del evento
                     </label>
                     <select
+                      onChange={handleChange}
                       className='formEdit-field__select'
                       defaultValue={inputValues.localTime || 'DEFAULT'}
                     >
@@ -233,7 +236,9 @@ const EditInfo = props => {
                 </div>
               </div>
               <div className='check-action'>
-                <Link to='/events/edit/organizationName/eventId'>
+                <Link
+                  to={`/dashboard/${inputValues.organizationName}/${eventId}/edit`}
+                >
                   <button className='check-action__btnLeft'>
                     <p>Cancelar</p>
                   </button>

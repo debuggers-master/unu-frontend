@@ -69,12 +69,16 @@
 .formEdit {
   &-field {
     text-align: start;
+    width: 100%;
   }
   &-container {
     max-height: 70vh;
     display: grid;
     grid-template: 1fr / 1fr 1fr;
     column-gap: $gap-5;
+    &-formRigth {
+      height: fit-content;
+    }
   }
   @include presetsform;
 }
