@@ -1,4 +1,4 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
 .newEvent {
   width: 100%;
@@ -12,7 +12,7 @@
     box-shadow: none;
     &__card {
       @include cardDasboard;
-      height: 292px;
+      height: 300px;
       width: 577px;
       display: flex;
       flex-wrap: wrap;
@@ -44,10 +44,9 @@
       margin: 0;
     }
   }
-}
-
-.check-action {
-  @include checkButtons;
-  justify-content: center;
-  align-items: flex-end;
+  .check-action {
+    @include checkButtons;
+    justify-content: center;
+    align-items: flex-end;
+  }
 }
