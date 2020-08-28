@@ -1,0 +1,51 @@
+@import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+
+@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+
+.overlay {
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #151515a6;
+}
+
+.modal {
+  position: absolute;
+  top: calc(50vh - 180px);
+  right: calc(50vw - 220px);
+  display: grid;
+  max-width: 440px;
+  text-align: center;
+  background-color: $color-white;
+  h2 {
+    font-size: 18px;
+  }
+  &__img {
+    margin: 0 auto;
+    width: 80px;
+    height: 80px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &__container {
+    padding: $gap-4;
+  }
+
+  &__close {
+    position: absolute;
+    top: $gap-4;
+    right: $gap-4;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  &__button {
+    display: flex;
+    justify-content: center;
+  }
+}

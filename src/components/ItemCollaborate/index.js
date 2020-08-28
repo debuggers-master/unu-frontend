@@ -1,9 +1,31 @@
 import React from 'react'
+import axios from 'axios'
+import getCookie from '../../utils/getCookie'
+import { API_URL } from '../../config'
 
 import _trash from '../../assets/images/iconTrash.svg'
 import './styles.scss'
 
-export const ItemCollaborator = ({ firstName, lastName, email }) => {
+export const ItemCollaborator = props => {
+  const { firstName, lastName, email } = props.data
+
+  const deleteCollaborator = async () => {
+    try {
+      await axios(`${API_URL}/api/v1/events/collaborators`, {
+        headers: { Authorization: `Bearer ${getCookie('token')}` },
+        method: 'DELETE',
+        data: {
+          eventId: props.eventId,
+          email
+        }
+      })
+      props.deleteCollaborator(email)
+      console.log('Eliminado exitosamente')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <li>
@@ -18,7 +40,9 @@ export const ItemCollaborator = ({ firstName, lastName, email }) => {
               {email}
             </p>
           </div>
-          <img src={_trash} alt='icono editar' />
+          <div onClick={deleteCollaborator}>
+            <img src={_trash} alt='icono borrar' />
+          </div>
         </div>
       </li>
       <div className='line' />

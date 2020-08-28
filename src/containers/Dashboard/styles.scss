@@ -1,4 +1,4 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
 .dashboard {
   max-height: 100vh;
@@ -9,20 +9,31 @@
     min-height: 85vh;
     gap: 28px;
     grid-template:
-      'topLeft Right' 1fr
-      'bottomLeft Right' 1fr/ 1fr 1fr;
+      "topLeft Right" 1fr
+      "bottomLeft Right" 1fr/ 1fr 1fr;
     &__topLeft {
       grid-area: topLeft;
       display: grid;
       grid-template:
-        'infoOrg newOrg' 1fr
-        'infoOrg newOrg' 1fr/1fr 80px;
+        "title title" 80px
+        "infoOrg newOrg" 1fr
+        "infoOrg newOrg" 1fr/1fr 80px;
       @include cardDasboard;
+      max-height: 41vh;
+      &-title {
+        grid-area: title;
+      }
       &-infoOrg {
         grid-area: infoOrg;
+        text-align: center;
+        padding: 20px;
+        max-height: 25vh;
+        overflow: scroll;
         & p {
           color: $color-primary;
           font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 37px;
         }
       }
       &-NewOrg {
@@ -45,10 +56,12 @@
     }
     &__Right {
       grid-area: Right;
+      max-height: 85vh;
       @include cardDasboard;
       &-container {
         max-height: 87%;
         overflow: scroll;
+        padding: 0px $gap-4;
       }
     }
     &__bottomLeft {

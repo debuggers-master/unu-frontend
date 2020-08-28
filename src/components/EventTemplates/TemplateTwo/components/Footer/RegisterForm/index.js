@@ -16,6 +16,7 @@ const LoginForm = props => {
       password: inputValues.password
     }
     props.loginUser(form, '/dashboard')
+    props.openModal()
   }
 
   const history = useHistory()

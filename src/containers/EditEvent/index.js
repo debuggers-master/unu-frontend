@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import getCookie from '../../utils/getCookie'
+import { API_URL } from '../../config.js'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
 
@@ -8,15 +11,41 @@ import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 
 const EditEvent = props => {
+  const [collaboratorList, setCollaboratorsList] = useState([])
+  const emptyList = collaboratorList.length > 0
   const evnMock = {
-    organizationId: '0899',
-    eventId: 1234,
+    eventId: '717658ca-2755-421d-8d48-9b99e7afc04d',
     organizationName: 'Plazti',
     name: 'PlatziConf',
     shortDescription: 'La mejor conferencia del mundo'
   }
-  const { organizationId, eventId, organizationName, name } = props.data || evnMock
+  const { eventId, organizationName, name } = props.data || evnMock
 
+  useEffect(() => {
+    async function getCollaborators () {
+      try {
+        const { data } = await axios(`${API_URL}/api/v1/events`, {
+          headers: { Authorization: `Bearer ${getCookie('token')}` },
+          params: {
+            eventId,
+            filters: 'collaborators'
+          }
+        })
+        console.log(data)
+        setCollaboratorsList(data.collaborators)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getCollaborators()
+  }, [eventId, setCollaboratorsList])
+
+  const deleteItemCollaborator = email => {
+    const listCollaborator = collaboratorList.filter(
+      collaborator => collaborator.email !== email
+    )
+    setCollaboratorsList(listCollaborator)
+  }
   return (
     <>
       <Layout active='home'>
@@ -27,21 +56,23 @@ const EditEvent = props => {
               <div className='editEvent-container-left-edit'>
                 <h2>{name}</h2>
                 <ul>
-                  <Link to={`/dashboard/${organizationId}/${eventId}/edit/info`}>
+                  <Link to={`/dashboard/${organizationName}/${eventId}/edit/info`}>
                     <li>
                       <p>Editar - Información General del evento</p>
                       <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>
                   <Link
-                    to={`/dashboard/${organizationId}/${eventId}/edit/schedule`}
+                    to={`/dashboard/${organizationName}/${eventId}/edit/schedule`}
                   >
                     <li>
                       <p>Editar - Agenda</p>
                       <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>
-                  <Link to={`/dashboard/${organizationId}/${eventId}/edit/sponsor/edit`}>
+                  <Link
+                    to={`/dashboard/organizationName/${eventId}/edit/sponsor/edit`}
+                  >
                     <li>
                       <p>Editar - Asociados</p>
                       <img src={_edit} alt='icono editar' />
@@ -62,21 +93,22 @@ const EditEvent = props => {
               <h2>Colaboradores</h2>
               <div className='editEvent-container-right-collaborates'>
                 <ul>
-                  {/* devendria un .map con los colaboradores que maneje el evento  */}
-                  <ItemCollaborator
-                    firstName='Adriana Fernanda'
-                    lastName='Herrera Lisboa'
-                    email='julioh12@gmail.com'
-                  />
-                  <ItemCollaborator
-                    firstName='Julio Armando'
-                    lastName='Herrera Lisboa'
-                    email='julioh12@gmail.com'
-                  />
+                  {emptyList ? (
+                    collaboratorList.map((collaborator, index) => (
+                      <ItemCollaborator
+                        data={collaborator}
+                        eventId={eventId}
+                        deleteCollaborator={deleteItemCollaborator}
+                        key={index}
+                      />
+                    ))
+                  ) : (
+                    <div>Boton de agregar un colaborador</div>
+                  )}
                 </ul>
               </div>
               <div className='editEvent-container-right-btn'>
-                <img src={_plus} alt='boton crear organización' />
+                <img src={_plus} alt='boton añadir colaborador' />
               </div>
             </div>
           </div>

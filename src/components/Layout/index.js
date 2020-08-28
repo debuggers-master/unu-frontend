@@ -20,9 +20,11 @@ const Layout = ({ children, active }) => {
       return 'disabled'
     }
   }
+
   function handleLogout () {
     window.sessionStorage.removeItem('myData')
   }
+
   return (
     <>
       <div className='layout'>
@@ -48,9 +50,10 @@ const Layout = ({ children, active }) => {
               </div>
             </div>
             <div className='layout-menu__logout'>
-              <a href='/' onClick={handleLogout()}>
+              <button>
                 <img src={_logout} alt='Logotipo' />
-              </a>
+              </button>
+              <a href='/' onClick={handleLogout()} />
             </div>
           </div>
         </div>

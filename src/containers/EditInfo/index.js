@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import getCookie from '../../utils/getCookie'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
 import { API_URL } from '../../config.js'
@@ -16,19 +17,22 @@ const EditInfo = props => {
   useEffect(() => {
     async function getEventInfo () {
       try {
-        const { data } = await axios(`${API_URL}/api/v1`, {
-          query: {
-            eventId,
-            filters: [
-              'name',
-              'shortDescription',
-              'description',
-              'imageHeader',
-              'imageEvent'
-            ]
-          }
+        const { data } = await axios(`${API_URL}/api/v1/events`, {
+          headers: { Authorization: `Bearer ${getCookie('token')}` },
+          params: { eventId }
         })
-        setInputValues(data)
+        const values = {
+          name: data.name,
+          titleHeader: data.titleHeader,
+          organizationName: data.organizationName,
+          localTime: data.localTime,
+          shortDescription: data.shortDescription,
+          description: data.description,
+          imageHeader: data.imageHeader,
+          imageEvent: data.imageEvent
+        }
+        console.log(values)
+        setInputValues(values)
       } catch (error) {
         console.log(error)
       }
@@ -54,19 +58,30 @@ const EditInfo = props => {
     evn.preventDefault()
     const eventData = {
       name: inputValues.name,
+      titleHeader: inputValues.titleHeader,
+      organizationName: inputValues.organizationName,
+      localTime: inputValues.localTime,
       shortDescription: inputValues.shortDescription,
       description: inputValues.description,
       imageHeader: inputValues.imageHeader,
       imageEvent: inputValues.imageEvent
     }
+    console.log({
+      body: {
+        eventId,
+        eventData
+      }
+    })
     try {
-      await axios('API_URL/api/v1/', {
-        method: 'UPDATE',
+      await axios(`${API_URL}/api/v1/events`, {
+        headers: { Authorization: `Bearer ${getCookie('token')}` },
+        method: 'PUT',
         body: {
           eventId,
           eventData
         }
       })
+      console.log('Modificados exitosamente')
     } catch (error) {
       console.log('ups parece que hubo un error')
     }
@@ -80,7 +95,7 @@ const EditInfo = props => {
         <div className='editInfo'>
           <h2>Stark Industries</h2>
           <div className='editInfo-container'>
-            <h2>Editar información General - Presentación Iron Man</h2>
+            <h2>Editar informacion del evento</h2>
             <form onSubmit={handleSubmit}>
               <div className='formEdit-container'>
                 <div className='formEdit-container-formLeft'>
@@ -90,6 +105,7 @@ const EditInfo = props => {
                     </label>
                     <input
                       onChange={handleChange}
+                      value={inputValues.name || ''}
                       type='text'
                       name='name'
                       className='formEdit-field__input'
@@ -102,6 +118,7 @@ const EditInfo = props => {
                     <textarea
                       onChange={handleChange}
                       type='text'
+                      value={inputValues.shortDescription || ''}
                       className='formEdit-field__textarea'
                       name='shortDescription'
                     />
@@ -112,19 +129,22 @@ const EditInfo = props => {
                     </label>
                     <textarea
                       onChange={handleChange}
+                      value={inputValues.description || ''}
                       type='text'
                       className='formEdit-field__textarea2'
                       name='description'
                     />
                   </div>
                   <div className='formEdit-field'>
-                    <label className='formEdit-field__label'>Zona horaria del evento</label>
+                    <label className='formEdit-field__label'>
+                      Zona horaria del evento
+                    </label>
                     <select
                       className='formEdit-field__select'
-                      defaultValue='DEFAULT'
+                      defaultValue={inputValues.localTime || 'DEFAULT'}
                     >
                       <option value='DEFAULT' disabled>
-                        Seleccione UTC
+                        {inputValues.localTime || 'Seleccione UTC'}
                       </option>
                       <option value='UTC-11'>UTC-11</option>
                       <option value='UTC-10'>UTC-10</option>
@@ -157,9 +177,13 @@ const EditInfo = props => {
                 </div>
                 <div className='formEdit-container-formRigth'>
                   <div className='formEdit-field'>
-                    <label className='formEdit-field__label'>Título principal</label>
+                    <label className='formEdit-field__label'>
+                      Título principal
+                    </label>
                     <input
                       onChange={handleChange}
+                      name='titleHeader'
+                      value={inputValues.titleHeader || ''}
                       type='text'
                       className='formEdit-field__input'
                     />
@@ -211,7 +235,7 @@ const EditInfo = props => {
                 </div>
               </div>
               <div className='check-action'>
-                <Link to='/events/edit/organizationName/eventId'>
+                <Link to={`/dashboard/${inputValues.organizationName}/${eventId}/edit`}>
                   <button className='check-action__btnLeft'>
                     <p>Cancelar</p>
                   </button>

@@ -9,7 +9,7 @@ import Footer from './components/Footer'
 import styles from './styles.module.scss'
 
 const TemplateTwo = ({ templateData }) => {
-  const { speakers, associates } = templateData
+  const { speakers, associates, url } = templateData
   const banner = useRef(null)
   const conferences = useRef(null)
   const register = useRef(null)
@@ -61,7 +61,7 @@ const TemplateTwo = ({ templateData }) => {
         <Associates data={associates} />
       </section>
       <div ref={register}>
-        <Footer />
+        <Footer data={url} />
       </div>
     </div>
   )
