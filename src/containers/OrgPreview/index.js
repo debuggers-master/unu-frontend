@@ -51,6 +51,7 @@ const OrgPreview = () => {
                 <li>Crea los eventos que quieras, no hay límites!</li>
                 <li>Pon descripciones llamativas para tu público</li>
                 <li>Imagina un tweet llamativo y ponlo como descripción corta</li>
+                <li>Podrás comunicarte con tus invitados cuando edites el evento</li>
               </ul>
             </div>
           </div>

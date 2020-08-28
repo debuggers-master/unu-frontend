@@ -1,4 +1,4 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
 .OrgPreview {
   max-height: 100vh;
@@ -9,8 +9,8 @@
     min-height: 85vh;
     gap: 28px;
     grid-template:
-      'topLeft Right' 1fr
-      'bottomLeft Right' 1fr/ 1fr 1fr;
+      "topLeft Right" 1fr
+      "bottomLeft Right" 1fr/ 1fr 1fr;
     &__topLeft {
       grid-area: topLeft;
       @include cardDasboard;
@@ -33,10 +33,12 @@
     }
     &__Right {
       grid-area: Right;
+      max-height: 85vh;
       @include cardDasboard;
       &-container {
         max-height: 87%;
         overflow: scroll;
+        padding: 0px $gap-4;
       }
     }
     &__bottomLeft {
