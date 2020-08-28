@@ -44,11 +44,22 @@ const Dashboard = ({ user }) => {
               <h2>Editar - Eventos</h2>
               <div className='dashboard-container__Right-container'>
                 {emptyEvents ? (
-                  user.myEvents.map((item) => (
-                    <Link to={`/dashboard/${item.organizationName}/${item.eventId}/edit`} key={item.eventId}>
+                  (user.myEvents.map(item => (
+                    <Link
+                      to={`/dashboard/${item.organizationName}/${item.eventId}/edit`}
+                      key={item.eventId}
+                    >
+                      <CardEvento isMyEvent {...item} />
+                    </Link>
+                  ))),
+                  (user.collaborations.map(item => (
+                    <Link
+                      to={`/dashboard/${item.organizationName}/${item.eventId}/edit`}
+                      key={item.eventId}
+                    >
                       <CardEvento {...item} />
                     </Link>
-                  ))
+                  )))
                 ) : (
                   <h4>Aun no tienes eventos 👀</h4>
                 )}
@@ -60,8 +71,12 @@ const Dashboard = ({ user }) => {
                 <li>Elije tu equipo y hazlos colaboradores del evento</li>
                 <li>Crea los eventos que quieras, no hay límites!</li>
                 <li>Pon descripciones llamativas para tu público</li>
-                <li>Imagina un tweet llamativo y ponlo como descripción corta</li>
-                <li>Podrás comunicarte con tus invitados cuando edites el evento</li>
+                <li>
+                  Imagina un tweet llamativo y ponlo como descripción corta
+                </li>
+                <li>
+                  Podrás comunicarte con tus invitados cuando edites el evento
+                </li>
               </ul>
             </div>
           </div>
@@ -70,7 +85,7 @@ const Dashboard = ({ user }) => {
     </>
   )
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     user: state.user
   }

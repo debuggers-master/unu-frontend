@@ -16,6 +16,7 @@ import EditDay from './containers/EditDay'
 import EditDate from './containers/EditDate'
 import ListSponsor from './components/ListSponsor'
 import EditSponsor from './containers/EditSponsor'
+import AddCollaborator from './containers/AddCollaborator'
 import EditTalk from './containers/EditTalk'
 
 function App ({ isAuth }) {
@@ -26,18 +27,78 @@ function App ({ isAuth }) {
         <Signup exact path='/signup' />
         <Login exact path='/login' />
         <Route exact path='/dashboard' component={isAuth ? Dashboard : Login} />
-        <Route exact path='/dashboard/NewEvent' component={isAuth ? NewEvent : Login} />
-        <Route exact path='/dashboard/NewOrg' component={isAuth ? NewOrg : Login} />
-        <Route exact path='/dashboard/:organizationId' component={isAuth ? OrgPreview : Login} />
-        <Route exact path='/dashboard/:organizationName/:eventId/edit' component={isAuth ? EditEvent : Login} />
-        <Route exact path='/dashboard/:organizationName/:eventId/edit/info' component={isAuth ? EditInfo : Login} />
-        <Route exact path='/dashboard/:organizationName/:eventId/edit/schedule' component={isAuth ? EditSchedule : Login} />
-        <Route exact path='/dashboard/:organizationName/:eventId/edit/schedule/:dayId' component={isAuth ? EditDay : Login} />
-        <Route exact path='/dashboard/:organizationName/:eventId/edit/schedule/:dayId/date' component={isAuth ? EditDate : Login} />
-        <Route exact path='/dashboard/:organizationName/:eventId/edit/schedule/:dayId/new' component={isAuth ? EditTalk : Login} />
-        <Route exact path='/dashboard/:organizationName/:eventId/edit/schedule/:dayId/:conferenceId' component={isAuth ? EditTalk : Login} />
-        <Route exact path='/dashboard/:organizationName/:eventId/edit/sponsor/edit' component={isAuth ? ListSponsor : Login} />
-        <Route exact path='/dashboard/:organizationName/:eventId/edit/sponsor/edit/:associatedId' component={isAuth ? EditSponsor : Login} />
+
+        <Route
+          exact
+          path='/dashboard/NewEvent'
+          component={isAuth ? NewEvent : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/NewOrg'
+          component={isAuth ? NewOrg : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/:organizationName'
+          component={isAuth ? OrgPreview : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/:organizationName/:eventId/edit'
+          component={isAuth ? EditEvent : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/:organizationName/:eventId/edit/info'
+          component={isAuth ? EditInfo : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/:organizationName/:eventId/edit/schedule'
+          component={isAuth ? EditSchedule : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/:organizationName/:eventId/edit/schedule/:dayId'
+          component={isAuth ? EditDay : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/:organizationName/:eventId/edit/scheduleDay'
+          component={isAuth ? EditDate : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/:organizationName/:eventId/edit/schedule/:dayId/new'
+          component={isAuth ? EditTalk : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/:organizationName/:eventId/edit/schedule/:dayId/:conferenceId'
+          component={isAuth ? EditTalk : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/:organizationName/:eventId/edit/sponsor/new'
+          component={isAuth ? EditSponsor : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/organizationName/:eventId/addCollaborator'
+          component={isAuth ? AddCollaborator : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/:organizationName/:eventId/edit/sponsor/edit'
+          component={isAuth ? ListSponsor : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/:organizationName/:eventId/edit/sponsor/edit/:associatedId'
+          component={isAuth ? EditSponsor : Login}
+        />
+
         <EventsPreview exact path='/events' />
         <PublicEvents exact path='/:corp/:event' />
       </Switch>
