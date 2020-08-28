@@ -103,13 +103,17 @@ const EditEvent = props => {
                       />
                     ))
                   ) : (
-                    <div>Boton de agregar un colaborador</div>
+                    <div>Aun no has añadido colaboradores</div>
                   )}
                 </ul>
               </div>
-              <div className='editEvent-container-right-btn'>
-                <img src={_plus} alt='boton añadir colaborador' />
-              </div>
+              <Link
+                to={`/dashboard/organizationName/${eventId}/addCollaborator`}
+              >
+                <div className='editEvent-container-right-btn'>
+                  <img src={_plus} alt='icono editar' />
+                </div>
+              </Link>
             </div>
           </div>
         </div>
