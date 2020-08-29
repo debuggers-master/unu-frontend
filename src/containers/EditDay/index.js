@@ -9,8 +9,9 @@ import './styles.scss'
 
 const EditDay = props => {
   const { organizationName, eventId, dayId } = props.match.params
-  const [dayInfo, setDayInfo] = useState({})
-  const isEmpty = !dayInfo.conferences > 0
+
+  const [conferencesList, setConferencesList] = useState([])
+  const isEmpty = conferencesList.length < 1
   useEffect(() => {
     async function getTalks () {
       try {
@@ -22,13 +23,20 @@ const EditDay = props => {
         })
         const dayData = data.agenda.filter(day => day.dayId === dayId).shift()
 
-        setDayInfo(dayData)
+        setConferencesList(dayData.conferences)
       } catch (error) {
         console.log(error)
       }
     }
     getTalks()
   }, [eventId, dayId])
+
+  const deleteConference = conferenceId => {
+    const listConferences = conferencesList.filter(
+      conference => conference.conferenceId !== conferenceId
+    )
+    setConferencesList(listConferences)
+  }
   return (
     <>
       <Layout active='home'>
@@ -38,7 +46,7 @@ const EditDay = props => {
             <h2>Editar Agenda</h2>
             <ul>
               {!isEmpty &&
-                dayInfo.conferences.map(day => {
+                conferencesList.map(day => {
                   return (
                     <>
                       <ItemTalk
@@ -47,6 +55,7 @@ const EditDay = props => {
                         dayId={dayId}
                         conferenceId={day.conferenceId}
                         name={day.name}
+                        deleteConference={deleteConference}
                       />
                     </>
                   )

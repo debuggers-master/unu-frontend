@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import getCookie from '../../utils/getCookie'
 import { API_URL } from '../../config'
-import './styles.scss'
+import ModalAction from '../../components/ModalAction'
+import ModalState from '../../components/ModalState'
 
+import './styles.scss'
 export const ItemDay = ({
   dayIndex,
   organizationName,
@@ -13,6 +15,9 @@ export const ItemDay = ({
   date,
   deleteDay
 }) => {
+  const [openPrompt, setOpenPrompt] = useState(false)
+  const [status, setStatus] = useState()
+
   const localDate = new Date(date).toLocaleString('es-MX', {
     days: 'numeric',
     hours: 'numeric',
@@ -32,8 +37,11 @@ export const ItemDay = ({
       console.log('Eliminado exitosamente')
     } catch (error) {
       console.log(error)
+      setStatus({ error: 'Ups parece que hubo un error' })
     }
   }
+  const showPrompt = () => setOpenPrompt(true)
+  const closePrompt = () => setOpenPrompt(false)
   return (
     <>
       <li>
@@ -53,12 +61,32 @@ export const ItemDay = ({
             </Link>
           </div>
           <div className='itemDay-day__Actions'>
-            <button onClick={handleDelete}>
+            <button onClick={showPrompt}>
               <p>Eliminar</p>
             </button>
           </div>
         </div>
       </li>
+      <ModalAction
+        isOpen={openPrompt}
+        nameAction='Eliminar Dia'
+        handleAction={handleDelete}
+        handleCloseModal={closePrompt}
+      />
+      {status && (
+        <ModalState
+          isOpen
+          handleAction={() => {
+            closePrompt()
+            setStatus(null)
+          }}
+          nameAction='Entendido'
+          messageModal={
+            status.error ? status.error : 'Modificada exitosamente!'
+          }
+          stateModal={status.error ? 'check' : 'cross'}
+        />
+      )}
     </>
   )
 }

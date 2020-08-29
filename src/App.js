@@ -91,7 +91,7 @@ function App ({ isAuth }) {
         />
         <Route
           exact
-          path='/dashboard/organizationName/:eventId/addCollaborator'
+          path='/dashboard/:organizationName/:eventId/addCollaborator'
           component={isAuth ? AddCollaborator : Login}
         />
         <Route
@@ -111,7 +111,7 @@ function App ({ isAuth }) {
         />
 
         <EventsPreview exact path='/events' />
-        <PublicEvents exact path='/:corp/:event' />
+        <PublicEvents exact path='/:organizationName/:url' />
       </Switch>
     </BrowserRouter>
   )

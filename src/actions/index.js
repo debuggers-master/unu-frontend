@@ -30,8 +30,8 @@ export const deleteEvent = payload => ({
   type: 'DELETE_EVENT',
   payload
 })
-export const addOrganization = payload => ({
-  type: 'ADD_ORGANIZATION',
+export const createOrganization = payload => ({
+  type: 'CREATE_ORGANIZATION',
   payload
 })
 export const deleteOrganization = payload => ({

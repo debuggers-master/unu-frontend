@@ -8,7 +8,7 @@ import Layout from '../../components/Layout'
 import _plus from '../..//assets/images/iconPlus.svg'
 const FileReader = window.FileReader
 const EditSponsor = props => {
-  const { eventId, sponsorId } = props.match.params || {}
+  const { eventId, associatedId } = props.match.params || {}
 
   const [inputValues, setInputValues] = useState({})
 
@@ -21,23 +21,22 @@ const EditSponsor = props => {
             headers: { Authorization: `Bearer ${getCookie('token')}` }
           }
         )
-
         const sponsor = data.associates
-          .filter(associate => associate.associatedId === sponsorId)
+          .filter(associate => associate.associatedId === associatedId)
           .shift()
         console.log('sponsor info', sponsor)
-        sponsorId && setInputValues(sponsor)
+        associatedId && setInputValues(sponsor)
       } catch (error) {
         console.log(error)
       }
     }
     getAssociates()
-  }, [eventId, sponsorId])
+  }, [eventId, associatedId])
 
   const handleSubmit = async evn => {
     evn.preventDefault()
     const associatedData = {
-      associatedId: sponsorId,
+      associatedId: associatedId,
       name: inputValues.name,
       url: inputValues.url,
       logo: inputValues.logo
@@ -51,7 +50,7 @@ const EditSponsor = props => {
     try {
       await axios(`${API_URL}/api/v1/events/associates`, {
         headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: sponsorId ? 'PUT' : 'POST',
+        method: associatedId ? 'PUT' : 'POST',
         data: {
           eventId,
           associatedData

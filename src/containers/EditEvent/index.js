@@ -7,6 +7,9 @@ import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
 import { deleteEvent } from '../../actions'
 import { ItemCollaborator } from '../../components/ItemCollaborate'
+import ModalAction from '../../components/ModalAction'
+import ModalState from '../../components/ModalState'
+
 import _edit from '../../assets/images/iconEdit.svg'
 import _plus from '../..//assets/images/iconPlus.svg'
 import _email from '../..//assets/images/iconEmail.svg'
@@ -14,17 +17,19 @@ import './styles.scss'
 
 const EditEvent = props => {
   const { eventId } = props.match.params
-
-  const [collaboratorList, setCollaboratorsList] = useState([])
-  const emptyList = collaboratorList.length > 0
   const isMyEvent = props.user.myEvents
     .filter(event => event.eventId === eventId)
     .shift()
   const isCollaboration = props.user.collaborations
     .filter(event => event.eventId === eventId)
     .shift()
-
   const { organizationName, name } = isMyEvent || isCollaboration
+
+  const [openPrompt, setOpenPrompt] = useState(false)
+  const [status, setStatus] = useState()
+  const [collaboratorList, setCollaboratorsList] = useState([])
+
+  const emptyList = collaboratorList.length > 0
 
   useEffect(() => {
     async function getCollaborators () {
@@ -60,12 +65,17 @@ const EditEvent = props => {
           eventId
         }
       })
-      window.location.href = '/dashboard'
+      props.history.push('/dashboard')
       props.deleteEvent(eventId)
     } catch (error) {
       console.log(error)
+      setStatus({ error: 'Ups parece que hubo un error' })
     }
   }
+
+  const showPrompt = () => setOpenPrompt(true)
+  const closePrompt = () => setOpenPrompt(false)
+
   return (
     <>
       <Layout active='home'>
@@ -111,7 +121,7 @@ const EditEvent = props => {
                 </ul>
               </div>
               <div className='check-action'>
-                <button onClick={deleteEvent} className='check-action__btnLeft'>
+                <button onClick={showPrompt} className='check-action__btnLeft'>
                   <p>Eliminar</p>
                 </button>
                 <button className='check-action__btnRight'>
@@ -133,7 +143,9 @@ const EditEvent = props => {
                       />
                     ))
                   ) : (
-                    <div className='editEvent-container__right-empty'>No tienes colaboradores para este evento</div>
+                    <div className='editEvent-container__right-empty'>
+                      No tienes colaboradores para este evento
+                    </div>
                   )}
                 </ul>
               </div>
@@ -148,6 +160,24 @@ const EditEvent = props => {
           </div>
         </div>
       </Layout>
+      <ModalAction
+        isOpen={openPrompt}
+        nameAction='Eliminar Evento'
+        handleAction={deleteEvent}
+        handleCloseModal={closePrompt}
+      />
+      {status && (
+        <ModalState
+          isOpen
+          handleAction={() => {
+            closePrompt()
+            setStatus(null)
+          }}
+          nameAction='Entendido'
+          messageModal={status.error}
+          stateModal='check'
+        />
+      )}
     </>
   )
 }

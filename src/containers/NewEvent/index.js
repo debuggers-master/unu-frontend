@@ -5,6 +5,7 @@ import getCookie from '../../utils/getCookie'
 import { API_URL } from '../../config.js'
 import { createEvent } from '../../actions'
 import Layout from '../../components/Layout'
+import ModalState from '../../components/ModalState'
 import { Link } from 'react-router-dom'
 import _template1 from '../../assets/images/PreviewPlantilla1.png'
 import _template2 from '../../assets/images/PreviewPlantilla2.png'
@@ -14,6 +15,7 @@ import './styles.scss'
 
 const NewEvent = props => {
   const [inputValues, setInputValues] = useState({})
+  const [error, setError] = useState(false)
   const organizationName = 'Starlink'
   const handleSubmit = async evn => {
     evn.preventDefault()
@@ -36,8 +38,12 @@ const NewEvent = props => {
         name: data.name,
         organizationName: data.organizationName
       })
-      window.location.href = `/dashboard/${organizationName}/${res.data.eventId}/edit/info`
+      props.history.push(
+        `/dashboard/${organizationName}/${res.data.eventId}/edit/info`
+      )
+      setError(false)
     } catch (error) {
+      setError(true)
       console.log(error)
     }
   }
@@ -216,6 +222,13 @@ const NewEvent = props => {
           </div>
         </div>
       </Layout>
+      <ModalState
+        isOpen={error}
+        handleAction={() => props.history.goBack()}
+        nameAction='Entendido'
+        messageModal='Oh no hubo un problema'
+        stateModal={error ? 'check' : 'cross'}
+      />
     </>
   )
 }

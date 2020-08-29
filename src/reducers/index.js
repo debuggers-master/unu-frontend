@@ -30,6 +30,14 @@ const reducers = (state, action) => {
           )
         }
       }
+    case 'CREATE_ORGANIZATION':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          organizations: [...state.user.organizations, action.payload]
+        }
+      }
     case 'CREATE_EVENT':
       return {
         ...state,

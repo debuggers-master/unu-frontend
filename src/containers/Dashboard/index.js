@@ -9,7 +9,10 @@ import _plus from '../../assets/images/iconPlus.svg'
 import './styles.scss'
 
 const Dashboard = ({ user }) => {
-  const emptyEvents = user.myEvents.length > 0
+  const isEmptyCollaborators = user.collaborations.length > 0
+  const isEmptyEvents = user.myEvents.length > 0
+  const isEmpty = isEmptyCollaborators === isEmptyEvents
+  console.log(user.collaborations)
   const emptyOrganization = user.organizations.length > 0
   return (
     <>
@@ -23,13 +26,30 @@ const Dashboard = ({ user }) => {
               </div>
               <div className='dashboard-container__topLeft-infoOrg'>
                 {emptyOrganization ? (
-                  user.organizations.map((item) => (
-                    <Link to={`/dashboard/${item.organizationName}`} key={item.organizationId}>
+                  user.organizations.map(item => (
+                    <Link
+                      to={{
+                        pathname: `/dashboard/${item.organizationName}`,
+                        state: {
+                          organizationId: item.organizationId,
+                          events: user.myEvents.filter(
+                            ({ organizationName }) =>
+                              organizationName === item.organizationName
+                          )
+                        }
+                      }}
+                      key={item.organizationId}
+                    >
                       <p>{item.organizationName}</p>
                     </Link>
                   ))
                 ) : (
-                  <p>No tienes ninguna organización <span role='img' aria-label='hojas'>🍃</span></p>
+                  <p>
+                    No tienes ninguna organización{' '}
+                    <span role='img' aria-label='hojas'>
+                      🍃
+                    </span>
+                  </p>
                 )}
               </div>
               <div className='dashboard-container__topLeft-NewOrg'>
@@ -43,25 +63,29 @@ const Dashboard = ({ user }) => {
             <div className='dashboard-container__Right'>
               <h2>Editar - Eventos</h2>
               <div className='dashboard-container__Right-container'>
-                {emptyEvents ? (
-                  user.myEvents.map(item => (
-                    <Link
-                      to={`/dashboard/${item.organizationName}/${item.eventId}/edit`}
-                      key={item.eventId}
-                    >
-                      <CardEvento isMyEvent {...item} />
-                    </Link>
-                  ))) || (
-                  user.collaborations.map(item => (
-                    <Link
-                      to={`/dashboard/${item.organizationName}/${item.eventId}/edit`}
-                      key={item.eventName}
-                    >
-                      <CardEvento {...item} />
-                    </Link>
-                  ))
-                ) : (
-                  <h4>Aun no tienes eventos <span role='img' aria-label='eyes'>👀</span></h4>
+                {user.myEvents.map((item, index) => (
+                  <Link
+                    to={`/dashboard/${item.organizationName}/${item.eventId}/edit`}
+                    key={index}
+                  >
+                    <CardEvento key={item.eventId} isMyEvent {...item} />
+                  </Link>
+                ))}
+                {user.collaborations.map((item, index) => (
+                  <Link
+                    to={`/dashboard/${item.organizationName}/${item.eventId}/edit`}
+                    key={index}
+                  >
+                    <CardEvento key={item.eventId} {...item} />
+                  </Link>
+                ))}
+                {isEmpty && (
+                  <h4>
+                    Aun no tienes eventos{' '}
+                    <span role='img' aria-label='eyes'>
+                      👀
+                    </span>
+                  </h4>
                 )}
               </div>
             </div>

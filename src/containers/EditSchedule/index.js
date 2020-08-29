@@ -11,6 +11,7 @@ import './styles.scss'
 const EditSchedule = props => {
   const { eventId, organizationName } = props.match.params
   const [daysList, setDaysList] = useState([])
+
   const isEmpty = daysList.length > 0
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const EditSchedule = props => {
     const list = daysList.filter(day => day.dayId !== dayId)
     setDaysList(list)
   }
+
   return (
     <>
       <Layout active='home'>

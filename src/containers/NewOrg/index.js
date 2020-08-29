@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import Layout from '../../components/Layout'
-import { Link } from 'react-router-dom'
-import { API_URL } from '../../config.js'
-import getCookie from '../../utils/getCookie'
 import ModalState from '../../components/ModalState'
-
+import getCookie from '../../utils/getCookie'
+import { API_URL } from '../../config.js'
+import { createOrganization } from '../../actions'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 
-const NewOrg = ({ user }) => {
+const NewOrg = ({ user, createOrganization }) => {
   const userId = user.userId
   const [inputValues, setInputValues] = useState({})
-
+  const [showModal, setShowModal] = useState(false)
+  const [error, setError] = useState(false)
   const handleChange = evn => {
     const fieldName = evn.target.name
     const fieldValue = evn.target.value
@@ -33,7 +34,7 @@ const NewOrg = ({ user }) => {
       }
     })
     try {
-      await axios(`${API_URL}/api/v1/organizations`, {
+      const res = await axios(`${API_URL}/api/v1/organizations`, {
         headers: { Authorization: `Bearer ${getCookie('token')}` },
         method: 'POST',
         data: {
@@ -41,12 +42,18 @@ const NewOrg = ({ user }) => {
           organizationData
         }
       })
-      console.log('Enviado exitosamente')
+      createOrganization({
+        organizationName: organizationData.organizationName,
+        organizationId: res.data.organizationId
+      })
+      openModal()
     } catch (error) {
       console.log(error)
+      setError(true)
+      openModal()
     }
   }
-  const [showModal, setShowModal] = useState(false)
+
   const openModal = () => {
     setShowModal(true)
   }
@@ -109,15 +116,19 @@ const NewOrg = ({ user }) => {
                       <p>Cancelar</p>
                     </button>
                   </Link>
-                  <button className='check-action__btnRight' onClick={openModal}>
+                  <button className='check-action__btnRight'>
                     <p>Crear</p>
                   </button>
                   <ModalState
                     isOpen={showModal}
                     handleAction={GoBack}
                     nameAction='Entendido'
-                    messageModal={Error ? '!Oh, no¡ Hubo un problema' : 'Ha sido creada con exito!'}
-                    stateModal={Error ? 'check' : 'cross'}
+                    messageModal={
+                      error
+                        ? '¡Oh, no! Hubo un problema'
+                        : 'Ha sido creada con exito!'
+                    }
+                    stateModal={error ? 'check' : 'cross'}
                   />
                 </div>
               </form>
@@ -133,5 +144,8 @@ const mapStateToProps = state => {
     user: state.user
   }
 }
+const mapDispatchToProps = {
+  createOrganization
+}
 
-export default connect(mapStateToProps, null)(NewOrg)
+export default connect(mapStateToProps, mapDispatchToProps)(NewOrg)
