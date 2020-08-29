@@ -1,0 +1,30 @@
+@import "../../styles/base";
+
+.ModalPreview {
+  z-index: 10;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0000001c;
+  top: 0;
+  h4 {
+    margin-top: 0;
+    font-size: 24px;
+  }
+  &-container {
+    @include cardDasboard;
+    max-width: 86%;
+    max-height: 86%;
+    text-align: center;
+    & img {
+      max-height: 90%;
+    }
+  }
+  .check-action {
+    @include checkButtons;
+    justify-content: center;
+  }
+}

@@ -6,6 +6,9 @@ import { API_URL } from '../../config.js'
 import { createEvent } from '../../actions'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
+import _template1 from '../../assets/images/PreviewPlantilla1.png'
+import _template2 from '../../assets/images/PreviewPlantilla2.png'
+import ModalPreview from '../../components/ModalPreview'
 
 import './styles.scss'
 
@@ -49,6 +52,20 @@ const NewEvent = props => {
     const fieldValue = evn.currentTarget.value
     console.log(fieldName, fieldValue)
     setInputValues({ ...inputValues, [fieldName]: fieldValue })
+  }
+  const [showModal, setShowModal] = useState(false)
+  const openModal = () => {
+    setShowModal(true)
+  }
+  const closeModal = () => {
+    setShowModal(false)
+  }
+  const [showModalDos, setShowModalDos] = useState(false)
+  const openModalDos = () => {
+    setShowModalDos(true)
+  }
+  const closeModalDos = () => {
+    setShowModalDos(false)
   }
   return (
     <>
@@ -118,7 +135,7 @@ const NewEvent = props => {
                     </label>
                     <div className='formEdit-field__fileDos'>
                       <div className='formEdit-container'>
-                        <div className='formEdit-content'>
+                        <div className='formEdit-container-formTemplate'>
                           <button
                             type='button'
                             onClick={handleClick}
@@ -127,7 +144,7 @@ const NewEvent = props => {
                           >
                             <h2>Plantilla 1</h2>
                           </button>
-                          <h4>Palegta de color</h4>
+                          <h4>Paleta de color</h4>
                           <div className='paletColor-container'>
                             <div className='paletColor-uno' />
                             <div className='paletColor-dos' />
@@ -139,18 +156,26 @@ const NewEvent = props => {
                             <div className='typography-line' />
                             <p className='typography-OpenSans'>Open Sans</p>
                           </div>
-                          <h5>Preview Plantilla 1</h5>
+                          <Link onClick={openModal}>
+                            <h5>Preview Plantilla 1</h5>
+                          </Link>
+                          <ModalPreview
+                            isOpen={showModal}
+                            handleAction={closeModal}
+                            image={_template1}
+                            nameAction='cerrar'
+                          />
                         </div>
-                        <div className='formEdit-content'>
+                        <div className='formEdit-container-formTemplate'>
                           <button
                             type='button'
                             onClick={handleClick}
                             name='template'
-                            value='t02'
+                            value='t01'
                           >
                             <h2>Plantilla 2</h2>
                           </button>
-                          <h4>Palegta de color</h4>
+                          <h4>Paleta de color</h4>
                           <div className='paletColor-container'>
                             <div className='paletColor-cuatro' />
                             <div className='paletColor-cinco' />
@@ -162,9 +187,15 @@ const NewEvent = props => {
                             <div className='typography-line' />
                             <p className='typography-Roboto'>Roboto</p>
                           </div>
-                          <Link to='#'>
+                          <Link onClick={openModalDos}>
                             <h5>Preview Plantilla 2</h5>
                           </Link>
+                          <ModalPreview
+                            isOpen={showModalDos}
+                            handleAction={closeModalDos}
+                            image={_template2}
+                            nameAction='cerrar'
+                          />
                         </div>
                       </div>
                     </div>
@@ -191,4 +222,5 @@ const NewEvent = props => {
 const mapDispatchToProps = {
   createEvent
 }
+
 export default connect(null, mapDispatchToProps)(NewEvent)

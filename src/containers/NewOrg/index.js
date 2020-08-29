@@ -116,7 +116,7 @@ const NewOrg = ({ user }) => {
                     isOpen={showModal}
                     handleAction={GoBack}
                     nameAction='Entendido'
-                    messageModal={Error ? 'Oh no hubo un problema' : 'Ha sido creada con exito!'}
+                    messageModal={Error ? '!Oh, no¡ Hubo un problema' : 'Ha sido creada con exito!'}
                     stateModal={Error ? 'check' : 'cross'}
                   />
                 </div>

@@ -63,6 +63,9 @@
   .check-action {
     @include checkButtons;
   }
+  form {
+    display: grid;
+  }
 
   .formEdit {
     &-field {
@@ -86,12 +89,12 @@
         text-decoration: underline;
         font-weight: 400;
       }
-    }
-    &-content {
-      justify-content: center;
-      text-align: -webkit-center;
-      display: grid;
-      padding: 40px 0px;
+      &-formTemplate {
+        width: 100%;
+        display: grid;
+        padding: 32px 0px;
+        text-align: -webkit-center;
+      }
     }
     @include presetsform;
   }
@@ -148,6 +151,7 @@
   .typography {
     display: flex;
     align-items: center;
+    justify-content: center;
     &-line {
       margin: 0 20px;
       border-left: solid 2px #1d1d1d;
