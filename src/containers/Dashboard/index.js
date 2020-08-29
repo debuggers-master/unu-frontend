@@ -9,6 +9,8 @@ import _plus from '../../assets/images/iconPlus.svg'
 import './styles.scss'
 
 const Dashboard = ({ user }) => {
+  const emptyEvents = user.myEvents.length > 0
+  const emptyOrganization = user.organizations.length > 0
   return (
     <>
       <Layout active='home'>
@@ -20,14 +22,15 @@ const Dashboard = ({ user }) => {
                 <h2>Organizaciones</h2>
               </div>
               <div className='dashboard-container__topLeft-infoOrg'>
-                {user.organizations.map(item => (
-                  <Link
-                    to={`/dashboard/${item.organizationName}`}
-                    key={item.organizationId}
-                  >
-                    <p>Nombre evento</p>
-                  </Link>
-                ))}
+                {emptyOrganization ? (
+                  user.organizations.map((item) => (
+                    <Link to={`/dashboard/${item.organizationName}`} key={item.organizationId}>
+                      <p>{item.organizationName}</p>
+                    </Link>
+                  ))
+                ) : (
+                  <p>No tienes ninguna organización <span role='img' aria-label='hojas'>🍃</span></p>
+                )}
               </div>
               <div className='dashboard-container__topLeft-NewOrg'>
                 <Link to='/dashboard/NewOrg'>
@@ -40,22 +43,26 @@ const Dashboard = ({ user }) => {
             <div className='dashboard-container__Right'>
               <h2>Editar - Eventos</h2>
               <div className='dashboard-container__Right-container'>
-                {user.myEvents.map(item => (
-                  <Link
-                    to={`/dashboard/${item.organizationName}/${item.eventId}/edit`}
-                    key={item.eventId}
-                  >
-                    <CardEvento isMyEvent {...item} />
-                  </Link>
-                ))}
-                {user.collaborations.map(item => (
-                  <Link
-                    to={`/dashboard/${item.organizationName}/${item.eventId}/edit`}
-                    key={item.eventId}
-                  >
-                    <CardEvento {...item} />
-                  </Link>
-                ))}
+                {emptyEvents ? (
+                  user.myEvents.map(item => (
+                    <Link
+                      to={`/dashboard/${item.organizationName}/${item.eventId}/edit`}
+                      key={item.eventId}
+                    >
+                      <CardEvento isMyEvent {...item} />
+                    </Link>
+                  ))) || (
+                  user.collaborations.map(item => (
+                    <Link
+                      to={`/dashboard/${item.organizationName}/${item.eventId}/edit`}
+                      key={item.eventName}
+                    >
+                      <CardEvento {...item} />
+                    </Link>
+                  ))
+                ) : (
+                  <h4>Aun no tienes eventos <span role='img' aria-label='eyes'>👀</span></h4>
+                )}
               </div>
             </div>
             <div className='dashboard-container__bottomLeft'>

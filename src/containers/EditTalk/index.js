@@ -92,7 +92,7 @@ const EditTalk = props => {
     <>
       <Layout active='home'>
         <div className='editInfo'>
-          <h2>Stark Industries</h2>
+          <h2>{organizationName}</h2>
           <div className='editInfo-container'>
             <h2>Editar Información General</h2>
             <form onSubmit={handleSubmit}>
@@ -186,8 +186,8 @@ const EditTalk = props => {
                           <option value='DEFAULT' disabled>
                             Seleccionar Hora
                           </option>
-                          <option value={1}>1:00</option>
-                          <option value={2}>2:00</option>
+                          <option value='1:00 am'>1:00</option>
+                          <option value='2:00 am'>2:00</option>
                           <option value='3:00 am'>3:00 am</option>
                           <option value='4:00 am'>4:00 am</option>
                           <option value='5:00 am'>5:00 am</option>

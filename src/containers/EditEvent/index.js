@@ -9,6 +9,7 @@ import { deleteEvent } from '../../actions'
 import { ItemCollaborator } from '../../components/ItemCollaborate'
 import _edit from '../../assets/images/iconEdit.svg'
 import _plus from '../..//assets/images/iconPlus.svg'
+import _email from '../..//assets/images/iconEmail.svg'
 import './styles.scss'
 
 const EditEvent = props => {
@@ -71,8 +72,8 @@ const EditEvent = props => {
         <div className='editEvent'>
           <h2>{organizationName}</h2>
           <div className='editEvent-container'>
-            <div className='editEvent-container-left'>
-              <div className='editEvent-container-left-edit'>
+            <div className='editEvent-container__left'>
+              <div className='editEvent-container__left-edit'>
                 <h2>{name}</h2>
                 <ul>
                   <Link
@@ -92,11 +93,19 @@ const EditEvent = props => {
                     </li>
                   </Link>
                   <Link
-                    to={`/dashboard/organizationName/${eventId}/edit/sponsor/edit`}
+                    to={`/dashboard/${organizationName}/${eventId}/edit/sponsor/edit`}
                   >
                     <li>
                       <p>Editar - Asociados</p>
                       <img src={_edit} alt='icono editar' />
+                    </li>
+                  </Link>
+                  <Link
+                    to={`/dashboard/${organizationName}/${eventId}/edit/email`}
+                  >
+                    <li>
+                      <span>Comunicate con tus invitados</span>
+                      <img src={_email} alt='icono email' />
                     </li>
                   </Link>
                 </ul>
@@ -110,9 +119,9 @@ const EditEvent = props => {
                 </button>
               </div>
             </div>
-            <div className='editEvent-container-right'>
+            <div className='editEvent-container__right'>
               <h2>Colaboradores</h2>
-              <div className='editEvent-container-right-collaborates'>
+              <div className='editEvent-container__right-collaborates'>
                 <ul>
                   {emptyList ? (
                     collaboratorList.map((collaborator, index) => (
@@ -124,14 +133,14 @@ const EditEvent = props => {
                       />
                     ))
                   ) : (
-                    <div>Aun no has añadido colaboradores</div>
+                    <div className='editEvent-container__right-empty'>No tienes colaboradores para este evento</div>
                   )}
                 </ul>
               </div>
               <Link
-                to={`/dashboard/organizationName/${eventId}/addCollaborator`}
+                to={`/dashboard/${organizationName}/${eventId}/addCollaborator`}
               >
-                <div className='editEvent-container-right-btn'>
+                <div className='editEvent-container__right-btn'>
                   <img src={_plus} alt='icono editar' />
                 </div>
               </Link>

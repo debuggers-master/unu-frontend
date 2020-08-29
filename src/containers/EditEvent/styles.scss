@@ -1,4 +1,4 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
 .editEvent {
   max-height: 100vh;
@@ -17,7 +17,7 @@
     gap: 28px;
     grid-template-columns: 1fr 1fr;
     @include cardDasboard;
-    &-left {
+    &__left {
       padding-right: $gap-6;
       padding-right: 64px;
       display: flex;
@@ -25,6 +25,10 @@
       align-content: space-between;
       &-edit {
         width: 100%;
+        & ul {
+          padding-left: 32px;
+          font-size: 20px;
+        }
         & li {
           display: flex;
           justify-content: space-between;
@@ -32,9 +36,13 @@
         & p {
           color: $color-secondary;
         }
+        & span {
+          color: $color-secondary;
+          margin: 20px 0;
+        }
       }
     }
-    &-right {
+    &__right {
       &-collaborates {
         & ul {
           background-color: $color-white;
@@ -43,6 +51,14 @@
           min-height: 70vh;
           overflow: scroll;
         }
+      }
+      &-empty {
+        width: 100%;
+        height: fit-content;
+        padding: 50px;
+        text-align: center;
+        font-size: 24px;
+        color: $color-brand;
       }
       &-btn {
         background-color: $color-brand;
@@ -55,7 +71,7 @@
         box-shadow: $Shadow-2;
         position: absolute;
         right: 70px;
-        bottom: 63px;
+        bottom: 90px;
       }
     }
   }

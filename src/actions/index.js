@@ -34,6 +34,10 @@ export const addOrganization = payload => ({
   type: 'ADD_ORGANIZATION',
   payload
 })
+export const deleteOrganization = payload => ({
+  type: 'DELETE_ORGANIZATION',
+  payload
+})
 
 export const registerUser = (payload, redirectUrl) => {
   return async dispatch => {

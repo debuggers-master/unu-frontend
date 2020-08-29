@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import ModalAction from '../ModalAction'
 import _logo from '../../assets/images/logo-white.svg'
 import _logout from '../../assets/images/logout_icon.svg'
 import './styles.scss'
 
 const Layout = ({ children, active }) => {
+  const [showModal, setShowModal] = useState(false)
+  const openModal = () => {
+    setShowModal(true)
+  }
+  const closeModal = () => {
+    setShowModal(false)
+  }
   function StatusBar (state) {
     if (state === 'home') {
       return 'active'
@@ -23,6 +30,7 @@ const Layout = ({ children, active }) => {
 
   function handleLogout () {
     window.sessionStorage.removeItem('myData')
+    window.location.replace('/')
   }
 
   return (
@@ -74,11 +82,15 @@ const Layout = ({ children, active }) => {
               </div>
             </div>
             <div className='layout-menu__logout'>
-              <a href='/' onClick={handleLogout}>
-                <button>
-                  <img src={_logout} alt='Logotipo' />
-                </button>
-              </a>
+              <button onClick={openModal}>
+                <img src={_logout} alt='Logotipo' />
+              </button>
+              <ModalAction
+                isOpen={showModal}
+                handleCloseModal={closeModal}
+                handleAction={handleLogout}
+                nameAction='Salir'
+              />
             </div>
           </div>
         </div>
