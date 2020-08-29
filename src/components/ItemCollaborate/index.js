@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import getCookie from '../../utils/getCookie'
 import { API_URL } from '../../config'
+import ModalAction from '../../components/ModalAction'
+import ModalState from '../../components/ModalState'
 
 import _trash from '../../assets/images/iconTrash.svg'
 import './styles.scss'
 
 export const ItemCollaborator = props => {
+  const [openPrompt, setOpenPrompt] = useState(false)
+  const [status, setStatus] = useState()
   const { firstName, lastName, email } = props.data
 
   const deleteCollaborator = async () => {
@@ -23,8 +27,11 @@ export const ItemCollaborator = props => {
       console.log('Eliminado exitosamente')
     } catch (error) {
       console.log(error)
+      setStatus({ error: 'Ups parece que hubo un error' })
     }
   }
+  const closePrompt = () => setOpenPrompt(false)
+  const showPrompt = () => setOpenPrompt(true)
 
   return (
     <>
@@ -40,12 +47,32 @@ export const ItemCollaborator = props => {
               {email}
             </p>
           </div>
-          <div onClick={deleteCollaborator}>
+          <button onClick={showPrompt}>
             <img src={_trash} alt='icono borrar' />
-          </div>
+          </button>
         </div>
       </li>
       <div className='line' />
+      <ModalAction
+        isOpen={openPrompt}
+        nameAction='Eliminar Colaborador'
+        handleAction={deleteCollaborator}
+        handleCloseModal={closePrompt}
+      />
+      {status && (
+        <ModalState
+          isOpen
+          handleAction={() => {
+            closePrompt()
+            setStatus(null)
+          }}
+          nameAction='Entendido'
+          messageModal={
+            status.error ? status.error : 'Modificada exitosamente!'
+          }
+          stateModal={status.error ? 'check' : 'cross'}
+        />
+      )}
     </>
   )
 }

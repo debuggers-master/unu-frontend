@@ -4,11 +4,15 @@ import axios from 'axios'
 import getCookie from '../../utils/getCookie'
 import { API_URL } from '../../config.js'
 import Layout from '../../components/Layout'
+import ModalState from '../../components/ModalState'
+
 import './styles.scss'
 
 const EditDate = props => {
   const { organizationName, eventId, dayId } = props.match.params
   const [inputValues, setInputValues] = useState({})
+  const [status, setStatus] = useState()
+
   const handleSubmit = async evn => {
     evn.preventDefault()
     try {
@@ -20,7 +24,7 @@ const EditDate = props => {
         }
       })
       await axios(`${API_URL}/api/v1/events/day`, {
-        method: dayId ? 'PUT' : 'POST',
+        method: dayId ? 'PUT' : 'POST', // If there is a dayId is an update
         headers: { Authorization: `Bearer ${getCookie('token')}` },
         data: {
           eventId,
@@ -30,9 +34,10 @@ const EditDate = props => {
           }
         }
       })
-      console.log('Modificado exitosamente')
+      props.history.goBack()
     } catch (error) {
       console.log(error)
+      setStatus({ error: 'Ups parece que hubo un error' })
     }
   }
   const handleChange = evn => {
@@ -81,6 +86,17 @@ const EditDate = props => {
           </div>
         </div>
       </Layout>
+      {status && (
+        <ModalState
+          isOpen
+          handleAction={() => props.history.goBack()}
+          nameAction='Entendido'
+          messageModal={
+            status.error ? status.error : 'Modificada exitosamente!'
+          }
+          stateModal={status.error ? 'check' : 'cross'}
+        />
+      )}
     </>
   )
 }

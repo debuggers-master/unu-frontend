@@ -91,7 +91,7 @@ function App ({ isAuth }) {
         />
         <Route
           exact
-          path='/dashboard/organizationName/:eventId/addCollaborator'
+          path='/dashboard/:organizationName/:eventId/addCollaborator'
           component={isAuth ? AddCollaborator : Login}
         />
         <Route

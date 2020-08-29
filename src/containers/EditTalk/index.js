@@ -6,10 +6,13 @@ import getCookie from '../../utils/getCookie'
 import { API_URL } from '../../config.js'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
+import ModalState from '../../components/ModalState'
 const FileReader = window.FileReader
+
 const EditTalk = props => {
   const { conferenceId, organizationName, eventId, dayId } = props.match.params
   const [inputValues, setInputValues] = useState({})
+  const [status, setStatus] = useState()
 
   useEffect(() => {
     async function getTalk () {
@@ -28,6 +31,7 @@ const EditTalk = props => {
         setInputValues(talkData)
       } catch (error) {
         console.log(error)
+        setStatus({ error: 'Ups parece que hubo un error' })
       }
     }
     conferenceId && getTalk()
@@ -79,10 +83,12 @@ const EditTalk = props => {
           conferenceData
         }
       })
+
       console.log('Modificados exitosamente')
       window.location.href = `/dashboard/  ${organizationName}/${eventId}/edit/schedule/${dayId}`
     } catch (error) {
-      console.log('ups parece que hubo un error')
+      console.log(error)
+      setStatus({ error: 'Ups parece que hubo un error' })
     }
     // vaildate fields
     // send data to appState
@@ -295,6 +301,17 @@ const EditTalk = props => {
           </div>
         </div>
       </Layout>
+      {status && (
+        <ModalState
+          isOpen
+          handleAction={() => props.history.goBack()}
+          nameAction='Entendido'
+          messageModal={
+            status.error ? status.error : 'Modificada exitosamente!'
+          }
+          stateModal={status.error ? 'check' : 'cross'}
+        />
+      )}
     </>
   )
 }

@@ -4,15 +4,15 @@ import getCookie from '../../utils/getCookie'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
 import { API_URL } from '../../config.js'
-
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
+import ModalState from '../../components/ModalState'
 const FileReader = window.FileReader
 
 const EditInfo = props => {
   const { eventId, organizationName } = props.match.params
-
   const [inputValues, setInputValues] = useState({})
+  const [status, setStatus] = useState()
 
   useEffect(() => {
     async function getEventInfo () {
@@ -33,6 +33,7 @@ const EditInfo = props => {
         }
         setInputValues(values)
       } catch (error) {
+        setStatus({ error: 'Parece que hubo un error :(' })
         console.log(error)
       }
     }
@@ -79,9 +80,10 @@ const EditInfo = props => {
           eventData
         }
       })
+      setStatus({ error: false })
       console.log('Modificados exitosamente')
     } catch (error) {
-      console.log('ups parece que hubo un error')
+      setStatus({ error: 'Ups parece que hubo un error' })
     }
     // vaildate fields
     // send data to appState
@@ -250,6 +252,17 @@ const EditInfo = props => {
           </div>
         </div>
       </Layout>
+      {status && (
+        <ModalState
+          isOpen
+          handleAction={() => props.history.goBack()}
+          nameAction='Entendido'
+          messageModal={
+            status.error ? status.error : 'Modificada exitosamente!'
+          }
+          stateModal={status.error ? 'check' : 'cross'}
+        />
+      )}
     </>
   )
 }
