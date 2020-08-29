@@ -1,25 +1,30 @@
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
-// import { Link } from 'react-router-dom'
 import CheckAnimation from '../CheckAnimation'
+import CrossAnimation from '../CrossAnimation'
 import './styles.scss'
 
-function ModalSucces (props) {
-  const { handleCloseModal, handleAction, nameAction } = props
+function ModalState (props) {
+  const { nameAction, handleAction, messageModal, stateModal } = props
   const modalNode = document.getElementById('modal')
   const modal = document.createElement('div')
   useEffect(() => {
     modalNode.appendChild(modal)
   }, [modal, modalNode])
 
+  const isFatal = (stateModal === 'cross')
+
   if (props.isOpen) {
     return ReactDOM.createPortal(
       <>
         <div className='Modal'>
           <div className='Modal-container'>
-            <CheckAnimation />
+            {isFatal
+              ? <CheckAnimation />
+              : <CrossAnimation />}
+            <h4>{messageModal}</h4>
             <div className='check-action'>
-              <button type='submit' className='check-action__btnRight' onClick={handleCloseModal | handleAction}>
+              <button type='submit' className='check-action__btnRight' onClick={handleAction}>
                 <p>{nameAction}</p>
               </button>
             </div>
@@ -32,4 +37,4 @@ function ModalSucces (props) {
   return <></>
 }
 
-export default ModalSucces
+export default ModalState

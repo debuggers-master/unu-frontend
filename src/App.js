@@ -16,6 +16,7 @@ import EditDay from './containers/EditDay'
 import EditDate from './containers/EditDate'
 import ListSponsor from './components/ListSponsor'
 import EditSponsor from './containers/EditSponsor'
+import EmailInv from './containers/EmailInv'
 import AddCollaborator from './containers/AddCollaborator'
 import EditTalk from './containers/EditTalk'
 
@@ -102,6 +103,11 @@ function App ({ isAuth }) {
           exact
           path='/dashboard/:organizationName/:eventId/edit/sponsor/edit/:associatedId'
           component={isAuth ? EditSponsor : Login}
+        />
+        <Route
+          exact
+          path='/dashboard/:organizationName/:eventId/edit/email'
+          component={isAuth ? EmailInv : Login}
         />
 
         <EventsPreview exact path='/events' />

@@ -10,10 +10,14 @@
   align-items: center;
   background: #0000001c;
   top: 0;
+  h4 {
+    margin-top: 0;
+    font-size: 24px;
+  }
   &-container {
     @include cardDasboard;
     max-width: 530px;
-    max-height: 212px;
+    max-height: 250px;
     text-align: center;
   }
   .check-action {

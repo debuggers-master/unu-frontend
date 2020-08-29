@@ -20,6 +20,16 @@ const reducers = (state, action) => {
           )
         }
       }
+    case 'DELETE_ORGANIZATION':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          organizations: state.user.organizations.filter(
+            ({ organizationId }) => organizationId !== action.payload
+          )
+        }
+      }
     case 'CREATE_EVENT':
       return {
         ...state,

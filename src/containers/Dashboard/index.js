@@ -24,12 +24,12 @@ const Dashboard = ({ user }) => {
               <div className='dashboard-container__topLeft-infoOrg'>
                 {emptyOrganization ? (
                   user.organizations.map((item) => (
-                    <Link to={`/dashboard/${item.organizationName}`} key={item.eventId}>
+                    <Link to={`/dashboard/${item.organizationName}`} key={item.organizationId}>
                       <p>{item.organizationName}</p>
                     </Link>
                   ))
                 ) : (
-                  <p>No tienes ninguna organización 🍃</p>
+                  <p>No tienes ninguna organización <span role='img' aria-label='hojas'>🍃</span></p>
                 )}
               </div>
               <div className='dashboard-container__topLeft-NewOrg'>
@@ -44,24 +44,24 @@ const Dashboard = ({ user }) => {
               <h2>Editar - Eventos</h2>
               <div className='dashboard-container__Right-container'>
                 {emptyEvents ? (
-                  (user.myEvents.map(item => (
+                  user.myEvents.map(item => (
                     <Link
                       to={`/dashboard/${item.organizationName}/${item.eventId}/edit`}
                       key={item.eventId}
                     >
                       <CardEvento isMyEvent {...item} />
                     </Link>
-                  ))),
-                  (user.collaborations.map(item => (
+                  ))) || (
+                  user.collaborations.map(item => (
                     <Link
                       to={`/dashboard/${item.organizationName}/${item.eventId}/edit`}
-                      key={item.eventId}
+                      key={item.eventName}
                     >
                       <CardEvento {...item} />
                     </Link>
-                  )))
+                  ))
                 ) : (
-                  <h4>Aun no tienes eventos 👀</h4>
+                  <h4>Aun no tienes eventos <span role='img' aria-label='eyes'>👀</span></h4>
                 )}
               </div>
             </div>
