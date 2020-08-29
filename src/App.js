@@ -105,7 +105,7 @@ function App ({ isAuth }) {
         />
 
         <EventsPreview exact path='/events' />
-        <PublicEvents exact path='/:corp/:event' />
+        <PublicEvents exact path='/:organizationName/:url' />
       </Switch>
     </BrowserRouter>
   )
