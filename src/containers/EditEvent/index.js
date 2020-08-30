@@ -9,7 +9,7 @@ import { deleteEvent } from '../../actions'
 import { ItemCollaborator } from '../../components/ItemCollaborate'
 import ModalAction from '../../components/ModalAction'
 import ModalState from '../../components/ModalState'
-import Loader from '../../containers/Loader'
+import Loader from '../../components/Loader'
 
 import _edit from '../../assets/images/iconEdit.svg'
 import _plus from '../..//assets/images/iconPlus.svg'
@@ -28,10 +28,10 @@ const EditEvent = props => {
 
   const [openPrompt, setOpenPrompt] = useState(false)
   const [status, setStatus] = useState()
-  const [collaboratorList, setCollaboratorsList] = useState([])
+  const [collaboratorsList, setCollaboratorsList] = useState([])
   const [loader, setLoader] = useState(true)
 
-  const emptyList = collaboratorList.length < 1
+  const emptyList = collaboratorsList.length < 1
 
   useEffect(() => {
     async function getCollaborators () {
@@ -55,7 +55,7 @@ const EditEvent = props => {
   }, [eventId, setCollaboratorsList])
 
   const deleteItemCollaborator = email => {
-    const listCollaborator = collaboratorList.filter(
+    const listCollaborator = collaboratorsList.filter(
       collaborator => collaborator.email !== email
     )
     setCollaboratorsList(listCollaborator)
@@ -77,6 +77,8 @@ const EditEvent = props => {
     }
   }
   const publishEvent = async () => {
+    const orgUrl = organizationName.replace(/ /g, '-')
+    const evnUrl = name.replace(/ /g, '-')
     try {
       await axios(`${API_URL}/api/v1/events/change-status`, {
         headers: { Authorization: `Bearer ${getCookie('token')}` },
@@ -88,10 +90,7 @@ const EditEvent = props => {
       })
       setStatus({
         error: false,
-        success: `Tu sitio ha sido publicado en http://localhost:3000/${organizationName}/${name.replace(
-          / /g,
-          '-'
-        )}`
+        success: `Tu sitio ha sido publicado en http://localhost:3000/${orgUrl}/${evnUrl}`
       })
     } catch (error) {
       setStatus({ error: 'Ups parece que hubo un error' })
@@ -145,9 +144,14 @@ const EditEvent = props => {
                 </ul>
               </div>
               <div className='check-action'>
-                <button onClick={showPrompt} className='check-action__btnLeft'>
-                  <p>Eliminar</p>
-                </button>
+                {isMyEvent && (
+                  <button
+                    onClick={showPrompt}
+                    className='check-action__btnLeft'
+                  >
+                    <p>Eliminar</p>
+                  </button>
+                )}
                 <button
                   onClick={publishEvent}
                   className='check-action__btnRight'
@@ -161,13 +165,14 @@ const EditEvent = props => {
               <div className='editEvent-container__right-collaborates'>
                 <ul>
                   {loader && <Loader />}
-                  {emptyList &&
-                    collaboratorList.map((collaborator, index) => (
+                  {!emptyList &&
+                    collaboratorsList.map((collaborator, index) => (
                       <ItemCollaborator
                         data={collaborator}
                         eventId={eventId}
                         deleteCollaborator={deleteItemCollaborator}
                         key={index}
+                        isMyEvent={isMyEvent}
                       />
                     ))}
                   {!loader && emptyList && (

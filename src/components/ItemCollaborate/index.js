@@ -39,17 +39,15 @@ export const ItemCollaborator = props => {
         <div className='item'>
           <div>
             <p className='item-names'>
-              {/* {this.props.firstName} {this.props.lastName} */}
               {firstName} {lastName}
             </p>
-            <p className='item-email'>
-              {/* {this.props.email} */}
-              {email}
-            </p>
+            <p className='item-email'>{email}</p>
           </div>
-          <button onClick={showPrompt}>
-            <img src={_trash} alt='icono borrar' />
-          </button>
+          {props.isMyEvent && (
+            <button onClick={showPrompt}>
+              <img src={_trash} alt='icono borrar' />
+            </button>
+          )}
         </div>
       </li>
       <div className='line' />

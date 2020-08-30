@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { API_URL } from '../../config.js'
 import Header from '../Header'
 import Footer from '../Footer'
 import Event from './Event'
@@ -12,6 +14,28 @@ const eventInfo = {
   organization: 'Platzi'
 }
 const EventsPreview = () => {
+  const [evnList, setEvnList] = useState([])
+  const [error, setError] = useState(false)
+
+  useEffect(() => {
+    async function getData () {
+      try {
+        const { data } = await axios(`${API_URL}/api/v1/events/list`, {
+          method: 'GET'
+        })
+        console.log(data)
+        setEvnList(data)
+      } catch (error) {
+        setError(true)
+      }
+    }
+    getData()
+  }, [])
+
+  if (error) {
+    return <div>Parece que no hay nada</div>
+  }
+
   return (
     <div>
       <Header styleType='header--bg' />
@@ -34,3 +58,15 @@ const EventsPreview = () => {
   )
 }
 export default EventsPreview
+
+// <Event info={eventInfo} />
+// <Event info={eventInfo} styleType='event--reverse' />
+// <Event info={eventInfo} />
+// <Event info={eventInfo} styleType='event--reverse' />
+// {evnList.map((evn, index) =>
+//   index % 2 === 0 ? (
+//     <Event info={evn} key={evn.eventId} styleType='event--reverse' />
+//   ) : (
+//     <Event info={evn} key={evn.eventId} />
+//   )
+// )}

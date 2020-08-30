@@ -1,30 +1,30 @@
 /* Issue: when a input field is selected by tabs */
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { loginUser } from '../../../../../../actions'
-import { useHistory } from 'react-router-dom'
+import axios from 'axios'
+import { API_URL } from '../../../../../../config.js'
 import stylesTemplate from '../../../styles.module.scss'
 
 const buttonClassName = `button ${stylesTemplate['button-templates']}`
 
-const LoginForm = props => {
+const RegisterForm = ({ eventId, openModal }) => {
   const [inputValues, setInputValues] = useState({})
-  const handleSubmit = evn => {
+  const handleSubmit = async evn => {
     evn.preventDefault()
     const form = {
       email: inputValues.email,
-      password: inputValues.password
+      eventId
     }
-    props.loginUser(form, '/dashboard')
-    props.openModal()
+    try {
+      axios(`${API_URL}/api/v1/participants`, {
+        data: form,
+        method: 'POST'
+      })
+    } catch (error) {
+      console.log(error)
+    }
+    openModal()
   }
-
-  const history = useHistory()
-  useEffect(() => {
-    if (props.redirectTo) {
-      history.push(props.redirectTo)
-    }
-  })
 
   const handleFocus = evn => {
     const formField = evn.currentTarget.parentNode
@@ -83,18 +83,9 @@ const LoginForm = props => {
             Registrate
           </button>
         </div>
-        {props.signError && (
-          <div className='form-field__error'>{props.signError}</div>
-        )}
       </form>
     </>
   )
 }
-const mapDispatchToProps = {
-  loginUser
-}
-const mapStateToProps = state => ({
-  redirectTo: state.redirectTo,
-  signError: state.errors.signError
-})
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
+
+export default RegisterForm

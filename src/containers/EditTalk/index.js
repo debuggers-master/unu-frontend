@@ -7,15 +7,16 @@ import { API_URL } from '../../config.js'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 import ModalState from '../../components/ModalState'
-import Loader from '../../containers/Loader'
+import Loader from '../../components/Loader'
 
 const FileReader = window.FileReader
 
 const EditTalk = props => {
   const { conferenceId, organizationName, eventId, dayId } = props.match.params
+  const date = new Date(props.location.state.date)
   const [inputValues, setInputValues] = useState({})
   const [status, setStatus] = useState()
-  const [loader, setLoader] = useState(true)
+  const [loader, setLoader] = useState(conferenceId) // If must retrieve info on mount, set Loader true
 
   const speakerImg = useRef(null)
 
@@ -68,17 +69,19 @@ const EditTalk = props => {
   const handleSubmit = async evn => {
     setLoader(true)
     evn.preventDefault()
+    const endHour = date.setHours(inputValues.endHour)
+    const startHour = date.setHours(inputValues.startHour)
     const conferenceData = {
       conferenceId: conferenceId ? inputValues.conferenceId : null,
       description: inputValues.description,
-      endHour: inputValues.endHour,
+      endHour: String(new Date(endHour)),
       name: inputValues.name,
       rol: inputValues.rol,
       speakerBio: inputValues.speakerBio,
       speakerId: conferenceId ? inputValues.conferenceId : null,
       speakerName: inputValues.speakerName,
       speakerPhoto: inputValues.speakerPhoto,
-      startHour: inputValues.startHour,
+      startHour: String(new Date(startHour)),
       twitter: inputValues.twitter
     }
     console.log({
@@ -100,7 +103,7 @@ const EditTalk = props => {
       })
 
       console.log('Modificados exitosamente')
-      window.location.href = `/dashboard/  ${organizationName}/${eventId}/edit/schedule/${dayId}`
+      // window.location.href = `/dashboard/  ${organizationName}/${eventId}/edit/schedule/${dayId}`
       setLoader(false)
     } catch (error) {
       console.log(error)
@@ -210,30 +213,30 @@ const EditTalk = props => {
                           <option value='DEFAULT' disabled>
                             Seleccionar Hora
                           </option>
-                          <option value='1:00 am'>1:00</option>
-                          <option value='2:00 am'>2:00</option>
-                          <option value='3:00 am'>3:00 am</option>
-                          <option value='4:00 am'>4:00 am</option>
-                          <option value='5:00 am'>5:00 am</option>
-                          <option value='6:00 am'>6:00 am</option>
-                          <option value='7:00 am'>7:00 am</option>
-                          <option value='8:00 am'>8:00 am</option>
-                          <option value='9:00 am'>9:00 am</option>
-                          <option value='10:00 am'>10:00 am</option>
-                          <option value='11:00 am'>11:00 am</option>
-                          <option value='12:00 am'>12:00 am</option>
-                          <option value='1:00 pm'>1:00 pm</option>
-                          <option value='2:00 pm'>2:00 pm</option>
-                          <option value='3:00 pm'>3:00 pm</option>
-                          <option value='4:00 pm'>4:00 pm</option>
-                          <option value='5:00 pm'>5:00 pm</option>
-                          <option value='6:00 pm'>6:00 pm</option>
-                          <option value='7:00 pm'>7:00 pm</option>
-                          <option value='8:00 pm'>8:00 pm</option>
-                          <option value='9:00 pm'>9:00 pm</option>
-                          <option value='10:00 pm'>10:00 pm</option>
-                          <option value='11:00 pm'>11:00 pm</option>
-                          <option value='12:00 pm'>12:00 pm</option>
+                          <option value='1'>1:00 am</option>
+                          <option value='2'>2:00 am</option>
+                          <option value='3'>3:00 am</option>
+                          <option value='4'>4:00 am</option>
+                          <option value='5'>5:00 am</option>
+                          <option value='6'>6:00 am</option>
+                          <option value='7'>7:00 am</option>
+                          <option value='8'>8:00 am</option>
+                          <option value='9'>9:00 am</option>
+                          <option value='10'>10:00 am</option>
+                          <option value='11'>11:00 am</option>
+                          <option value='12'>12:00 pm</option>
+                          <option value='13'>1:00 pm</option>
+                          <option value='14'>2:00 pm</option>
+                          <option value='15'>3:00 pm</option>
+                          <option value='16'>4:00 pm</option>
+                          <option value='17'>5:00 pm</option>
+                          <option value='18'>6:00 pm</option>
+                          <option value='19'>7:00 pm</option>
+                          <option value='20'>8:00 pm</option>
+                          <option value='21'>9:00 pm</option>
+                          <option value='22'>10:00 pm</option>
+                          <option value='23'>11:00 pm</option>
+                          <option value='0'>12:00 am</option>
                         </select>
                       </div>
                       <div className='formEdit-field'>
@@ -249,30 +252,30 @@ const EditTalk = props => {
                           <option value='DEFAULT' disabled>
                             Seleccionar Hora
                           </option>
-                          <option value='1:00 am'>1:00 am</option>
-                          <option value='2:00 am'>2:00 am</option>
-                          <option value='3:00 am'>3:00 am</option>
-                          <option value='4:00 am'>4:00 am</option>
-                          <option value='5:00 am'>5:00 am</option>
-                          <option value='6:00 am'>6:00 am</option>
-                          <option value='7:00 am'>7:00 am</option>
-                          <option value='8:00 am'>8:00 am</option>
-                          <option value='9:00 am'>9:00 am</option>
-                          <option value='10:00 am'>10:00 am</option>
-                          <option value='11:00 am'>11:00 am</option>
-                          <option value='12:00 am'>12:00 am</option>
-                          <option value='1:00 pm'>1:00 pm</option>
-                          <option value='2:00 pm'>2:00 pm</option>
-                          <option value='3:00 pm'>3:00 pm</option>
-                          <option value='4:00 pm'>4:00 pm</option>
-                          <option value='5:00 pm'>5:00 pm</option>
-                          <option value='6:00 pm'>6:00 pm</option>
-                          <option value='7:00 pm'>7:00 pm</option>
-                          <option value='8:00 pm'>8:00 pm</option>
-                          <option value='9:00 pm'>9:00 pm</option>
-                          <option value='10:00 pm'>10:00 pm</option>
-                          <option value='11:00 pm'>11:00 pm</option>
-                          <option value='12:00 pm'>12:00 pm</option>
+                          <option value='1'>1:00 am</option>
+                          <option value='2'>2:00 am</option>
+                          <option value='3'>3:00 am</option>
+                          <option value='4'>4:00 am</option>
+                          <option value='5'>5:00 am</option>
+                          <option value='6'>6:00 am</option>
+                          <option value='7'>7:00 am</option>
+                          <option value='8'>8:00 am</option>
+                          <option value='9'>9:00 am</option>
+                          <option value='10'>10:00 am</option>
+                          <option value='11'>11:00 am</option>
+                          <option value='12'>12:00 pm</option>
+                          <option value='13'>1:00 pm</option>
+                          <option value='14'>2:00 pm</option>
+                          <option value='15'>3:00 pm</option>
+                          <option value='16'>4:00 pm</option>
+                          <option value='17'>5:00 pm</option>
+                          <option value='18'>6:00 pm</option>
+                          <option value='19'>7:00 pm</option>
+                          <option value='20'>8:00 pm</option>
+                          <option value='21'>9:00 pm</option>
+                          <option value='22'>10:00 pm</option>
+                          <option value='23'>11:00 pm</option>
+                          <option value='0'>12:00 am</option>
                         </select>
                       </div>
                     </div>

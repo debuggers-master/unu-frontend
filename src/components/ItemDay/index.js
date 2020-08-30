@@ -50,7 +50,10 @@ export const ItemDay = ({
         <div className='itemDay-day'>
           <div className='itemDay-day__Count'>
             <Link
-              to={`/dashboard/${organizationName}/${eventId}/edit/schedule/${dayId}`}
+              to={{
+                pathname: `/dashboard/${organizationName}/${eventId}/edit/schedule/${dayId}`,
+                state: { date }
+              }}
             >
               <p>Dia {dayIndex}</p>
             </Link>

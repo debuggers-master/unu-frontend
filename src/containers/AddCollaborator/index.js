@@ -73,13 +73,13 @@ const AddCollaborator = props => {
       <Layout active='home'>
         <div className='signCollaborator'>
           <div className='signCollaborator__container'>
-            <h2>Registra un nuevo asociado</h2>
+            <h2>Registra un colaborador</h2>
             <form onSubmit={handleSubmit}>
               <div className='formCollaborator-container'>
                 <div className='signCollaborator-left'>
                   <div className='formCollaborator-field'>
                     <label className='formEdit-field__label'>
-                      Nombre del Asociado
+                      Nombre del Colaborador
                     </label>
                     <input
                       onChange={handleChange}

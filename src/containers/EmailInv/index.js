@@ -11,7 +11,7 @@ const FileReader = window.FileReader
 
 const EmailInv = props => {
   const { eventId, organizationName } = props.match.params || {}
-
+  const [status, setStatus] = useState()
   const [inputValues, setInputValues] = useState({})
 
   const emailImg = useRef(null)
@@ -19,27 +19,6 @@ const EmailInv = props => {
   const img = {
     image: emailImg
   }
-
-  useEffect(() => {
-    async function getEventId () {
-      try {
-        const { data } = await axios(`${API_URL}/api/v1/events`, {
-          headers: { Authorization: `Bearer ${getCookie('token')}` },
-          params: { eventId }
-        })
-        const values = {
-          name: data.name,
-          subject: data.title,
-          message: data.description,
-          image: data.image
-        }
-        setInputValues(values)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getEventId()
-  }, [eventId])
 
   const handleUpload = evn => {
     const fieldName = evn.target.name
@@ -59,29 +38,25 @@ const EmailInv = props => {
 
   const handleSubmit = async evn => {
     evn.preventDefault()
-    const emailData = {
-      subject: inputValues.title,
-      message: inputValues.description,
-      image: inputValues.image || ''
-    }
-    console.log({
-      data: {
-        eventId,
-        emailData
-      }
-    })
+    const emailData = new FormData()
+    emailData.append('eventId', eventId)
+    emailData.append('subject', inputValues.subject)
+    emailData.append('message', inputValues.message)
+    emailData.append('image', inputValues.image)
     try {
       await axios(`${API_URL}/api/v1/mails/special`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${getCookie('token')}`
+        },
         method: 'POST',
-        data: {
-          eventId,
-          emailData
-        }
+        data: emailData
       })
       console.log('Enviado exitosamente')
+      setStatus({ error: false, success: 'Enviado Exitosamente' })
     } catch (error) {
       console.log(error)
+      setStatus({ error: 'Ups parece que hubo un error' })
     }
   }
   const [showModal, setShowModal] = useState(false)
@@ -99,7 +74,7 @@ const EmailInv = props => {
         <div className='editEmail'>
           <h2>{organizationName}</h2>
           <div className='editEmail-container'>
-            <h2>Editar asociados - {inputValues.name}</h2>
+            <h2>Enviar mensaje a participantes</h2>
             <form onSubmit={handleSubmit}>
               <div className='formEdit-container'>
                 <div className='formEdit-container-formLeft'>
@@ -109,8 +84,8 @@ const EmailInv = props => {
                     </label>
                     <input
                       onChange={handleChange}
-                      value={inputValues.title || ''}
-                      name='title'
+                      value={inputValues.subject || ''}
+                      name='subject'
                       type='text'
                       className='formEdit-field__input'
                     />
@@ -121,10 +96,10 @@ const EmailInv = props => {
                     </label>
                     <textarea
                       onChange={handleChange}
-                      value={inputValues.description || ''}
+                      value={inputValues.message || ''}
                       type='text'
                       className='formEdit-field__textarea2'
-                      name='description'
+                      name='message'
                     />
                   </div>
                 </div>
@@ -161,20 +136,20 @@ const EmailInv = props => {
                     <p>Cancelar</p>
                   </button>
                 </Link>
-                <button onClick={openModal} className='check-action__btnRight'>
+                <button className='check-action__btnRight'>
                   <p>Enviar</p>
                 </button>
-                <ModalState
-                  isOpen={showModal}
-                  handleAction={GoBack}
-                  nameAction='Entendido'
-                  messageModal={
-                    Error
-                      ? 'Oh no hubo un problema'
-                      : 'Ha sido enviado con exito!'
-                  }
-                  stateModal={Error ? 'check' : 'cross'}
-                />
+                {status && (
+                  <ModalState
+                    isOpen
+                    handleAction={() => {
+                      setStatus(null)
+                    }}
+                    nameAction='Entendido'
+                    messageModal={status.error ? status.error : status.success}
+                    stateModal={status.error ? 'check' : 'cross'}
+                  />
+                )}
               </div>
             </form>
           </div>

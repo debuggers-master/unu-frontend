@@ -1,20 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { API_URL } from '../../config.js'
 import { connect } from 'react-redux'
 import Layout from '../../components/Layout'
 import ModalState from '../../components/ModalState'
+import fieldValidator from '../../utils/formValidator'
 import getCookie from '../../utils/getCookie'
-import { API_URL } from '../../config.js'
 import { createOrganization } from '../../actions'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
-
+const FileReader = window.FileReader
 const NewOrg = ({ user, createOrganization }) => {
   const userId = user.userId
   const [inputValues, setInputValues] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [error, setError] = useState(false)
+
+  const logoImg = useRef(null)
+  const img = {
+    organizationLogo: logoImg
+  }
   const handleChange = evn => {
     const fieldName = evn.target.name
     const fieldValue = evn.target.value
@@ -25,7 +31,7 @@ const NewOrg = ({ user, createOrganization }) => {
     evn.preventDefault()
     const organizationData = {
       organizationName: inputValues.organizationName,
-      organizationLogo: inputValues.image || ''
+      organizationLogo: inputValues.organizationLogo || ''
     }
     console.log({
       data: {
@@ -53,6 +59,16 @@ const NewOrg = ({ user, createOrganization }) => {
       openModal()
     }
   }
+  const handleUpload = async evn => {
+    const fieldName = evn.target.name
+    const fr = new FileReader()
+    fr.onload = evn => {
+      setInputValues({ ...inputValues, [fieldName]: fr.result })
+
+      img[fieldName].current.style.backgroundImage = `url(${fr.result})`
+    }
+    fr.readAsDataURL(evn.target.files[0])
+  }
 
   const openModal = () => {
     setShowModal(true)
@@ -61,6 +77,7 @@ const NewOrg = ({ user, createOrganization }) => {
   const GoBack = () => {
     window.history.back()
   }
+
   return (
     <>
       <Layout active='home'>
@@ -90,13 +107,13 @@ const NewOrg = ({ user, createOrganization }) => {
                         Agrega el logo (opcional)
                       </label>
                       <input
-                        name='logo'
-                        onChange={handleChange}
+                        name='organizationLogo'
+                        onChange={handleUpload}
                         id='imgHeader'
                         type='file'
                         value={inputValues.Logo || ''}
                       />
-                      <div className='formEdit-field__file'>
+                      <div ref={logoImg} className='formEdit-field__file'>
                         <label
                           htmlFor='imgHeader'
                           className='formEdit-field__fileIcon'

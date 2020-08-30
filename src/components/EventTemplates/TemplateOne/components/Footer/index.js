@@ -4,7 +4,7 @@ import styles from './styles.module.scss'
 import RegisterForm from './RegisterForm'
 import Modal from '../Modal'
 
-const Footer = props => {
+const Footer = ({ url, eventId }) => {
   const [showModal, setShowModal] = useState(false)
   const openModal = () => {
     setShowModal(true)
@@ -24,11 +24,11 @@ const Footer = props => {
         </div>
         <div className={styles['footer-templates__right']}>
           <div className={styles['footer-template__form']}>
-            <RegisterForm openModal={openModal} />
+            <RegisterForm eventId={eventId} openModal={openModal} />
           </div>
         </div>
       </div>
-      <Modal url={props.url} isOpen={showModal} handleCloseModal={closeModal} />
+      <Modal url={url} isOpen={showModal} handleCloseModal={closeModal} />
     </footer>
   )
 }

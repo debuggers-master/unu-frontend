@@ -10,6 +10,7 @@ import './styles.scss'
 
 export const ItemTalk = props => {
   const {
+    date,
     organizationName,
     eventId,
     dayId,
@@ -49,7 +50,10 @@ export const ItemTalk = props => {
           </div>
           <div className='ItemTalk-day__Actions'>
             <Link
-              to={`/dashboard/${organizationName}/${eventId}/edit/schedule/${dayId}/${conferenceId}`}
+              to={{
+                pathname: `/dashboard/${organizationName}/${eventId}/edit/schedule/${dayId}/${conferenceId}`,
+                state: { date }
+              }}
             >
               <p>Editar</p>
             </Link>

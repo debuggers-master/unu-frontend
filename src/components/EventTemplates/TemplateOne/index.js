@@ -8,7 +8,8 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import styles from './styles.module.scss'
 const TemplateOne = ({ templateData }) => {
-  const { speakers, associates, url } = templateData
+  console.log(templateData)
+  const { speakers, associates, url, eventId } = templateData
   const banner = useRef(null)
   const home = useRef(null)
   const conferences = useRef(null)
@@ -60,7 +61,7 @@ const TemplateOne = ({ templateData }) => {
         <Associates data={associates} />
       </section>
       <div ref={register}>
-        <Footer data={url} />
+        <Footer url={url} eventId={eventId} />
       </div>
     </div>
   )
