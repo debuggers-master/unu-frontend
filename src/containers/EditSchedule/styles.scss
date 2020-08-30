@@ -46,9 +46,29 @@
       cursor: pointer;
     }
   }
+  .check-action {
+    @include checkButtons;
+    justify-content: flex-end;
+  }
 }
 
-.check-action {
-  @include checkButtons;
-  justify-content: flex-end;
+@media (max-width: 500px) {
+  .editSchedule {
+    max-height: 100%;
+    width: 100%;
+    padding: 16px;
+    padding-top: 32px;
+    h2 {
+      font-size: 30px;
+    }
+    .formEdit {
+      &-container {
+        max-height: 100%;
+        display: grid;
+        grid-template: 1fr / 1fr;
+        column-gap: $gap-5 $gap-2;
+      }
+      @include presetsform;
+    }
+  }
 }

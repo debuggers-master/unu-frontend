@@ -84,3 +84,21 @@
     display: none;
   }
 }
+
+@media (max-width: 500px) {
+  .editInfo {
+    max-height: 100%;
+    width: 100%;
+    padding: 16px;
+    padding-top: 32px;
+    .formEdit {
+      &-container {
+        max-height: 100%;
+        display: grid;
+        grid-template: 1fr / 1fr;
+        column-gap: $gap-5;
+      }
+      @include presetsform;
+    }
+  }
+}

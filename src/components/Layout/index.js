@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import ModalAction from '../ModalAction'
 import _logo from '../../assets/images/logo-white.svg'
 import _logout from '../../assets/images/logout_icon.svg'
+import BurguerButton from '../BurguerButton'
 import './styles.scss'
 
 const Layout = props => {
@@ -40,6 +41,12 @@ const Layout = props => {
     <>
       <div className='layout'>
         <div className='layout-menu'>
+          <div className='layout-menu__mobile'>
+            <Link to='/Dashboard'>
+              <img src={_logo} alt='Logotipo' />
+            </Link>
+            <BurguerButton typeOf='user' />
+          </div>
           <div className='layout-menu__container'>
             <div className='layout-menu__logo'>
               <img src={_logo} alt='Logotipo' />

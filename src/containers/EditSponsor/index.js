@@ -92,9 +92,9 @@ const EditSponsor = props => {
   return (
     <>
       <Layout active='home'>
-        <div className='editInfo'>
+        <div className='editSponsor'>
           <h2>Stark Industries</h2>
-          <div className='editInfo-container'>
+          <div className='editSponsor-container'>
             <h2>Editar asociados - Presentación Iron Man</h2>
             <form onSubmit={handleSubmit}>
               <div className='formEdit-container'>

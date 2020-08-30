@@ -49,3 +49,29 @@
     }
   }
 }
+
+@media (max-width: 500px) {
+  .newOrg {
+    max-height: 100%;
+    width: 100%;
+    padding: 16px;
+    padding-top: 32px;
+    &-container {
+      align-items: flex-start;
+      &__card {
+        height: auto;
+        width: 100%;
+        text-align: -webkit-center;
+      }
+    }
+    .formEdit {
+      &-container {
+        max-height: 100%;
+        display: grid;
+        grid-template: 1fr / 1fr;
+        column-gap: $gap-5;
+      }
+      @include presetsform;
+    }
+  }
+}

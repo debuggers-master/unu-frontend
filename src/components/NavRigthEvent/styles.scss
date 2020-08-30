@@ -1,0 +1,36 @@
+@import "../../styles/base";
+
+.card {
+  margin-bottom: $gap-5;
+  @include cardDasboard;
+  box-shadow: 3px 5px 9px rgba(0, 0, 0, 0.06);
+  &-titleOrg {
+    & h3 {
+      font-size: 24px;
+      color: $color-primary;
+      opacity: 0.7;
+      font-weight: 400;
+      margin: 0;
+    }
+  }
+  &-content {
+    &__title {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: $gap-3;
+      padding: 0px $gap-1;
+      & h3 {
+        font-weight: 400;
+        font-size: 24px;
+        color: $color-primary;
+        margin: 0;
+      }
+    }
+    &__paragraph {
+      padding-right: $gap-3;
+      font-size: 16px;
+      font-family: $font-secondary;
+    }
+  }
+}

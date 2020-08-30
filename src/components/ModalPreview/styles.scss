@@ -1,6 +1,6 @@
 @import "../../styles/base";
 
-.Modal {
+.ModalPreview {
   z-index: 10;
   position: fixed;
   width: 100%;
@@ -10,11 +10,18 @@
   align-items: center;
   background: #0000001c;
   top: 0;
+  h4 {
+    margin-top: 0;
+    font-size: 24px;
+  }
   &-container {
     @include cardDasboard;
-    max-width: 530px;
-    max-height: 212px;
+    max-width: 86%;
+    max-height: 86%;
     text-align: center;
+    & img {
+      max-height: 90%;
+    }
   }
   .check-action {
     @include checkButtons;

@@ -49,10 +49,10 @@ const EditDate = props => {
   return (
     <>
       <Layout active='home'>
-        <div className='newEvent'>
+        <div className='newDate'>
           <h2>Editar fecha día</h2>
-          <div className='newEvent-container'>
-            <div className='newEvent-container__card'>
+          <div className='newDate-container'>
+            <div className='newDate-container__card'>
               <form onSubmit={handleSubmit}>
                 <div className='formEdit-field'>
                   <label className='formEdit-field__label'>

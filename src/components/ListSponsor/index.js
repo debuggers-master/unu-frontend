@@ -39,7 +39,7 @@ const ListSponsor = props => {
   return (
     <>
       <Layout active='home'>
-        <div className='editDay'>
+        <div className='ListSponsor'>
           <h2>Stark Industries</h2>
           <div className='editDay-container'>
             <h2>Editar Asociados</h2>
@@ -53,7 +53,7 @@ const ListSponsor = props => {
                   />
                 ))}
               {
-                <div>
+                <div className='ListSponsor-NewDay'>
                   <Link
                     to={`/dashboard/${organizationName}/${eventId}/edit/sponsor/new`}
                   >

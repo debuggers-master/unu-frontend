@@ -125,7 +125,7 @@ const NewOrg = ({ user, createOrganization }) => {
                     nameAction='Entendido'
                     messageModal={
                       error
-                        ? 'Oh no hubo un problema'
+                        ? '¡Oh, no! Hubo un problema'
                         : 'Ha sido creada con exito!'
                     }
                     stateModal={error ? 'check' : 'cross'}

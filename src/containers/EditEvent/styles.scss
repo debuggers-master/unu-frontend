@@ -75,8 +75,50 @@
       }
     }
   }
+  .check-action {
+    @include checkButtons;
+  }
 }
 
-.check-action {
-  @include checkButtons;
+@media (max-width: 500px) {
+  .editEvent {
+    max-height: 100%;
+    width: 100%;
+    padding: 16px;
+    padding-top: 32px;
+    h2 {
+      font-size: 30px;
+    }
+    &-container {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+      row-gap: 40px;
+      padding: 16px;
+      padding-top: 32px;
+      &__left {
+        padding-right: 0;
+        &-edit {
+          width: 100%;
+          & ul {
+            padding-left: 32px;
+            font-size: 20px;
+          }
+          & img {
+            margin-left: 20px;
+          }
+          & li {
+            display: flex;
+            justify-content: space-between;
+          }
+        }
+      }
+      &__right {
+        &-btn {
+          position: relative;
+          bottom: 60px;
+          left: 80%;
+        }
+      }
+    }
+  }
 }
