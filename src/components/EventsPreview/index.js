@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../Header'
 import Footer from '../Footer'
 import Event from './Event'
+import BurguerButton from '../BurguerButton'
 import './styles.scss'
 
 const eventInfo = {
@@ -15,6 +16,7 @@ const EventsPreview = () => {
   return (
     <div>
       <Header styleType='header--bg' />
+      <BurguerButton typeOf='home' />
       <section className='event-preview-section section-container'>
         <div className='event-preview-section__title'>EVENTOS</div>
         <div className='event-preview-section__subtitle'>

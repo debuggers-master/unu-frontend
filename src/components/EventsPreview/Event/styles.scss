@@ -1,8 +1,8 @@
-@import '../../../styles/base';
+@import "../../../styles/base";
 .event {
   width: 100%;
   max-width: 1200px;
-  margin: $gap-3 auto;
+  margin: 64px auto;
   height: 400px;
   &__container {
     display: flex;
@@ -31,7 +31,7 @@
   }
   &__title {
     text-transform: uppercase;
-    @include title('sm');
+    @include title("sm");
   }
   &__description {
     text-align: center;
@@ -41,15 +41,48 @@
   }
   &__label {
     span:first-child {
-      padding: $gap-3;
+      padding: 0px $gap-3;
       border-right: 1px solid black;
       text-transform: uppercase;
-      @include subtitle('md');
+      @include subtitle("md");
     }
     span:last-child {
       padding: $gap-3;
-      @include subtitle('md');
+      @include subtitle("md");
       font-weight: 400;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .event {
+    width: 100%;
+    max-width: 1200px;
+    margin: 64px auto;
+    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    &__container {
+      display: flex;
+      flex-wrap: wrap;
+      height: 100%;
+    }
+    &__left {
+      width: 100%;
+    }
+    &__right {
+      width: 100%;
+      padding: 16px;
+      text-align: center;
+    }
+    &__description {
+      margin: 40px 0;
+    }
+    &-preview-secction__subtitle {
+      margin: 0 auto;
+      padding: 24px;
+      font-size: 18px;
     }
   }
 }

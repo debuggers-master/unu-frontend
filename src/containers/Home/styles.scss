@@ -26,6 +26,7 @@
   background-size: cover;
   background-position: center;
   color: $color-white;
+  filter: drop-shadow(0px 7px 13px rgba(0, 0, 0, 0.25));
 }
 .create-event-section {
   position: relative;
@@ -52,6 +53,7 @@
   margin-top: calc(200px + #{$header-height});
   height: 300px;
   background-color: $color-brand;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
   &__title {
     text-align: center;
     color: $color-white;
@@ -71,6 +73,7 @@
   background-color: $color-white;
   text-align: center;
   color: $color-primary;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
   div {
     width: 300px;
   }
@@ -94,6 +97,7 @@
   background-color: $color-primary;
   height: 500px;
   border: 1px solid transparent;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
   &__container {
     width: 100%;
     max-width: 820px;
@@ -116,9 +120,15 @@
   }
 }
 .featuring-section {
+  h1 {
+    text-align: center;
+    font-size: 50px;
+    padding: 32px 0px;
+    margin: 0;
+    color: $color-secondary;
+  }
   background-color: $color-white;
   height: 500px;
-  padding-top: $gap-6;
   &__grid {
     display: grid;
     grid-gap: $gap-5;
@@ -139,6 +149,8 @@
     bottom: 0;
     left: 0;
     right: 0;
+    border-radius: 16px;
+    box-shadow: inset 0px -5px 20px rgba(0, 0, 0, 0.25);
   }
   &__image {
     display: flex;
@@ -155,5 +167,166 @@
     background-color: $color-white;
     box-shadow: 0px -7px 8px 0px #6b64642b;
     @include paragraph("lg");
+  }
+}
+.team-section {
+  h1 {
+    text-align: center;
+    font-size: 70px;
+    padding: 32px 0px;
+    margin: 0 auto;
+    color: $color-primary;
+    display: flex;
+    line-height: 60px;
+    width: 276px;
+    flex-wrap: wrap;
+    font-family: $font-primary;
+    padding-top: 0;
+    & span {
+      font-size: 36px;
+    }
+  }
+  background-color: $color-white;
+  height: 681px;
+  &__grid {
+    display: grid;
+    grid-gap: 40px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 0 80px;
+  }
+  &__card {
+    position: relative;
+    border-radius: 16px;
+    width: 267px;
+    height: 466px;
+    place-self: center;
+    box-shadow: 0px 0px 22px rgba(0, 0, 0, 0.08);
+  }
+  &__container {
+    display: flex;
+    flex-flow: wrap;
+    border-radius: 16px;
+  }
+  &__image {
+    height: 379px;
+  }
+  &__label {
+    width: 100%;
+    height: 88px;
+    background-color: #fafafa;
+    display: flex;
+    flex-flow: wrap;
+    align-content: space-around;
+    border-radius: 0px 0px 8px 8px;
+    & h4 {
+      margin: 0;
+      width: 100%;
+      text-align: center;
+      font-family: $font-secondary;
+      color: $color-black;
+      font-weight: 400;
+      font-size: 18px;
+    }
+    & a {
+      width: 100%;
+      text-align: center;
+    }
+    & p {
+      margin: 0;
+      font-family: $font-secondary;
+      color: $color-brand;
+      font-weight: 400;
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .hero-home {
+    display: grid;
+    height: calc(100vh - #{$header-height});
+    place-items: center;
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto;
+    margin-top: $header-height;
+    text-align: center;
+    h1 {
+      @include title("lg");
+    }
+    &__button {
+      display: flex;
+      justify-content: center;
+      margin: $gap-3;
+    }
+  }
+  .home-section {
+    border-radius: 0px;
+  }
+  .create-event-section {
+    border-radius: 0;
+    width: 100%;
+  }
+  .firstStep-section {
+    display: grid;
+    place-items: center;
+    margin-top: calc(200px + #{$header-height});
+    height: 300px;
+    background-color: $color-brand;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+    &__title {
+      text-align: center;
+      color: $color-white;
+      width: 100%;
+      max-width: 820px;
+      @include title("sm");
+      span {
+        font-size: 72px;
+      }
+    }
+  }
+  .colaborators-section {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: auto;
+  }
+
+  .choose-design-section {
+    height: auto;
+    padding-bottom: 40px;
+    &__grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+  .featuring-section {
+    height: auto;
+    padding-bottom: 40px;
+    &__grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+    }
+    &__card {
+      position: relative;
+      background-color: $color-secondary;
+      border-radius: 16px;
+      width: 100%;
+      height: 320px;
+    }
+  }
+  .team-section {
+    height: auto;
+    padding-bottom: 40px;
+    &__grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr;
+      width: 100%;
+      justify-content: center;
+    }
   }
 }

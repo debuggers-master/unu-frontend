@@ -15,13 +15,13 @@ const NavRigth = (props) => {
         <Link to='/'>Inicio</Link>
       </li>
       <li>
-        <Link to='/eventos'>Eventos</Link>
+        <Link to='/events'>Eventos</Link>
       </li>
       <li>
-        <Link to='/CalendarPage'>Calendario</Link>
+        <Link to='/'>Equipo</Link>
       </li>
       <li>
-        <Link to='/'>Cerrar sesión</Link>
+        <Link to='/login'>Login</Link>
       </li>
     </ul>
   )

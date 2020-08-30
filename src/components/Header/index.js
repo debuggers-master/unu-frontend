@@ -17,8 +17,8 @@ const Header = props => {
           </div>
           <div className='header__right'>
             <ul>
-              <Link to='/'>Inicio</Link>
-              <Link to='/dashboard'>Equipo</Link>
+              <Link to='#start'>Inicio</Link>
+              <Link to='#team'>Equipo</Link>
               <Link to='/events'>Eventos</Link>
               <li>
                 <Link to='/login'>

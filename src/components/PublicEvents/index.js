@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { API_URL } from '../../config.js'
+import NotFound from '../../containers/NotFound'
 import TemplateOne from '../EventTemplates/TemplateOne'
 import TemplateTwo from '../EventTemplates/TemplateTwo'
 
@@ -25,7 +26,7 @@ const PublicEvents = props => {
     getData()
   }, [organizationName, url])
   if (error) {
-    return <div>Parece que no hay nada</div>
+    return <NotFound />
   }
 
   if (eventData) {
