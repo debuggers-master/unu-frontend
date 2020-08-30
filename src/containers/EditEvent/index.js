@@ -9,6 +9,7 @@ import { deleteEvent } from '../../actions'
 import { ItemCollaborator } from '../../components/ItemCollaborate'
 import ModalAction from '../../components/ModalAction'
 import ModalState from '../../components/ModalState'
+import Loader from '../../containers/Loader'
 
 import _edit from '../../assets/images/iconEdit.svg'
 import _plus from '../..//assets/images/iconPlus.svg'
@@ -28,6 +29,7 @@ const EditEvent = props => {
   const [openPrompt, setOpenPrompt] = useState(false)
   const [status, setStatus] = useState()
   const [collaboratorList, setCollaboratorsList] = useState([])
+  const [loader, setLoader] = useState(true)
 
   const emptyList = collaboratorList.length > 0
 
@@ -43,8 +45,10 @@ const EditEvent = props => {
         })
         console.log(data)
         setCollaboratorsList(data.collaborators)
+        setLoader(false)
       } catch (error) {
         console.log(error)
+        setLoader(false)
       }
     }
     getCollaborators()
@@ -72,7 +76,27 @@ const EditEvent = props => {
       setStatus({ error: 'Ups parece que hubo un error' })
     }
   }
-
+  const publishEvent = async () => {
+    try {
+      await axios(`${API_URL}/api/v1/events/change-status`, {
+        headers: { Authorization: `Bearer ${getCookie('token')}` },
+        method: 'PUT',
+        params: {
+          actualStatus: false,
+          eventId
+        }
+      })
+      setStatus({
+        error: false,
+        success: `Tu sitio ha sido publicado en http://localhost:3000/${organizationName}/${name.replace(
+          / /g,
+          '-'
+        )}`
+      })
+    } catch (error) {
+      setStatus({ error: 'Ups parece que hubo un error' })
+    }
+  }
   const showPrompt = () => setOpenPrompt(true)
   const closePrompt = () => setOpenPrompt(false)
 
@@ -124,7 +148,10 @@ const EditEvent = props => {
                 <button onClick={showPrompt} className='check-action__btnLeft'>
                   <p>Eliminar</p>
                 </button>
-                <button className='check-action__btnRight'>
+                <button
+                  onClick={publishEvent}
+                  className='check-action__btnRight'
+                >
                   <p>Publicar</p>
                 </button>
               </div>
@@ -133,7 +160,8 @@ const EditEvent = props => {
               <h2>Colaboradores</h2>
               <div className='editEvent-container__right-collaborates'>
                 <ul>
-                  {emptyList ? (
+                  {loader && <Loader />}
+                  {emptyList &&
                     collaboratorList.map((collaborator, index) => (
                       <ItemCollaborator
                         data={collaborator}
@@ -141,8 +169,8 @@ const EditEvent = props => {
                         deleteCollaborator={deleteItemCollaborator}
                         key={index}
                       />
-                    ))
-                  ) : (
+                    ))}
+                  {loader && emptyList && (
                     <div className='editEvent-container__right-empty'>
                       No tienes colaboradores para este evento
                     </div>
@@ -174,8 +202,8 @@ const EditEvent = props => {
             setStatus(null)
           }}
           nameAction='Entendido'
-          messageModal={status.error}
-          stateModal='check'
+          messageModal={status.error ? status.error : status.success}
+          stateModal={status.error ? 'check' : 'cross'}
         />
       )}
     </>

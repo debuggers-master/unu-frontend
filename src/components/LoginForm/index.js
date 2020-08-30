@@ -69,8 +69,8 @@ const LoginForm = props => {
             Login
           </button>
         </div>
-        {props.signError && (
-          <div className='form-field__error'>{props.signError}</div>
+        {props.loginError && (
+          <div className='form-field__error'>{props.loginError}</div>
         )}
       </form>
     </>
@@ -81,6 +81,6 @@ const mapDispatchToProps = {
 }
 const mapStateToProps = state => ({
   redirectTo: state.redirectTo,
-  signError: state.errors.signError
+  loginError: state.errors.loginError
 })
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)

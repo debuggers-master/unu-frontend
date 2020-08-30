@@ -17,7 +17,6 @@ const OrgPreview = props => {
   const { organizationName } = props.match.params || {}
   const { organizationId } = props.location.state || ''
   const { events } = props.location.state || []
-
   const [publishedEvents, setPublishedEvents] = useState([])
   const [count, setCount] = useState([])
   const [status, setStatus] = useState()

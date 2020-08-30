@@ -17,6 +17,10 @@ export const signError = payload => ({
   type: 'SIGN_ERROR',
   payload
 })
+export const loginError = payload => ({
+  type: 'LOGIN_ERROR',
+  payload
+})
 
 export const addCollaboration = payload => ({
   type: 'ADD_COLLABORATION',
@@ -81,7 +85,7 @@ export const loginUser = (payload, redirectUrl) => {
     } catch (error) {
       console.log(error)
       console.log(error.response)
-      // error.response.status === 401 && dispatch(signError('Datos incorrectos'))
+      error.response.status === 401 && dispatch(loginError('Datos Incorrectos'))
     }
   }
 }

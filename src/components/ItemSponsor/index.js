@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import getCookie from '../../utils/getCookie'
 import { API_URL } from '../../config'
 import './styles.scss'
+import ModalAction from '../../components/ModalAction'
 
 export const ItemSponsor = props => {
   const { name, associatedId } = props.data.associate || {}
   const { organizationName, eventId } = props.data
+  const [openPrompt, setOpenPrompt] = useState(false)
 
   const deleteSponsor = async () => {
     try {
@@ -25,6 +27,8 @@ export const ItemSponsor = props => {
       console.log(error)
     }
   }
+  const showPrompt = () => setOpenPrompt(true)
+  const closePrompt = () => setOpenPrompt(false)
   return (
     <>
       <li>
@@ -38,10 +42,16 @@ export const ItemSponsor = props => {
             >
               <p>Editar</p>
             </Link>
-            <button onClick={deleteSponsor}>Eliminar</button>
+            <button onClick={showPrompt}>Eliminar</button>
           </div>
         </div>
       </li>
+      <ModalAction
+        isOpen={openPrompt}
+        nameAction='Eliminar Evento'
+        handleAction={deleteSponsor}
+        handleCloseModal={closePrompt}
+      />
     </>
   )
 }

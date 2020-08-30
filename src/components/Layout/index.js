@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ModalAction from '../ModalAction'
 import _logo from '../../assets/images/logo-white.svg'
 import _logout from '../../assets/images/logout_icon.svg'
 import './styles.scss'
 
-const Layout = ({ children, active }) => {
+const Layout = props => {
+  const { children, active } = props
   const [showModal, setShowModal] = useState(false)
+  const emptyOrganizations = props.organizationsList < 1
   const openModal = () => {
     setShowModal(true)
   }
@@ -63,7 +66,13 @@ const Layout = ({ children, active }) => {
                   active
                 )}`}
               >
-                <Link to='/dashboard/NewEvent'>
+                <Link
+                  to={
+                    emptyOrganizations
+                      ? '/dashboard/NewOrg'
+                      : '/dashboard/NewEvent'
+                  }
+                >
                   <svg
                     width='21'
                     height='21'
@@ -99,5 +108,7 @@ const Layout = ({ children, active }) => {
     </>
   )
 }
-
-export default Layout
+const mapStateToProps = state => ({
+  organizationsList: state.user.organizations
+})
+export default connect(mapStateToProps, null)(Layout)

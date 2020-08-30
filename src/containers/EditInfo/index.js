@@ -7,12 +7,14 @@ import { API_URL } from '../../config.js'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 import ModalState from '../../components/ModalState'
+import Loader from '../../containers/Loader'
 const FileReader = window.FileReader
 
 const EditInfo = props => {
   const { eventId, organizationName } = props.match.params
   const [inputValues, setInputValues] = useState({})
   const [status, setStatus] = useState()
+  const [loader, setLoader] = useState(true)
 
   useEffect(() => {
     async function getEventInfo () {
@@ -32,8 +34,10 @@ const EditInfo = props => {
           imageEvent: data.imageEvent
         }
         setInputValues(values)
+        setLoader(false)
       } catch (error) {
         setStatus({ error: 'Parece que hubo un error :(' })
+        setLoader(false)
         console.log(error)
       }
     }
@@ -41,10 +45,12 @@ const EditInfo = props => {
   }, [eventId])
 
   const handleUpload = async evn => {
+    setLoader(true)
     const fieldName = evn.target.name
     const fr = new FileReader()
     fr.onload = evn => {
       setInputValues({ ...inputValues, [fieldName]: fr.result })
+      setLoader(false)
     }
     fr.readAsDataURL(evn.target.files[0])
   }
@@ -55,6 +61,7 @@ const EditInfo = props => {
     setInputValues({ ...inputValues, [fieldName]: fieldValue })
   }
   const handleSubmit = async evn => {
+    setLoader(true)
     evn.preventDefault()
     const eventData = {
       name: inputValues.name,
@@ -81,9 +88,11 @@ const EditInfo = props => {
         }
       })
       setStatus({ error: false })
+      setLoader(false)
       console.log('Modificados exitosamente')
     } catch (error) {
       setStatus({ error: 'Ups parece que hubo un error' })
+      setLoader(false)
     }
     // vaildate fields
     // send data to appState
@@ -94,6 +103,7 @@ const EditInfo = props => {
       <Layout active='home'>
         <div className='editInfo'>
           <h2>{organizationName}</h2>
+          {loader && <Loader />}
           <div className='editInfo-container'>
             <h2>Editar informacion del evento</h2>
             <form onSubmit={handleSubmit}>
