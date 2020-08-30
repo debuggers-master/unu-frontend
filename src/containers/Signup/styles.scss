@@ -1,4 +1,4 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
 .signup {
   position: relative;
@@ -14,7 +14,7 @@
     padding: $gap-3;
     color: $color-white;
     background-color: green;
-    background-image: url('../../assets/images/signup-banner.jpg');
+    background-image: url("../../assets/images/signup-banner.jpg");
     background-position: center;
     h3 {
       @include title(lg);
@@ -45,5 +45,20 @@
   &__button {
     display: flex;
     justify-content: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .getStarted-grid {
+    padding: $gap-2;
+  }
+  .signup {
+    grid-template-columns: 1fr;
+    &__form {
+      padding: $gap-4;
+    }
+    &__banner {
+      display: none;
+    }
   }
 }

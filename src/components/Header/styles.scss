@@ -51,6 +51,16 @@
   }
 }
 
+@media (max-width: 900px) {
+  .header {
+    &__left {
+      padding-left: 16px;
+    }
+    &__right {
+      display: none;
+    }
+  }
+}
 @media (max-width: 500px) {
   .header {
     &__left {

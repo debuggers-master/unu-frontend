@@ -241,7 +241,7 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 900px) {
   .hero-home {
     display: grid;
     height: calc(100vh - #{$header-height});
@@ -254,6 +254,88 @@
     h1 {
       @include title("lg");
     }
+    &__button {
+      display: flex;
+      justify-content: center;
+      margin: $gap-3;
+    }
+  }
+  .create-event-section {
+    width: 100%;
+  }
+  .firstStep-section {
+    display: grid;
+    place-items: center;
+    margin-top: calc(200px + #{$header-height});
+    height: 300px;
+    background-color: $color-brand;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+    &__title {
+      text-align: center;
+      color: $color-white;
+      width: 100%;
+      max-width: 820px;
+      @include title("sm");
+      span {
+        font-size: 72px;
+      }
+    }
+  }
+  .colaborators-section {
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+  }
+
+  .choose-design-section {
+    height: auto;
+    padding-bottom: 40px;
+    &__grid {
+      padding: 0 $gap-2;
+      gap: $gap-2;
+      grid-template-columns: 1fr 1fr 1fr;
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+  .featuring-section {
+    height: auto;
+    padding-bottom: 40px;
+    &__grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+    &__card {
+      position: relative;
+      background-color: $color-secondary;
+      border-radius: 16px;
+      width: 100%;
+      height: 320px;
+    }
+  }
+  .team-section {
+    height: auto;
+    padding-bottom: 40px;
+    &__grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+@media (max-width: 500px) {
+  .hero-home {
+    display: grid;
+    height: calc(100vh - #{$header-height});
+    place-items: center;
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto;
+    margin-top: $header-height;
+    text-align: center;
     &__button {
       display: flex;
       justify-content: center;

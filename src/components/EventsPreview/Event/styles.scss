@@ -32,6 +32,7 @@
   &__title {
     text-transform: uppercase;
     @include title("sm");
+    opacity: 0.8;
   }
   &__description {
     text-align: center;
@@ -40,6 +41,7 @@
     @include paragraph();
   }
   &__label {
+    opacity: 0.6;
     span:first-child {
       padding: 0px $gap-3;
       border-right: 1px solid black;
@@ -54,6 +56,18 @@
   }
 }
 
+@media (max-width: 900px) {
+  .event {
+    padding: $gap-2;
+    margin: 0px;
+    &__container {
+      align-items: center;
+    }
+    &__right {
+      padding: 0px $gap-2;
+    }
+  }
+}
 @media (max-width: 500px) {
   .event {
     width: 100%;
@@ -63,6 +77,7 @@
     display: flex;
     flex-wrap: wrap;
     height: auto;
+    padding: 0 16px;
     &__container {
       display: flex;
       flex-wrap: wrap;

@@ -30,6 +30,9 @@ const NavRigthEvent = (props) => {
         <Link to='/dashboard/NewEvent'>Nuevo evento</Link>
       </li>
       <li>
+        <Link to='/CalendarPage'>Calendario</Link>
+      </li>
+      <li>
         <button onClick={openModal}>Cerrar sesión</button>
       </li>
       <ModalAction

@@ -9,7 +9,7 @@
     width: 2rem;
     height: 2rem;
     position: fixed;
-    top: 22px;
+    top: 32px;
     right: 37px;
     display: flex;
     justify-content: space-around;
@@ -42,7 +42,76 @@
       width: 2rem;
       height: 2rem;
       position: fixed;
-      top: 22px;
+      top: 32px;
+      right: 37px;
+      display: flex;
+      justify-content: space-around;
+      flex-flow: column nowrap;
+      z-index: 122;
+      & div {
+        width: 2rem;
+        height: 0.25rem;
+        background-color: $color-white;
+        border-radius: 10px;
+        transform-origin: 1px;
+      }
+      & div {
+        background-color: $color-white;
+        &:nth-child(1) {
+          transform: rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+
+        &:nth-child(3) {
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+}
+@media (max-width: 900px) {
+  .Burguer {
+    width: 2rem;
+    height: 2rem;
+    position: fixed;
+    top: 32px;
+    right: 37px;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: column nowrap;
+    z-index: 122;
+    & div {
+      width: 2rem;
+      height: 0.25rem;
+      background-color: $color-white;
+      border-radius: 10px;
+      transform-origin: 1px;
+    }
+    & div {
+      background-color: $color-white;
+
+      &:nth-child(1) {
+        transform: rotate(0);
+      }
+
+      &:nth-child(2) {
+        transform: translateX(0);
+      }
+
+      &:nth-child(3) {
+        transform: rotate(0);
+      }
+    }
+
+    &-open {
+      width: 2rem;
+      height: 2rem;
+      position: fixed;
+      top: 32px;
       right: 37px;
       display: flex;
       justify-content: space-around;
