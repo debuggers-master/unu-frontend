@@ -23,6 +23,13 @@
     margin: 0px;
     margin-bottom: $gap-4;
   }
+  &-title {
+    h2 {
+      font-size: 24px;
+      width: 100%;
+    }
+    display: flex;
+  }
   &-container {
     h2 {
       font-size: 24px;

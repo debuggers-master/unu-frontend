@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import { API_URL } from '../../config.js'
 import Header from '../Header'
@@ -11,6 +11,14 @@ const EventsPreview = () => {
   const [evnList, setEvnList] = useState([])
   const [error, setError] = useState(false)
 
+  const home = useRef(null)
+  const team = useRef(null)
+  const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop - 100)
+  const executeScroll = evn => {
+    const link = evn.currentTarget.textContent
+    link === 'Inicio' && scrollToRef(home)
+    link === 'Equipo' && scrollToRef(team)
+  }
   useEffect(() => {
     async function getData () {
       try {
@@ -33,7 +41,7 @@ const EventsPreview = () => {
   return (
     <div>
       <Header styleType='header--bg' />
-      <BurguerButton typeOf='home' />
+      <BurguerButton typeOf='home' handleClick={executeScroll} />
       <section className='event-preview-section section-container'>
         <div className='event-preview-section__title'>EVENTOS</div>
         <div className='event-preview-section__subtitle'>

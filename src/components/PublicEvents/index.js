@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { API_URL } from '../../config.js'
-import NotFound from '../../containers/NotFound'
 import TemplateOne from '../EventTemplates/TemplateOne'
 import TemplateTwo from '../EventTemplates/TemplateTwo'
 import NotFound from '../../containers/NotFound'
