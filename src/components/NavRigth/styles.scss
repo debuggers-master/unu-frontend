@@ -1,0 +1,17 @@
+@import "../../styles/base";
+
+.NavRigth {
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .NavRigth {
+    @include NavRigth;
+    transform: translateX(100%);
+
+    &-open {
+      @include NavRigth;
+      transform: translateX(0);
+    }
+  }
+}

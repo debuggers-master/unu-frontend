@@ -3,6 +3,7 @@
 .layout {
   display: grid;
   max-height: 100vh;
+  min-height: 100vh;
   grid-template:
     "menu content" 1fr
     "menu content" 1fr/ 88px 1fr;
@@ -11,6 +12,10 @@
     grid-area: menu;
     height: 100%;
     padding: $gap-1 0px $gap-1 $gap-1;
+    &__mobile {
+      height: 0px;
+      display: none;
+    }
     &__container {
       background-color: $color-primary;
       border-radius: 12px;
@@ -75,6 +80,35 @@
       font-size: 36px;
       margin: 0px;
       margin-bottom: $gap-4;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .layout {
+    grid-template:
+      "menu " 1fr
+      "content " 1fr/ 1fr;
+    &-menu {
+      padding: 0;
+      &__mobile {
+        display: flex;
+        background-color: $color-primary;
+        height: 75px;
+        padding-left: 32px;
+        align-items: center;
+        position: fixed;
+        width: 100%;
+        & img {
+          width: 60px;
+        }
+      }
+      &__container {
+        display: none;
+      }
+    }
+    &-content {
+      padding-top: 60px;
     }
   }
 }

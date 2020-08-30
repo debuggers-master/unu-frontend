@@ -19,6 +19,7 @@ import EditSponsor from './containers/EditSponsor'
 import EmailInv from './containers/EmailInv'
 import AddCollaborator from './containers/AddCollaborator'
 import EditTalk from './containers/EditTalk'
+import NotFound from './containers/NotFound'
 
 function App ({ isAuth }) {
   return (
@@ -112,6 +113,7 @@ function App ({ isAuth }) {
 
         <EventsPreview exact path='/events' />
         <PublicEvents exact path='/:organizationName/:url' />
+        <NotFound exact />
       </Switch>
     </BrowserRouter>
   )

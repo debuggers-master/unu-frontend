@@ -6,8 +6,13 @@
   padding: 32px;
   &-header {
     display: flex;
-    width: 100%;
-    justify-content: space-between;
+    width: fit-content;
+    align-items: center;
+    margin-bottom: 32px;
+    h2 {
+      margin-bottom: 0;
+      margin-right: 32px;
+    }
     .check-action {
       @include checkButtons;
     }
@@ -37,6 +42,12 @@
           color: $color-secondary;
           font-size: 16px;
         }
+        & h4 {
+          font-size: 18px;
+          text-align: center;
+          font-family: $font-secondary;
+          color: $color-secondary;
+        }
       }
     }
     &__Right {
@@ -53,10 +64,37 @@
       grid-area: bottomLeft;
       @include cardDasboard;
       & li {
-        color: #194c85;
+        color: $color-primary;
         font-size: 18px;
-        margin-top: 40px;
+        margin-top: $gap-4;
       }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .OrgPreview {
+    max-height: 100%;
+    width: 100%;
+    padding: 16px;
+    padding-top: 32px;
+    &-container {
+      display: grid;
+      min-height: 85vh;
+      gap: 28px;
+      grid-template:
+        "topLeft " 1fr
+        " Right" 1fr
+        "bottomLeft " 1fr/ 1fr;
+    }
+    .formEdit {
+      &-container {
+        max-height: 100%;
+        display: grid;
+        grid-template: 1fr / 1fr;
+        column-gap: $gap-5;
+      }
+      @include presetsform;
     }
   }
 }

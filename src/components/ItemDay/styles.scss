@@ -52,5 +52,17 @@
         cursor: pointer;
       }
     }
+    & button {
+      background: none;
+      color: $color-brand;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .itemDay {
+    &-day {
+      padding: 0;
+    }
   }
 }

@@ -14,6 +14,7 @@
     margin-bottom: 28px;
   }
 }
+
 @mixin menuIcon {
   width: 100%;
   height: 62px;
@@ -78,6 +79,28 @@
       font-size: 18px;
       font-family: $font-secondary;
     }
+  }
+}
+
+@mixin NavRigth {
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: $color-primary;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 0;
+  height: 100vh;
+  width: 75%;
+  padding-top: 3.5rem;
+  transition: transform 0.3s ease-in-out;
+  z-index: 121;
+  list-style: none;
+  text-align: center;
+  & li {
+    color: $color-white;
+    font-size: 18px;
+    padding: 18px 10px;
   }
 }
 
@@ -173,6 +196,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      background-size: contain;
+      background-repeat: none;
+      background-position: center;
     }
     &__fileDos {
       width: 100%;
@@ -185,6 +211,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      background-size: contain;
+      background-repeat: none;
+      background-position: center;
     }
     &__fileIcon {
       height: 50px;

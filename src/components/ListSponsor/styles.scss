@@ -1,6 +1,6 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
-.editDay {
+.ListSponsor {
   max-height: 100vh;
   width: 100%;
   padding: 32px;
@@ -10,6 +10,18 @@
     font-size: 36px;
     margin: 0px;
     margin-bottom: $gap-4;
+  }
+  & ul {
+    text-align: center;
+  }
+  &-NewDay {
+    margin-left: 32px;
+    font-size: 18px;
+    font-family: $font-primary;
+    font-weight: 400;
+    color: $color-brand;
+    text-decoration: underline;
+    cursor: pointer;
   }
   &-container {
     h2 {
@@ -75,4 +87,19 @@
 .check-action {
   @include checkButtons;
   justify-content: flex-end;
+}
+
+@media (max-width: 500px) {
+  .ListSponsor {
+    max-height: 100%;
+    width: 100%;
+    padding: 16px;
+    padding-top: 32px;
+    &-container {
+      grid-template-rows: 115px 1fr 72px;
+    }
+    h2 {
+      font-size: 30px;
+    }
+  }
 }

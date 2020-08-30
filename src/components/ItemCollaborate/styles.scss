@@ -1,4 +1,4 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
 li {
   width: 100%;
@@ -28,4 +28,14 @@ li {
   width: 60%;
   border-top: solid 2px $color-black;
   opacity: 0.5;
+}
+
+@media (max-width: 500px) {
+  .item {
+    padding: $gap-3;
+  }
+
+  .line {
+    width: 80%;
+  }
 }

@@ -97,9 +97,9 @@ const EditTalk = props => {
   return (
     <>
       <Layout active='home'>
-        <div className='editInfo'>
+        <div className='editTalk'>
           <h2>{organizationName}</h2>
-          <div className='editInfo-container'>
+          <div className='editTalk-container'>
             <h2>Editar Información General</h2>
             <form onSubmit={handleSubmit}>
               <div className='formEdit-container'>
