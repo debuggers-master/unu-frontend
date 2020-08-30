@@ -5,6 +5,7 @@ import EventsPreview from './components/EventsPreview'
 import PublicEvents from './components/PublicEvents'
 import Signup from './containers/Signup'
 import Home from './containers/Home'
+import Loader from './containers/Loader'
 import Dashboard from './containers/Dashboard'
 import OrgPreview from './containers/OrgPreview'
 import NewEvent from './containers/NewEvent'
@@ -26,6 +27,7 @@ function App ({ isAuth }) {
     <BrowserRouter>
       <Switch>
         <Home exact path='/' />
+        <Loader exact path='/loader' />
         <Signup exact path='/signup' />
         <Login exact path='/login' />
         <Route exact path='/dashboard' component={isAuth ? Dashboard : Login} />

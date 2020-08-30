@@ -1,4 +1,6 @@
+const sessionStorage = window.sessionStorage
 const reducers = (state, action) => {
+  let newState
   switch (action.type) {
     case 'REGISTER_REQUEST':
       return {
@@ -11,7 +13,7 @@ const reducers = (state, action) => {
         user: action.payload
       }
     case 'DELETE_EVENT':
-      return {
+      newState = {
         ...state,
         user: {
           ...state.user,
@@ -20,8 +22,10 @@ const reducers = (state, action) => {
           )
         }
       }
+      sessionStorage.setItem('myData', JSON.stringify(newState.user))
+      return newState
     case 'DELETE_ORGANIZATION':
-      return {
+      newState = {
         ...state,
         user: {
           ...state.user,
@@ -30,22 +34,28 @@ const reducers = (state, action) => {
           )
         }
       }
+      sessionStorage.setItem('myData', JSON.stringify(newState.user))
+      return newState
     case 'CREATE_ORGANIZATION':
-      return {
+      newState = {
         ...state,
         user: {
           ...state.user,
           organizations: [...state.user.organizations, action.payload]
         }
       }
+      sessionStorage.setItem('myData', JSON.stringify(newState.user))
+      return newState
     case 'CREATE_EVENT':
-      return {
+      newState = {
         ...state,
         user: {
           ...state.user,
           myEvents: [...state.user.myEvents, action.payload]
         }
       }
+      sessionStorage.setItem('myData', JSON.stringify(newState.user))
+      return newState
 
     case 'REDIRECT_TO_URL':
       return {
@@ -56,6 +66,11 @@ const reducers = (state, action) => {
       return {
         ...state,
         errors: { signError: action.payload }
+      }
+    case 'LOGIN_ERROR':
+      return {
+        ...state,
+        errors: { loginError: action.payload }
       }
 
     default:

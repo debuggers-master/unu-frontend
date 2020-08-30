@@ -10,6 +10,7 @@ const PublicEvents = props => {
   const [error, setError] = useState(false)
   const { organizationName, url } = props.computedMatch.params
   useEffect(() => {
+    console.log({ organizationName, url })
     async function getData () {
       try {
         const { data } = await axios(`${API_URL}/api/v1/events/from-url`, {

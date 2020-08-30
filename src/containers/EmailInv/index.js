@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import getCookie from '../../utils/getCookie'
 import { Link } from 'react-router-dom'
 import { API_URL } from '../../config.js'
 import Layout from '../../components/Layout'
 import ModalState from '../../components/ModalState'
-
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
-// const FileReader = window.FileReader
+const FileReader = window.FileReader
 
 const EmailInv = props => {
   const { eventId, organizationName } = props.match.params || {}
 
   const [inputValues, setInputValues] = useState({})
+
+  const emailImg = useRef(null)
+
+  const img = {
+    image: emailImg
+  }
 
   useEffect(() => {
     async function getEventId () {
@@ -36,14 +41,15 @@ const EmailInv = props => {
     getEventId()
   }, [eventId])
 
-  // const handleUpload = evn => {
-  //   const fieldName = evn.target.name
-  //   const fr = new FileReader()
-  //   fr.onload = evn => {
-  //     setInputValues({ ...inputValues, [fieldName]: fr.result })
-  //   }
-  //   fr.readAsDataURL(evn.target.files[0])
-  // }
+  const handleUpload = evn => {
+    const fieldName = evn.target.name
+    const fr = new FileReader()
+    fr.onload = evn => {
+      setInputValues({ ...inputValues, [fieldName]: fr.result })
+      img[fieldName].current.style.backgroundImage = `url(${fr.result})`
+    }
+    fr.readAsDataURL(evn.target.files[0])
+  }
 
   const handleChange = evn => {
     const fieldName = evn.target.name
@@ -128,12 +134,12 @@ const EmailInv = props => {
                       Agrega una imagen (opcional)
                     </label>
                     <input
-                      name='logo'
-                      onChange={handleChange}
+                      name='image'
+                      onChange={handleUpload}
                       id='imgHeader'
                       type='file'
                     />
-                    <div className='formEdit-field__file'>
+                    <div ref={emailImg} className='formEdit-field__file'>
                       <label
                         htmlFor='imgHeader'
                         className='formEdit-field__fileIcon'
@@ -148,7 +154,9 @@ const EmailInv = props => {
                 </div>
               </div>
               <div className='check-action'>
-                <Link to={`/dashboard/${inputValues.organizationName}/${eventId}/edit/`}>
+                <Link
+                  to={`/dashboard/${inputValues.organizationName}/${eventId}/edit/`}
+                >
                   <button className='check-action__btnLeft'>
                     <p>Cancelar</p>
                   </button>
@@ -160,7 +168,11 @@ const EmailInv = props => {
                   isOpen={showModal}
                   handleAction={GoBack}
                   nameAction='Entendido'
-                  messageModal={Error ? 'Oh no hubo un problema' : 'Ha sido enviado con exito!'}
+                  messageModal={
+                    Error
+                      ? 'Oh no hubo un problema'
+                      : 'Ha sido enviado con exito!'
+                  }
                   stateModal={Error ? 'check' : 'cross'}
                 />
               </div>

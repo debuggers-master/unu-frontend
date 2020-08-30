@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import getCookie from '../../utils/getCookie'
 import Layout from '../../components/Layout'
@@ -7,13 +7,20 @@ import { API_URL } from '../../config.js'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 import ModalState from '../../components/ModalState'
+import Loader from '../../containers/Loader'
 const FileReader = window.FileReader
 
 const EditInfo = props => {
   const { eventId, organizationName } = props.match.params
   const [inputValues, setInputValues] = useState({})
   const [status, setStatus] = useState()
-
+  const [loader, setLoader] = useState(true)
+  const headerImg = useRef(null)
+  const eventImg = useRef(null)
+  const img = {
+    imageHeader: headerImg,
+    imageEvent: eventImg
+  }
   useEffect(() => {
     async function getEventInfo () {
       try {
@@ -32,8 +39,10 @@ const EditInfo = props => {
           imageEvent: data.imageEvent
         }
         setInputValues(values)
+        setLoader(false)
       } catch (error) {
         setStatus({ error: 'Parece que hubo un error :(' })
+        setLoader(false)
         console.log(error)
       }
     }
@@ -41,10 +50,13 @@ const EditInfo = props => {
   }, [eventId])
 
   const handleUpload = async evn => {
+    setLoader(true)
     const fieldName = evn.target.name
     const fr = new FileReader()
     fr.onload = evn => {
       setInputValues({ ...inputValues, [fieldName]: fr.result })
+      setLoader(false)
+      img[fieldName].current.style.backgroundImage = `url(${fr.result})`
     }
     fr.readAsDataURL(evn.target.files[0])
   }
@@ -55,6 +67,7 @@ const EditInfo = props => {
     setInputValues({ ...inputValues, [fieldName]: fieldValue })
   }
   const handleSubmit = async evn => {
+    setLoader(true)
     evn.preventDefault()
     const eventData = {
       name: inputValues.name,
@@ -81,9 +94,11 @@ const EditInfo = props => {
         }
       })
       setStatus({ error: false })
+      setLoader(false)
       console.log('Modificados exitosamente')
     } catch (error) {
       setStatus({ error: 'Ups parece que hubo un error' })
+      setLoader(false)
     }
     // vaildate fields
     // send data to appState
@@ -94,6 +109,7 @@ const EditInfo = props => {
       <Layout active='home'>
         <div className='editInfo'>
           <h2>{organizationName}</h2>
+          {loader && <Loader />}
           <div className='editInfo-container'>
             <h2>Editar informacion del evento</h2>
             <form onSubmit={handleSubmit}>
@@ -200,7 +216,7 @@ const EditInfo = props => {
                       id='imgEvent'
                       type='file'
                     />
-                    <div className='formEdit-field__file'>
+                    <div ref={eventImg} className='formEdit-field__file'>
                       <label
                         htmlFor='imgEvent'
                         className='formEdit-field__fileIcon'
@@ -222,7 +238,7 @@ const EditInfo = props => {
                       id='imgHeader'
                       type='file'
                     />
-                    <div className='formEdit-field__file'>
+                    <div ref={headerImg} className='formEdit-field__file'>
                       <label
                         htmlFor='imgHeader'
                         className='formEdit-field__fileIcon'

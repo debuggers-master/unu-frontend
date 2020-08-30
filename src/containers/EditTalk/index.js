@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
@@ -7,12 +7,21 @@ import { API_URL } from '../../config.js'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 import ModalState from '../../components/ModalState'
+import Loader from '../../containers/Loader'
+
 const FileReader = window.FileReader
 
 const EditTalk = props => {
   const { conferenceId, organizationName, eventId, dayId } = props.match.params
   const [inputValues, setInputValues] = useState({})
   const [status, setStatus] = useState()
+  const [loader, setLoader] = useState(true)
+
+  const speakerImg = useRef(null)
+
+  const img = {
+    speakerPhoto: speakerImg
+  }
 
   useEffect(() => {
     async function getTalk () {
@@ -29,9 +38,11 @@ const EditTalk = props => {
           .shift()
         console.log(talkData)
         setInputValues(talkData)
+        setLoader(false)
       } catch (error) {
         console.log(error)
         setStatus({ error: 'Ups parece que hubo un error' })
+        setLoader(false)
       }
     }
     conferenceId && getTalk()
@@ -43,15 +54,19 @@ const EditTalk = props => {
     setInputValues({ ...inputValues, [fieldName]: fieldValue })
   }
   const handleUpload = async evn => {
+    setLoader(true)
     const fieldName = evn.target.name
     const fr = new FileReader()
     fr.onload = evn => {
       setInputValues({ ...inputValues, [fieldName]: fr.result })
+      img[fieldName].current.style.backgroundImage = `url(${fr.result})`
+      setLoader(false)
     }
     fr.readAsDataURL(evn.target.files[0])
   }
 
   const handleSubmit = async evn => {
+    setLoader(true)
     evn.preventDefault()
     const conferenceData = {
       conferenceId: conferenceId ? inputValues.conferenceId : null,
@@ -86,9 +101,11 @@ const EditTalk = props => {
 
       console.log('Modificados exitosamente')
       window.location.href = `/dashboard/  ${organizationName}/${eventId}/edit/schedule/${dayId}`
+      setLoader(false)
     } catch (error) {
       console.log(error)
       setStatus({ error: 'Ups parece que hubo un error' })
+      setLoader(false)
     }
     // vaildate fields
     // send data to appState
@@ -99,7 +116,8 @@ const EditTalk = props => {
       <Layout active='home'>
         <div className='editTalk'>
           <h2>{organizationName}</h2>
-          <div className='editTalk-container'>
+          {loader && <Loader />}
+          <div className='editInfo-container'>
             <h2>Editar Información General</h2>
             <form onSubmit={handleSubmit}>
               <div className='formEdit-container'>
@@ -166,7 +184,7 @@ const EditTalk = props => {
                         id='imgHeader'
                         type='file'
                       />
-                      <div className='formEdit-field__file'>
+                      <div ref={speakerImg} className='formEdit-field__file'>
                         <label
                           htmlFor='imgHeader'
                           className='formEdit-field__fileIcon'

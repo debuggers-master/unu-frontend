@@ -22,7 +22,7 @@ const NewEvent = props => {
     const data = {
       name: inputValues.name,
       template: inputValues.template,
-      url: inputValues.url,
+      url: inputValues.name.replace(/ /g, '-'),
       startDate: String(new Date(inputValues.startDate)),
       organizationName: inputValues.organizationName
     }
@@ -93,8 +93,12 @@ const NewEvent = props => {
                       className='formEdit-field__select'
                       defaultValue='DEFAULT'
                     >
-                      <option value='DEFAULT' />
-                      <option value='Starlink'>Starlink</option>
+                      <option value='DEFAULT' disabled />
+                      {props.organizationsList.map((o, index) => (
+                        <option key={index} value={o.organizationName}>
+                          {o.organizationName}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div className='formEdit-field'>
@@ -120,17 +124,6 @@ const NewEvent = props => {
                       type='date'
                       min='2020-08-01'
                       max='2022-12-31'
-                    />
-                  </div>
-                  <div className='formEdit-field'>
-                    <label className='formEdit-field__label'>
-                      Personaliza la URL de tu evento
-                    </label>
-                    <input
-                      onChange={handleChange}
-                      name='url'
-                      type='text'
-                      className='formEdit-field__input'
                     />
                   </div>
                 </div>
@@ -235,5 +228,7 @@ const NewEvent = props => {
 const mapDispatchToProps = {
   createEvent
 }
-
-export default connect(null, mapDispatchToProps)(NewEvent)
+const mapStateToProps = s => ({
+  organizationsList: s.user.organizations
+})
+export default connect(mapStateToProps, mapDispatchToProps)(NewEvent)

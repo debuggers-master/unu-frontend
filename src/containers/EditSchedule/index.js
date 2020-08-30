@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { API_URL } from '../../config.js'
 
 import Layout from '../../components/Layout'
-import { Link } from 'react-router-dom'
-
 import { ItemDay } from '../../components/ItemDay'
+import Loader from '../../containers/Loader'
 import './styles.scss'
 
 const EditSchedule = props => {
   const { eventId, organizationName } = props.match.params
   const [daysList, setDaysList] = useState([])
+  const [loader, setLoader] = useState(true)
 
   const isEmpty = daysList.length > 0
 
@@ -24,8 +25,10 @@ const EditSchedule = props => {
           }
         })
         setDaysList(data.agenda)
+        setLoader(false)
       } catch (error) {
         console.log(error)
+        setLoader(false)
       }
     }
     getSchedule()
@@ -44,6 +47,7 @@ const EditSchedule = props => {
           <div className='editSchedule-container'>
             <h2>Editar Agenda </h2>
             <ul>
+              {loader && <Loader />}
               {isEmpty &&
                 daysList.map((day, index) => (
                   <ItemDay

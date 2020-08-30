@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { API_URL } from '../../config.js'
 import Layout from '../../components/Layout'
-
+import Loader from '../../containers/Loader'
 import { ItemTalk } from '../../components/ItemTalk'
 import './styles.scss'
 
@@ -11,6 +11,7 @@ const EditDay = props => {
   const { organizationName, eventId, dayId } = props.match.params
 
   const [conferencesList, setConferencesList] = useState([])
+  const [loader, setLoader] = useState(true)
   const isEmpty = conferencesList.length < 1
   useEffect(() => {
     async function getTalks () {
@@ -24,8 +25,10 @@ const EditDay = props => {
         const dayData = data.agenda.filter(day => day.dayId === dayId).shift()
 
         setConferencesList(dayData.conferences)
+        setLoader(false)
       } catch (error) {
         console.log(error)
+        setLoader(true)
       }
     }
     getTalks()
@@ -45,6 +48,7 @@ const EditDay = props => {
           <div className='editDay-container'>
             <h2>Editar Agenda</h2>
             <ul>
+              {loader && <Loader />}
               {!isEmpty &&
                 conferencesList.map(day => {
                   return (

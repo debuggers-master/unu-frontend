@@ -41,8 +41,8 @@ const ListSponsor = props => {
       <Layout active='home'>
         <div className='ListSponsor'>
           <h2>Stark Industries</h2>
-          <div className='ListSponsor-container'>
-            <h2>Editar Agenda - Presentación Iron Man</h2>
+          <div className='editDay-container'>
+            <h2>Editar Asociados</h2>
             <ul>
               {emptyList &&
                 associatesList.map((associate, index) => (

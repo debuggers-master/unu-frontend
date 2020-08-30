@@ -1,16 +1,25 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import getCookie from '../../utils/getCookie'
 import { Link } from 'react-router-dom'
 import { API_URL } from '../../config.js'
 import './styles.scss'
 import Layout from '../../components/Layout'
+import ModalState from '../../components/ModalState'
+
 import _plus from '../..//assets/images/iconPlus.svg'
 const FileReader = window.FileReader
 const EditSponsor = props => {
   const { eventId, associatedId } = props.match.params || {}
 
   const [inputValues, setInputValues] = useState({})
+  const [status, setStatus] = useState()
+
+  const logoImg = useRef(null)
+
+  const img = {
+    logo: logoImg
+  }
 
   useEffect(() => {
     async function getAssociates () {
@@ -27,6 +36,7 @@ const EditSponsor = props => {
         console.log('sponsor info', sponsor)
         associatedId && setInputValues(sponsor)
       } catch (error) {
+        setStatus({ error: 'Parece que hubo un error :(' })
         console.log(error)
       }
     }
@@ -56,9 +66,10 @@ const EditSponsor = props => {
           associatedData
         }
       })
-      console.log('MOdificado exitosamente')
+      setStatus({ error: false, success: 'Modificado Exitosamente' })
     } catch (error) {
       console.log(error)
+      setStatus({ error: 'Parece que hubo un error :(' })
     }
   }
 
@@ -67,6 +78,7 @@ const EditSponsor = props => {
     const fr = new FileReader()
     fr.onload = () => {
       setInputValues({ ...inputValues, [fieldName]: fr.result })
+      img[fieldName].current.style.backgroundImage = `url(${fr.result})`
     }
     fr.readAsDataURL(evn.target.files[0])
   }
@@ -124,7 +136,7 @@ const EditSponsor = props => {
                         id='imgHeader'
                         type='file'
                       />
-                      <div className='formEdit-field__file'>
+                      <div ref={logoImg} className='formEdit-field__file'>
                         <label
                           htmlFor='imgHeader'
                           className='formEdit-field__fileIcon'
@@ -153,6 +165,17 @@ const EditSponsor = props => {
           </div>
         </div>
       </Layout>
+      {status && (
+        <ModalState
+          isOpen
+          handleAction={() => props.history.goBack()}
+          nameAction='Entendido'
+          messageModal={
+            status.error ? status.error : 'Modificada exitosamente!'
+          }
+          stateModal={status.error ? 'check' : 'cross'}
+        />
+      )}
     </>
   )
 }

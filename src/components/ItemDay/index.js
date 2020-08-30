@@ -18,11 +18,13 @@ export const ItemDay = ({
   const [openPrompt, setOpenPrompt] = useState(false)
   const [status, setStatus] = useState()
 
-  const localDate = new Date(date).toLocaleString('es-MX', {
-    days: 'numeric',
-    hours: 'numeric',
-    months: 'numeric'
-  })
+  const localDate = new Date(date)
+    .toLocaleString('es-MX', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    })
+    .toUpperCase()
   const handleDelete = async () => {
     try {
       await axios(`${API_URL}/api/v1/events/day`, {
