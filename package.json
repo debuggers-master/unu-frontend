@@ -17,9 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage=true",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "standard",
     "fix": "standard --fix"
@@ -37,16 +35,19 @@
     ]
   },
   "devDependencies": {
+    "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.3",
     "husky": "^4.2.5",
     "react-redux": "^7.2.1",
+    "react-test-renderer": "^16.13.1",
     "redux": "^4.0.5",
     "standard": "^14.3.4"
   },
   "standard": {
     "ignore": [
       "build/*",
-      "serviceWorker.js"
+      "serviceWorker.js",
+      "__test__"
     ]
   },
   "eslintConfig": {
@@ -56,15 +57,6 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint"
-    }
-  },
-  "jest": {
-    "verbose": true,
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/__test__/setupTests.js"
-    ],
-    "moduleNameMapper": {
-      "\\.(styl|css)$": "<rootDir>/src/__mocks__/styleMock.js"
     }
   }
 }
