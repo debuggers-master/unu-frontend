@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import getCookie from '../../utils/getCookie'
 import Layout from '../../components/Layout'
@@ -15,7 +15,12 @@ const EditInfo = props => {
   const [inputValues, setInputValues] = useState({})
   const [status, setStatus] = useState()
   const [loader, setLoader] = useState(true)
-
+  const headerImg = useRef(null)
+  const eventImg = useRef(null)
+  const img = {
+    imageHeader: headerImg,
+    imageEvent: eventImg
+  }
   useEffect(() => {
     async function getEventInfo () {
       try {
@@ -51,6 +56,7 @@ const EditInfo = props => {
     fr.onload = evn => {
       setInputValues({ ...inputValues, [fieldName]: fr.result })
       setLoader(false)
+      img[fieldName].current.style.backgroundImage = `url(${fr.result})`
     }
     fr.readAsDataURL(evn.target.files[0])
   }
@@ -210,7 +216,7 @@ const EditInfo = props => {
                       id='imgEvent'
                       type='file'
                     />
-                    <div className='formEdit-field__file'>
+                    <div ref={eventImg} className='formEdit-field__file'>
                       <label
                         htmlFor='imgEvent'
                         className='formEdit-field__fileIcon'
@@ -232,7 +238,7 @@ const EditInfo = props => {
                       id='imgHeader'
                       type='file'
                     />
-                    <div className='formEdit-field__file'>
+                    <div ref={headerImg} className='formEdit-field__file'>
                       <label
                         htmlFor='imgHeader'
                         className='formEdit-field__fileIcon'

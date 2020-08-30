@@ -27,15 +27,17 @@ const OrgPreview = props => {
     async function getPublishedEvents () {
       try {
         const { data } = await axios(`${API_URL}/api/v1/events/list`)
-        console.log(data)
-        setPublishedEvents([]) // Pending!!
-        setCount('') // Pending
+        const publishedEvnsList = data.filter(
+          event => event.organizationName === organizationName
+        )
+        setCount('')
+        setPublishedEvents(publishedEvnsList)
       } catch (error) {
         console.log(error)
       }
     }
     getPublishedEvents()
-  }, [])
+  }, [organizationName])
 
   const deleteOrganization = async () => {
     try {
@@ -123,12 +125,7 @@ const OrgPreview = props => {
                     </>
                   ))
                 ) : (
-                  <h4>
-                    Aun no tienes eventos{' '}
-                    <span role='img' aria-label='eyes'>
-                      👀
-                    </span>
-                  </h4>
+                  <Link to='/dashboard/NewEvent'>Crear Evento</Link>
                 )}
               </div>
             </div>

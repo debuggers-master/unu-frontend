@@ -10,7 +10,7 @@ import './styles.scss'
 
 const EditDate = props => {
   const { organizationName, eventId, dayId } = props.match.params
-  const [inputValues, setInputValues] = useState({})
+  const [inputValues, setInputValues] = useState({ date: '2020-12-12' })
   const [status, setStatus] = useState()
 
   const handleSubmit = async evn => {

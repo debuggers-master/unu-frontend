@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import getCookie from '../../utils/getCookie'
 import { Link } from 'react-router-dom'
@@ -14,6 +14,12 @@ const EditSponsor = props => {
 
   const [inputValues, setInputValues] = useState({})
   const [status, setStatus] = useState()
+
+  const logoImg = useRef(null)
+
+  const img = {
+    logo: logoImg
+  }
 
   useEffect(() => {
     async function getAssociates () {
@@ -72,6 +78,7 @@ const EditSponsor = props => {
     const fr = new FileReader()
     fr.onload = () => {
       setInputValues({ ...inputValues, [fieldName]: fr.result })
+      img[fieldName].current.style.backgroundImage = `url(${fr.result})`
     }
     fr.readAsDataURL(evn.target.files[0])
   }
@@ -129,7 +136,7 @@ const EditSponsor = props => {
                         id='imgHeader'
                         type='file'
                       />
-                      <div className='formEdit-field__file'>
+                      <div ref={logoImg} className='formEdit-field__file'>
                         <label
                           htmlFor='imgHeader'
                           className='formEdit-field__fileIcon'

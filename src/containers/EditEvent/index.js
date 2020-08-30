@@ -31,7 +31,7 @@ const EditEvent = props => {
   const [collaboratorList, setCollaboratorsList] = useState([])
   const [loader, setLoader] = useState(true)
 
-  const emptyList = collaboratorList.length > 0
+  const emptyList = collaboratorList.length < 1
 
   useEffect(() => {
     async function getCollaborators () {
@@ -170,7 +170,7 @@ const EditEvent = props => {
                         key={index}
                       />
                     ))}
-                  {loader && emptyList && (
+                  {!loader && emptyList && (
                     <div className='editEvent-container__right-empty'>
                       No tienes colaboradores para este evento
                     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
@@ -16,6 +16,12 @@ const EditTalk = props => {
   const [inputValues, setInputValues] = useState({})
   const [status, setStatus] = useState()
   const [loader, setLoader] = useState(true)
+
+  const speakerImg = useRef(null)
+
+  const img = {
+    speakerPhoto: speakerImg
+  }
 
   useEffect(() => {
     async function getTalk () {
@@ -53,6 +59,7 @@ const EditTalk = props => {
     const fr = new FileReader()
     fr.onload = evn => {
       setInputValues({ ...inputValues, [fieldName]: fr.result })
+      img[fieldName].current.style.backgroundImage = `url(${fr.result})`
       setLoader(false)
     }
     fr.readAsDataURL(evn.target.files[0])
@@ -177,7 +184,7 @@ const EditTalk = props => {
                         id='imgHeader'
                         type='file'
                       />
-                      <div className='formEdit-field__file'>
+                      <div ref={speakerImg} className='formEdit-field__file'>
                         <label
                           htmlFor='imgHeader'
                           className='formEdit-field__fileIcon'
