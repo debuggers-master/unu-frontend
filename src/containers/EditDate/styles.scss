@@ -1,6 +1,6 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
-.newEvent {
+.newDate {
   width: 100%;
   padding: 32px;
   &-container {
@@ -44,4 +44,26 @@
   @include checkButtons;
   justify-content: center;
   align-items: flex-end;
+}
+
+@media (max-width: 500px) {
+  .newDate {
+    h2 {
+      font-size: 30px;
+    }
+    &-container {
+      &__card {
+        width: 100%;
+      }
+    }
+    .formEdit {
+      &-container {
+        max-height: 100%;
+        display: grid;
+        grid-template: 1fr / 1fr;
+        column-gap: $gap-5 $gap-2;
+      }
+      @include presetsform;
+    }
+  }
 }

@@ -2,8 +2,6 @@ import React from 'react'
 import styles from './styles.module.scss'
 const Talk = props => {
   const { name, description, speakerName, rol, speakerPhoto } = props.data
-  // startHour,
-  // endHour,
   const startHour = new Date(props.data.startHour).toLocaleString('en-US', {
     hour12: true,
     hour: '2-digit'

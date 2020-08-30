@@ -7,23 +7,31 @@ import Meet from './components/Meet'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import styles from './styles.module.scss'
+import BurguerButton from '../../BurguerButton'
+
 const TemplateOne = ({ templateData }) => {
-  const { speakers, associates } = templateData
+  console.log(templateData)
+  const { speakers, associates, url, eventId } = templateData
   const banner = useRef(null)
+  const home = useRef(null)
   const conferences = useRef(null)
+  const register = useRef(null)
   const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop - 100)
   const executeScroll = evn => {
     const link = evn.currentTarget.textContent
+    link === 'Inicio' && scrollToRef(home)
     link === 'Que es?' && scrollToRef(banner)
     link === 'Agenda' && scrollToRef(conferences)
+    link === 'Inscribete' && scrollToRef(register)
   }
 
   const h1ClassName = `${styles['main-title']} ${styles['section-subtitle']}`
   const titleClassName = `${styles['event-title']} ${styles['section-title']} ${styles.section}`
 
   return (
-    <div>
+    <div ref={home}>
       <Header handleClick={executeScroll} />
+      <BurguerButton typeOf='event' handleClick={executeScroll} />
       <Banner data={templateData} />
       <h2 ref={banner} className={titleClassName}>
         {templateData.name}
@@ -55,7 +63,9 @@ const TemplateOne = ({ templateData }) => {
         <h1 className={h1ClassName}>Asociados</h1>
         <Associates data={associates} />
       </section>
-      <Footer />
+      <div ref={register}>
+        <Footer url={url} eventId={eventId} />
+      </div>
     </div>
   )
 }

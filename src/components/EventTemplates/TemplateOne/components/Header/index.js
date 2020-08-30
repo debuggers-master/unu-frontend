@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import _logo from '../../../../../assets/images/logo-white.svg'
 import styles from './styles.module.scss'
 import stylesTemplate from '../../styles.module.scss'
@@ -29,9 +28,9 @@ const Header = props => {
                 Agenda
               </button>
               <li>
-                <Link to='/login'>
-                  <button className={buttonClassName}>Inscribete</button>
-                </Link>
+                <button onClick={handleClick} className={buttonClassName}>
+                  Inscribete
+                </button>
               </li>
             </ul>
           </div>

@@ -1,4 +1,4 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
 .NewEvent {
   max-height: 100vh;
@@ -60,112 +60,156 @@
       }
     }
   }
-}
-
-.check-action {
-  @include checkButtons;
-}
-
-.formEdit {
-  &-field {
-    text-align: start;
+  .check-action {
+    @include checkButtons;
   }
-  &-container {
-    height: 100%;
+  form {
     display: grid;
-    grid-template: 1fr / 1fr 1fr;
-    gap: 84px;
-    text-align: center;
-    h4 {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 400;
-      color: rgba(29, 29, 29, $alpha: 0.15);
+  }
+
+  .formEdit {
+    &-field {
+      text-align: start;
     }
-    h5 {
-      color: $color-secondary;
-      font-size: 20px;
-      text-decoration: underline;
-      font-weight: 400;
+    &-container {
+      height: 100%;
+      display: grid;
+      grid-template: 1fr / 1fr 1fr;
+      gap: 84px;
+      text-align: center;
+      h4 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 400;
+        color: rgba(29, 29, 29, $alpha: 0.15);
+      }
+      h5 {
+        color: $color-secondary;
+        font-size: 20px;
+        text-decoration: underline;
+        font-weight: 400;
+      }
+      &-formTemplate {
+        width: 100%;
+        display: grid;
+        padding: 32px 0px;
+        text-align: -webkit-center;
+      }
+    }
+    @include presetsform;
+  }
+
+  #imgEvent {
+    display: none;
+  }
+  #imgHeader {
+    display: none;
+  }
+
+  .paletColor {
+    &-container {
+      background-color: $color-gray;
+      border-radius: $gap-2;
+      padding: $gap-1;
+      display: grid;
+      grid-template: 1fr/ 1fr 1fr 1fr;
+      max-width: 130px;
+      max-height: 47px;
+    }
+    &-uno {
+      height: 30px;
+      width: 100%;
+      background-color: $color-white;
+    }
+    &-dos {
+      height: 30px;
+      width: 100%;
+      background-color: #32e0c4;
+    }
+    &-tres {
+      height: 30px;
+      width: 100%;
+      background-color: $color-black;
+    }
+    &-cuatro {
+      height: 30px;
+      width: 100%;
+      background-color: #ffcd3c;
+    }
+    &-cinco {
+      height: 30px;
+      width: 100%;
+      background-color: #3b6978;
+    }
+    &-seis {
+      height: 30px;
+      width: 100%;
+      background-color: $color-black;
     }
   }
-  &-content {
+
+  .typography {
+    display: flex;
+    align-items: center;
     justify-content: center;
-    text-align: -webkit-center;
-    display: grid;
-    padding: 40px 0px;
-  }
-  @include presetsform;
-}
-
-#imgEvent {
-  display: none;
-}
-#imgHeader {
-  display: none;
-}
-
-.paletColor {
-  &-container {
-    background-color: $color-gray;
-    border-radius: $gap-2;
-    padding: $gap-1;
-    display: grid;
-    grid-template: 1fr/ 1fr 1fr 1fr;
-    max-width: 130px;
-    max-height: 47px;
-  }
-  &-uno {
-    height: 30px;
-    width: 100%;
-    background-color: $color-white;
-  }
-  &-dos {
-    height: 30px;
-    width: 100%;
-    background-color: #32e0c4;
-  }
-  &-tres {
-    height: 30px;
-    width: 100%;
-    background-color: $color-black;
-  }
-  &-cuatro {
-    height: 30px;
-    width: 100%;
-    background-color: #ffcd3c;
-  }
-  &-cinco {
-    height: 30px;
-    width: 100%;
-    background-color: #3b6978;
-  }
-  &-seis {
-    height: 30px;
-    width: 100%;
-    background-color: $color-black;
+    &-line {
+      margin: 0 20px;
+      border-left: solid 2px #1d1d1d;
+      opacity: 0.5;
+      height: 30px;
+    }
+    &-NotoSans {
+      font-family: $font-primary;
+    }
+    &-OpenSans {
+      font-family: $font-secondary;
+    }
+    &-Raleway {
+      font-family: $font-raleway;
+    }
+    &-Roboto {
+      font-family: $font-roboto;
+    }
   }
 }
 
-.typography {
-  display: flex;
-  align-items: center;
-  &-line {
-    margin: 0 20px;
-    border-left: solid 2px #1d1d1d;
-    opacity: 0.5;
-    height: 30px;
+@media (max-width: 900px) {
+  .NewEvent {
+    max-height: 100%;
+    width: 100%;
+    padding: 16px;
+    padding-top: 32px;
+    .formEdit {
+      &-container {
+        max-height: 100%;
+        display: grid;
+        grid-template: 1fr / 1fr;
+        gap: 0px;
+      }
+      @include presetsform;
+      &-field__fileDos {
+        height: fit-content;
+      }
+    }
   }
-  &-NotoSans {
-    font-family: $font-primary;
-  }
-  &-OpenSans {
-    font-family: $font-secondary;
-  }
-  &-Raleway {
-    font-family: $font-raleway;
-  }
-  &-Roboto {
-    font-family: $font-roboto;
+}
+@media (max-width: 500px) {
+  .NewEvent {
+    max-height: 100%;
+    width: 100%;
+    padding: 16px;
+    padding-top: 32px;
+    .formEdit {
+      &-container {
+        max-height: 100%;
+        display: grid;
+        grid-template: 1fr / 1fr;
+        column-gap: $gap-5;
+      }
+      @include presetsform;
+      &-field__fileDos {
+        height: fit-content;
+      }
+    }
   }
 }

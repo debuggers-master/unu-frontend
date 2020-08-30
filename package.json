@@ -17,13 +17,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage=true",
     "eject": "react-scripts eject",
     "lint": "standard",
     "fix": "standard --fix"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -38,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "enzyme-adapter-react-16": "^1.15.3",
     "husky": "^4.2.5",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
@@ -49,9 +49,22 @@
       "serviceWorker.js"
     ]
   },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "./node_modules/standard/eslintrc.json"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint"
+    }
+  },
+  "jest": {
+    "verbose": true,
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/__test__/setupTests.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(styl|css)$": "<rootDir>/src/__mocks__/styleMock.js"
     }
   }
 }

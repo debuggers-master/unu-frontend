@@ -1,0 +1,51 @@
+@import "../../styles/base";
+
+.ModalPreview {
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0000001c;
+  top: 0;
+  h4 {
+    margin-top: 0;
+    font-size: 24px;
+  }
+  &-container {
+    @include cardDasboard;
+    max-width: 86%;
+    max-height: 86%;
+    text-align: center;
+    & img {
+      max-height: 90%;
+    }
+  }
+  .check-action {
+    @include checkButtons;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 900px) {
+  .ModalPreview {
+    &-container {
+      & img {
+        max-height: 75%;
+        margin-bottom: 50px;
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  .ModalPreview {
+    &-container {
+      & img {
+        max-height: 44%;
+        margin: 100px 0px;
+      }
+    }
+  }
+}

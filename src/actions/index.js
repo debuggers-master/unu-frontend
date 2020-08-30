@@ -17,6 +17,31 @@ export const signError = payload => ({
   type: 'SIGN_ERROR',
   payload
 })
+export const loginError = payload => ({
+  type: 'LOGIN_ERROR',
+  payload
+})
+
+export const addCollaboration = payload => ({
+  type: 'ADD_COLLABORATION',
+  payload
+})
+export const createEvent = payload => ({
+  type: 'CREATE_EVENT',
+  payload
+})
+export const deleteEvent = payload => ({
+  type: 'DELETE_EVENT',
+  payload
+})
+export const createOrganization = payload => ({
+  type: 'CREATE_ORGANIZATION',
+  payload
+})
+export const deleteOrganization = payload => ({
+  type: 'DELETE_ORGANIZATION',
+  payload
+})
 
 export const registerUser = (payload, redirectUrl) => {
   return async dispatch => {
@@ -53,12 +78,14 @@ export const loginUser = (payload, redirectUrl) => {
       document.cookie = `token=${data.access_token}`
       document.cookie = `userID=${data.user.userId}`
       /*eslint-disable */
+      console.log(data.user)
       sessionStorage.setItem('myData', JSON.stringify(data.user))
       /* eslint-enable */
       window.location.href = redirectUrl
     } catch (error) {
       console.log(error)
-      error.response.status === 401 && dispatch(signError('Datos incorrectos'))
+      console.log(error.response)
+      error.response.status === 401 && dispatch(loginError('Datos Incorrectos'))
     }
   }
 }

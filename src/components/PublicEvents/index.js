@@ -1,38 +1,43 @@
 import React, { useEffect, useState } from 'react'
-// import axios from 'axios'
+import axios from 'axios'
+import { API_URL } from '../../config.js'
 import TemplateOne from '../EventTemplates/TemplateOne'
 import TemplateTwo from '../EventTemplates/TemplateTwo'
-import { eventMock } from '../../mocks/eventMock.js'
+import NotFound from '../../containers/NotFound'
 
 const PublicEvents = props => {
   const [eventData, setEventData] = useState()
+  const [error, setError] = useState(false)
+  const { organizationName, url } = props.computedMatch.params
   useEffect(() => {
-    console.log(props.computedMatch.params)
+    console.log({ organizationName, url })
     async function getData () {
       try {
-        const data = eventMock
-        // const { data } = await axios('url', {
-        //   method: 'GET',
-        //   body: { organizationName: 'str', url: 'str' },
-        // })
-
+        const { data } = await axios(`${API_URL}/api/v1/events/from-url`, {
+          method: 'GET',
+          params: { organizationName, url }
+        })
+        console.log(data)
         setEventData(data)
       } catch (error) {
         console.log(error)
-        return <div>Ups parece que no hay nada 404 :(</div>
+        setError(true)
       }
     }
     getData()
-  }, [props.computedMatch.params])
+  }, [organizationName, url])
+  if (error) {
+    return <NotFound />
+  }
 
   if (eventData) {
-    if (eventData.template === 'template01') {
+    if (eventData.template === 't01') {
       return <TemplateOne templateData={eventData} />
     }
-    if (eventData.template === 'template02') {
+    if (eventData.template === 't02') {
       return <TemplateTwo templateData={eventData} />
     }
   }
-  return <div>Cargandoooo</div>
+  return <div />
 }
 export default PublicEvents

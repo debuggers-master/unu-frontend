@@ -1,6 +1,6 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
-.newEvent {
+.newOrg {
   width: 100%;
   padding: 32px;
   &-container {
@@ -12,7 +12,7 @@
     box-shadow: none;
     &__card {
       @include cardDasboard;
-      height: 292px;
+      height: fit-content;
       width: 577px;
       display: flex;
       flex-wrap: wrap;
@@ -25,23 +25,53 @@
       }
     }
   }
-}
-
-.formEdit {
-  @include presetsform;
-  &-field {
-    width: fit-content;
-    text-align: center;
-    & h3 {
-      font-size: 36px;
-      font-weight: 400;
-      margin: 0;
+  .formEdit {
+    form {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      place-items: flex-end;
+    }
+    @include presetsform;
+    &-field {
+      width: fit-content;
+      text-align: center;
+      & h3 {
+        font-size: 36px;
+        font-weight: 400;
+        margin: 0;
+      }
+    }
+    .check-action {
+      @include checkButtons;
+      justify-content: center;
+      align-items: flex-end;
     }
   }
 }
 
-.check-action {
-  @include checkButtons;
-  justify-content: center;
-  align-items: flex-end;
+@media (max-width: 500px) {
+  .newOrg {
+    max-height: 100%;
+    width: 100%;
+    padding: 16px;
+    padding-top: 32px;
+    &-container {
+      align-items: flex-start;
+      &__card {
+        height: auto;
+        width: 100%;
+        text-align: -webkit-center;
+      }
+    }
+    .formEdit {
+      &-container {
+        max-height: 100%;
+        display: grid;
+        grid-template: 1fr / 1fr;
+        column-gap: $gap-5;
+      }
+      @include presetsform;
+    }
+  }
 }

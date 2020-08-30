@@ -1,4 +1,4 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
 .editEvent {
   max-height: 100vh;
@@ -17,7 +17,7 @@
     gap: 28px;
     grid-template-columns: 1fr 1fr;
     @include cardDasboard;
-    &-left {
+    &__left {
       padding-right: $gap-6;
       padding-right: 64px;
       display: flex;
@@ -25,6 +25,10 @@
       align-content: space-between;
       &-edit {
         width: 100%;
+        & ul {
+          padding-left: 32px;
+          font-size: 20px;
+        }
         & li {
           display: flex;
           justify-content: space-between;
@@ -32,9 +36,13 @@
         & p {
           color: $color-secondary;
         }
+        & span {
+          color: $color-secondary;
+          margin: 20px 0;
+        }
       }
     }
-    &-right {
+    &__right {
       &-collaborates {
         & ul {
           background-color: $color-white;
@@ -43,6 +51,14 @@
           min-height: 70vh;
           overflow: scroll;
         }
+      }
+      &-empty {
+        width: 100%;
+        height: fit-content;
+        padding: 50px;
+        text-align: center;
+        font-size: 24px;
+        color: $color-brand;
       }
       &-btn {
         background-color: $color-brand;
@@ -55,12 +71,105 @@
         box-shadow: $Shadow-2;
         position: absolute;
         right: 70px;
-        bottom: 63px;
+        bottom: 90px;
       }
     }
   }
+  .check-action {
+    @include checkButtons;
+  }
 }
 
-.check-action {
-  @include checkButtons;
+@media (max-width: 900px) {
+  .editEvent {
+    max-height: 100%;
+    width: 100%;
+    padding: 16px;
+    padding-top: 32px;
+    h2 {
+      font-size: 30px;
+    }
+    &-container {
+      padding: 16px;
+      padding-top: 32px;
+      &__left {
+        padding-right: 0;
+        &-edit {
+          width: 100%;
+          & ul {
+            padding-left: 32px;
+            font-size: 20px;
+          }
+          & img {
+            margin-left: 20px;
+          }
+          & li {
+            display: flex;
+            justify-content: space-between;
+          }
+        }
+      }
+      &__right {
+        &-btn {
+          position: relative;
+          bottom: 60px;
+          left: 80%;
+        }
+      }
+    }
+  }
+  .item {
+    padding: 24px 25px;
+    & button {
+      background: none;
+    }
+  }
+}
+@media (max-width: 500px) {
+  .editEvent {
+    max-height: 100%;
+    width: 100%;
+    padding: 16px;
+    padding-top: 32px;
+    h2 {
+      font-size: 30px;
+    }
+    &-container {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+      row-gap: 40px;
+      padding: 16px;
+      padding-top: 32px;
+      &__left {
+        padding-right: 0;
+        &-edit {
+          width: 100%;
+          & ul {
+            padding-left: 32px;
+            font-size: 20px;
+          }
+          & img {
+            margin-left: 20px;
+          }
+          & li {
+            display: flex;
+            justify-content: space-between;
+          }
+        }
+      }
+      &__right {
+        &-btn {
+          position: relative;
+          bottom: 60px;
+          left: 80%;
+        }
+      }
+    }
+  }
+  .item {
+    padding: 24px 25px;
+    & button {
+      background: none;
+    }
+  }
 }

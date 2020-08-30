@@ -1,4 +1,4 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
 .dashboard {
   max-height: 100vh;
@@ -9,20 +9,31 @@
     min-height: 85vh;
     gap: 28px;
     grid-template:
-      'topLeft Right' 1fr
-      'bottomLeft Right' 1fr/ 1fr 1fr;
+      "topLeft Right" 1fr
+      "bottomLeft Right" 1fr/ 1fr 1fr;
     &__topLeft {
       grid-area: topLeft;
       display: grid;
       grid-template:
-        'infoOrg newOrg' 1fr
-        'infoOrg newOrg' 1fr/1fr 80px;
+        "title title" 80px
+        "infoOrg newOrg" 1fr
+        "infoOrg newOrg" 1fr/1fr 80px;
       @include cardDasboard;
+      max-height: 41vh;
+      &-title {
+        grid-area: title;
+      }
       &-infoOrg {
         grid-area: infoOrg;
+        text-align: center;
+        padding: 20px;
+        max-height: 25vh;
+        overflow: scroll;
         & p {
           color: $color-primary;
           font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 37px;
         }
       }
       &-NewOrg {
@@ -45,19 +56,111 @@
     }
     &__Right {
       grid-area: Right;
+      max-height: 85vh;
       @include cardDasboard;
       &-container {
         max-height: 87%;
         overflow: scroll;
+        padding: 0px $gap-4;
+        & h4 {
+          font-size: 24px;
+          color: $color-inactive;
+          text-align: center;
+        }
       }
     }
     &__bottomLeft {
       grid-area: bottomLeft;
       @include cardDasboard;
       & li {
-        color: #194c85;
+        color: $color-primary;
         font-size: 18px;
-        margin-top: 40px;
+        margin-top: $gap-4;
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard {
+    max-height: 100%;
+    width: 100%;
+    padding: 32px 8px;
+    h2 {
+      font-size: 30px;
+    }
+    &-container {
+      gap: 12px;
+      &__topLeft {
+        grid-area: topLeft;
+        display: grid;
+        max-height: 55vh;
+        grid-template:
+          "title title" 80px
+          "infoOrg newOrg" 1fr
+          "infoOrg newOrg" 1fr/1fr 0px;
+        &-infoOrg {
+          grid-area: infoOrg;
+          text-align: center;
+          max-height: 24vh;
+          overflow: scroll;
+          padding: 0;
+        }
+      }
+      &__Right {
+        padding: 16px;
+        padding-top: 25px;
+        max-height: 91vh;
+        &-container {
+          padding: 0;
+        }
+      }
+      &__bottomLeft {
+        max-height: 100%;
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  .dashboard {
+    max-height: 100%;
+    width: 100%;
+    padding: 32px 8px;
+    h2 {
+      font-size: 30px;
+    }
+    &-container {
+      grid-template:
+        "topLeft " 0.5fr
+        " Right" 1fr
+        "bottomLeft" 1fr/ 1fr;
+      &__topLeft {
+        grid-area: topLeft;
+        display: grid;
+        grid-template:
+          "title title" 80px
+          "infoOrg newOrg" 1fr
+          "infoOrg newOrg" 1fr/1fr 50px;
+        max-height: 55vh;
+        &-infoOrg {
+          grid-area: infoOrg;
+          text-align: center;
+          max-height: 24vh;
+          overflow: scroll;
+          padding: 0;
+        }
+      }
+      &__Right {
+        padding: 16px;
+        padding-top: 25px;
+        &-container {
+          padding: 0;
+        }
+      }
+      &__bottomLeft {
+        max-height: 79%;
+        padding: 16px;
+        padding-top: 25px;
       }
     }
   }

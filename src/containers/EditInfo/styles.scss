@@ -1,4 +1,4 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
 .editInfo {
   max-height: 100vh;
@@ -60,28 +60,45 @@
       }
     }
   }
-}
-
-.check-action {
-  @include checkButtons;
-}
-
-.formEdit {
-  &-field {
-    text-align: start;
+  .check-action {
+    @include checkButtons;
   }
-  &-container {
-    max-height: 70vh;
-    display: grid;
-    grid-template: 1fr / 1fr 1fr;
-    column-gap: $gap-5;
+
+  .formEdit {
+    &-field {
+      text-align: start;
+    }
+    &-container {
+      max-height: 70vh;
+      display: grid;
+      grid-template: 1fr / 1fr 1fr;
+      column-gap: $gap-5;
+    }
+    @include presetsform;
   }
-  @include presetsform;
+
+  #imgEvent {
+    display: none;
+  }
+  #imgHeader {
+    display: none;
+  }
 }
 
-#imgEvent {
-  display: none;
-}
-#imgHeader {
-  display: none;
+@media (max-width: 500px) {
+  .editInfo {
+    max-height: 100%;
+    width: 100%;
+    padding: 16px;
+    padding-top: 32px;
+    .formEdit {
+      &-container {
+        max-height: 100%;
+        display: grid;
+        grid-template: 1fr / 1fr;
+        column-gap: $gap-5;
+      }
+      @include presetsform;
+    }
+  }
 }

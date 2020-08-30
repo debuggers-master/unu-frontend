@@ -1,29 +1,33 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import './styles.scss'
-import _img from '../../../assets/images/signup-banner.jpg'
 const Event = props => {
   const info = props.info || {}
+  console.log(props.info)
   const containerClassName = `event__container ${props.styleType || ''}`
   return (
-    <div className='event'>
-      <div className={containerClassName}>
-        <div className='event__left'>
-          <div className='event__image'>
-            <img src={_img} alt='Preview del evento' />
+    <Link to={`./${info.organizationName}/${info.name}`}>
+      <div className='event'>
+        <div className={containerClassName}>
+          <div className='event__left'>
+            <div className='event__image'>
+              <img src={info.imageEvent} alt='Preview del evento' />
+            </div>
           </div>
-        </div>
-        <div className='event__right'>
-          <div className='event__title'>
-            <h2>{info.title}</h2>
-          </div>
-          <div className='event__description'>{info.description}</div>
-          <div className='event__label'>
-            <span>Organiza</span>
-            <span>{info.organization}</span>
+          <div className='event__right'>
+            <div className='event__title'>
+              <h2>{info.name}</h2>
+            </div>
+            <div className='event__description'>{info.shortDescription}</div>
+            <div className='event__label'>
+              <span>Organiza</span>
+              <span>{info.organizationName}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 export default Event

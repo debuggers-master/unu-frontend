@@ -1,4 +1,4 @@
-@import '../../styles/base';
+@import "../../styles/base";
 .event-preview-section {
   margin-top: $header-height;
   text-align: center;
@@ -7,12 +7,30 @@
     padding: $gap-3 0;
     color: $color-brand;
     border-bottom: 3px solid $color-brand;
-    @include title('lg');
+    @include title("lg");
   }
   &__subtitle {
     max-width: 800px;
     margin: 0 auto;
     padding: $gap-3 0;
-    @include title('sm');
+    opacity: 0.7;
+    @include title("sm");
+  }
+}
+
+@media (max-width: 900px) {
+  .event-preview-section {
+    padding: 0px $gap-3;
+    &__subtitle {
+      font-size: 24px;
+    }
+  }
+}
+@media (max-width: 500px) {
+  .event-preview-section {
+    padding: 0px $gap-3;
+    &__subtitle {
+      font-size: 20px;
+    }
   }
 }
