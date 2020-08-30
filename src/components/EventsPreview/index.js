@@ -7,13 +7,6 @@ import Event from './Event'
 import BurguerButton from '../BurguerButton'
 import './styles.scss'
 
-const eventInfo = {
-  // Must be provided by props
-  title: 'Uno Lulo',
-  description:
-    'Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos ',
-  organization: 'Platzi'
-}
 const EventsPreview = () => {
   const [evnList, setEvnList] = useState([])
   const [error, setError] = useState(false)
@@ -50,10 +43,6 @@ const EventsPreview = () => {
         </div>
       </section>
       <section className='section'>
-        <Event info={eventInfo} />
-        <Event info={eventInfo} styleType='event--reverse' />
-        <Event info={eventInfo} />
-        <Event info={eventInfo} styleType='event--reverse' />
         {evnList.map((evn, index) =>
           index % 2 === 0 ? (
             <Event info={evn} key={evn.eventId} styleType='event--reverse' />

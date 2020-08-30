@@ -4,6 +4,7 @@ import { API_URL } from '../../config.js'
 import NotFound from '../../containers/NotFound'
 import TemplateOne from '../EventTemplates/TemplateOne'
 import TemplateTwo from '../EventTemplates/TemplateTwo'
+import NotFound from '../../containers/NotFound'
 
 const PublicEvents = props => {
   const [eventData, setEventData] = useState()
@@ -38,6 +39,6 @@ const PublicEvents = props => {
       return <TemplateTwo templateData={eventData} />
     }
   }
-  return <div>Cargandoooo</div>
+  return <div />
 }
 export default PublicEvents
