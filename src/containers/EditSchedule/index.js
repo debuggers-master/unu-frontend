@@ -5,7 +5,7 @@ import { API_URL } from '../../config.js'
 
 import Layout from '../../components/Layout'
 import { ItemDay } from '../../components/ItemDay'
-import Loader from '../../containers/Loader'
+import Loader from '../../components/Loader'
 import './styles.scss'
 
 const EditSchedule = props => {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
@@ -15,16 +15,24 @@ import _t4 from '../../assets/images/T4.png'
 import BurguerButton from '../../components/BurguerButton'
 import './styles.scss'
 const Home = () => {
+  const home = useRef(null)
+  const team = useRef(null)
+  const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop - 100)
+  const executeScroll = evn => {
+    const link = evn.currentTarget.textContent
+    link === 'Inicio' && scrollToRef(home)
+    link === 'Equipo' && scrollToRef(team)
+  }
   return (
     <>
-      <Header />
-      <BurguerButton typeOf='home' />
+      <Header handleClick={executeScroll} />
+      <BurguerButton typeOf='home' handleClick={executeScroll} />
       <section className='create-event-section section'>
         <div className='create-event-section__title'>
           <h2>Crea tu evento</h2>
         </div>
       </section>
-      <section className='home-section section' id='start'>
+      <section className='home-section section' ref={home}>
         <div className='hero-home'>
           <div>
             <h1>
@@ -108,7 +116,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className='team-section section' id='team'>
+      <section className='team-section section' ref={team}>
         <h1>EQUIPO<span> The Debbugers</span>
         </h1>
         <div className='team-section__grid'>

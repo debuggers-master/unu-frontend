@@ -85,7 +85,7 @@
 @mixin NavRigth {
   display: flex;
   flex-flow: column nowrap;
-  background-color: $color-primary;
+  background-color: #222831;
   position: fixed;
   top: 0;
   right: 0;
@@ -99,7 +99,7 @@
   text-align: center;
   & li {
     color: $color-white;
-    font-size: 18px;
+    font-size: 20px;
     padding: 18px 10px;
   }
 }
@@ -197,7 +197,7 @@
       align-items: center;
       justify-content: center;
       background-size: contain;
-      background-repeat: none;
+      background-repeat: no-repeat;
       background-position: center;
     }
     &__fileDos {
@@ -212,7 +212,7 @@
       align-items: center;
       justify-content: center;
       background-size: contain;
-      background-repeat: none;
+      background-repeat: no-repeat;
       background-position: center;
     }
     &__fileIcon {

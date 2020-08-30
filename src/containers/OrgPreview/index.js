@@ -10,7 +10,7 @@ import { API_URL } from '../../config.js'
 import getCookie from '../../utils/getCookie'
 import { deleteOrganization } from '../../actions'
 import { CardEvento } from '../../components/CardEvento'
-import _user from '../../assets/images/iconPerson.svg'
+// import _user from '../../assets/images/iconPerson.svg'
 import './styles.scss'
 
 const OrgPreview = props => {
@@ -18,9 +18,8 @@ const OrgPreview = props => {
   const { organizationId } = props.location.state || ''
   const { events } = props.location.state || []
   const [publishedEvents, setPublishedEvents] = useState([])
-  const [count, setCount] = useState([])
+  // const [count, setCount] = useState([])
   const [status, setStatus] = useState()
-
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
@@ -30,7 +29,8 @@ const OrgPreview = props => {
         const publishedEvnsList = data.filter(
           event => event.organizationName === organizationName
         )
-        setCount('')
+
+        console.log(publishedEvnsList)
         setPublishedEvents(publishedEvnsList)
       } catch (error) {
         console.log(error)
@@ -89,17 +89,18 @@ const OrgPreview = props => {
               <div className='OrgPreview-container__topLeft-Preview'>
                 <h2>Eventos Publicados</h2>
                 {!emptyPublicEvents ? (
-                  publishedEvents.map(item => (
-                    <>
-                      <Link to={item.url} key={item.eventId}>
-                        <p>{item.name}</p>
-                        <div>
-                          <img src={_user} alt='icono de persona' />
-                          <span>{count} registrados</span>
-                        </div>
-                      </Link>
-                    </>
-                  ))
+                  publishedEvents.map(item => {
+                    const orgUrl = item.organizationName.replace(/ /g, '-')
+                    const evnUrl = item.name.replace(/ /g, '-')
+                    return (
+                      <>
+                        <Link to={`/${orgUrl}/${evnUrl}`} key={item.eventId}>
+                          <p>{item.name}</p>
+                          <div />
+                        </Link>
+                      </>
+                    )
+                  })
                 ) : (
                   <h4>
                     Aun no tienes eventos publicados{' '}

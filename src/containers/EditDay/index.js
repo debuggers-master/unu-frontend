@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { API_URL } from '../../config.js'
 import Layout from '../../components/Layout'
-import Loader from '../../containers/Loader'
+import Loader from '../../components/Loader'
 import { ItemTalk } from '../../components/ItemTalk'
 import './styles.scss'
 
 const EditDay = props => {
   const { organizationName, eventId, dayId } = props.match.params
-
+  const { date } = props.location.state || {}
   const [conferencesList, setConferencesList] = useState([])
   const [loader, setLoader] = useState(true)
   const isEmpty = conferencesList.length < 1
@@ -60,12 +60,16 @@ const EditDay = props => {
                         conferenceId={day.conferenceId}
                         name={day.name}
                         deleteConference={deleteConference}
+                        date={date}
                       />
                     </>
                   )
                 })}
               <Link
-                to={`/dashboard/${organizationName}/${eventId}/edit/schedule/${dayId}/new`}
+                to={{
+                  pathname: `/dashboard/${organizationName}/${eventId}/edit/schedule/${dayId}/new`,
+                  state: { date }
+                }}
               >
                 <p className='editDay-NewDay'>Añade una conferencia</p>
               </Link>

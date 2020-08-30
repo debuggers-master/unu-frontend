@@ -7,8 +7,11 @@ import Meet from './components/Meet'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import styles from './styles.module.scss'
+import BurguerButton from '../../BurguerButton'
+
 const TemplateOne = ({ templateData }) => {
-  const { speakers, associates, url } = templateData
+  console.log(templateData)
+  const { speakers, associates, url, eventId } = templateData
   const banner = useRef(null)
   const home = useRef(null)
   const conferences = useRef(null)
@@ -28,6 +31,7 @@ const TemplateOne = ({ templateData }) => {
   return (
     <div ref={home}>
       <Header handleClick={executeScroll} />
+      <BurguerButton typeOf='event' handleClick={executeScroll} />
       <Banner data={templateData} />
       <h2 ref={banner} className={titleClassName}>
         {templateData.name}
@@ -60,7 +64,7 @@ const TemplateOne = ({ templateData }) => {
         <Associates data={associates} />
       </section>
       <div ref={register}>
-        <Footer data={url} />
+        <Footer url={url} eventId={eventId} />
       </div>
     </div>
   )

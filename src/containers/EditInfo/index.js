@@ -7,7 +7,7 @@ import { API_URL } from '../../config.js'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 import ModalState from '../../components/ModalState'
-import Loader from '../../containers/Loader'
+import Loader from '../../components/Loader'
 const FileReader = window.FileReader
 
 const EditInfo = props => {

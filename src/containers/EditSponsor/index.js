@@ -95,7 +95,7 @@ const EditSponsor = props => {
         <div className='editSponsor'>
           <h2>Stark Industries</h2>
           <div className='editSponsor-container'>
-            <h2>Editar asociados - Presentación Iron Man</h2>
+            <h2>Editar asociados</h2>
             <form onSubmit={handleSubmit}>
               <div className='formEdit-container'>
                 <div className='formEdit-container-formLeft'>
