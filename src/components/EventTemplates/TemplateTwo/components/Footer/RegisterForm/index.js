@@ -1,6 +1,5 @@
 /* Issue: when a input field is selected by tabs */
-import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import React, { useState } from 'react'
 import axios from 'axios'
 import { API_URL } from '../../../../../../config.js'
 import stylesTemplate from '../../../styles.module.scss'

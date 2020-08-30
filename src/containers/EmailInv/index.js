@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import axios from 'axios'
 import getCookie from '../../utils/getCookie'
 import { Link } from 'react-router-dom'
@@ -8,7 +8,7 @@ import ModalState from '../../components/ModalState'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 const FileReader = window.FileReader
-
+const FormData = window.FormData
 const EmailInv = props => {
   const { eventId, organizationName } = props.match.params || {}
   const [status, setStatus] = useState()
@@ -58,14 +58,6 @@ const EmailInv = props => {
       console.log(error)
       setStatus({ error: 'Ups parece que hubo un error' })
     }
-  }
-  const [showModal, setShowModal] = useState(false)
-  const openModal = () => {
-    setShowModal(true)
-  }
-
-  const GoBack = () => {
-    window.history.back()
   }
 
   return (

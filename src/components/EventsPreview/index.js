@@ -52,21 +52,16 @@ const EventsPreview = () => {
         <Event info={eventInfo} styleType='event--reverse' />
         <Event info={eventInfo} />
         <Event info={eventInfo} styleType='event--reverse' />
+        {evnList.map((evn, index) =>
+          index % 2 === 0 ? (
+            <Event info={evn} key={evn.eventId} styleType='event--reverse' />
+          ) : (
+            <Event info={evn} key={evn.eventId} />
+          )
+        )}
       </section>
       <Footer />
     </div>
   )
 }
 export default EventsPreview
-
-// <Event info={eventInfo} />
-// <Event info={eventInfo} styleType='event--reverse' />
-// <Event info={eventInfo} />
-// <Event info={eventInfo} styleType='event--reverse' />
-// {evnList.map((evn, index) =>
-//   index % 2 === 0 ? (
-//     <Event info={evn} key={evn.eventId} styleType='event--reverse' />
-//   ) : (
-//     <Event info={evn} key={evn.eventId} />
-//   )
-// )}

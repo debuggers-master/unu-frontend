@@ -10,7 +10,7 @@ import { API_URL } from '../../config.js'
 import getCookie from '../../utils/getCookie'
 import { deleteOrganization } from '../../actions'
 import { CardEvento } from '../../components/CardEvento'
-import _user from '../../assets/images/iconPerson.svg'
+// import _user from '../../assets/images/iconPerson.svg'
 import './styles.scss'
 
 const OrgPreview = props => {
@@ -18,7 +18,7 @@ const OrgPreview = props => {
   const { organizationId } = props.location.state || ''
   const { events } = props.location.state || []
   const [publishedEvents, setPublishedEvents] = useState([])
-  const [count, setCount] = useState([])
+  // const [count, setCount] = useState([])
   const [status, setStatus] = useState()
   const [showModal, setShowModal] = useState(false)
 
@@ -29,7 +29,7 @@ const OrgPreview = props => {
         const publishedEvnsList = data.filter(
           event => event.organizationName === organizationName
         )
-        setCount('')
+
         console.log(publishedEvnsList)
         setPublishedEvents(publishedEvnsList)
       } catch (error) {
