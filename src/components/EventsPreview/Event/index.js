@@ -6,9 +6,11 @@ const Event = props => {
   console.log(props.info)
   const containerClassName = `event__container ${props.styleType || ''}`
   return (
-    <a href={`unu.vercel.app/events/${
-      info.organizationName
-    }/${info.name.replace(/ /g, '-')}`}
+    <a
+      href={`http://unu.vercel.app/${info.organizationName.replace(
+        / /g,
+        '-'
+      )}/${info.name.replace(/ /g, '-')}`}
     >
       <div className='event'>
         <div className={containerClassName}>
