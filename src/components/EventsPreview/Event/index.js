@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import './styles.scss'
 const Event = props => {
@@ -7,7 +6,10 @@ const Event = props => {
   console.log(props.info)
   const containerClassName = `event__container ${props.styleType || ''}`
   return (
-    <Link to={`./${info.organizationName}/${info.name}`}>
+    <a href={`unu.vercel.app/events/${
+      info.organizationName
+    }/${info.name.replace(/ /g, '-')}`}
+    >
       <div className='event'>
         <div className={containerClassName}>
           <div className='event__left'>
@@ -27,7 +29,7 @@ const Event = props => {
           </div>
         </div>
       </div>
-    </Link>
+    </a>
   )
 }
 export default Event
