@@ -3,7 +3,7 @@ import styles from './styles.module.scss'
 import Talk from '../Talk'
 const Shedule = props => {
   const { conferences } = props.data
-  const date = props.data.date.toLocaleString('es-MX', {
+  const date = new Date(props.data.date).toLocaleString('es-MX', {
     month: 'long',
     day: 'numeric'
   })

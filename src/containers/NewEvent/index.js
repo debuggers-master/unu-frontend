@@ -79,7 +79,7 @@ const NewEvent = props => {
         <div className='NewEvent'>
           <h2>Crear Evento</h2>
           <div className='NewEvent-container'>
-            <h2>Cra un nuevo evento</h2>
+            <h2>Crea un nuevo evento</h2>
             <form onSubmit={handleSubmit}>
               <div className='formEdit-container'>
                 <div className='formEdit-container-formLeft'>
@@ -115,7 +115,7 @@ const NewEvent = props => {
                   </div>
                   <div className='formEdit-field'>
                     <label className='formEdit-field__label' htmlFor='start'>
-                      Fecha inicio del evento
+                      Fecha de inicio del evento
                     </label>
                     <input
                       onChange={handleChange}
@@ -136,12 +136,17 @@ const NewEvent = props => {
                       <div className='formEdit-container'>
                         <div className='formEdit-container-formTemplate'>
                           <button
+                            className={
+                              inputValues.template === 't02'
+                                ? ''
+                                : 'template-button'
+                            }
                             type='button'
                             onClick={handleClick}
                             name='template'
-                            value='t01'
+                            value='t02'
                           >
-                            <h2>Plantilla 1</h2>
+                            <h2>Coral</h2>
                           </button>
                           <h4>Paleta de color</h4>
                           <div className='paletColor-container'>
@@ -156,7 +161,7 @@ const NewEvent = props => {
                             <p className='typography-OpenSans'>Open Sans</p>
                           </div>
                           <Link onClick={openModal}>
-                            <h5>Preview Plantilla 1</h5>
+                            <h5>Vista Previa</h5>
                           </Link>
                           <ModalPreview
                             isOpen={showModal}
@@ -167,12 +172,17 @@ const NewEvent = props => {
                         </div>
                         <div className='formEdit-container-formTemplate'>
                           <button
+                            className={
+                              inputValues.template === 't01'
+                                ? ''
+                                : 'template-button'
+                            }
                             type='button'
                             onClick={handleClick}
                             name='template'
                             value='t01'
                           >
-                            <h2>Plantilla 2</h2>
+                            <h2>Lusiana</h2>
                           </button>
                           <h4>Paleta de color</h4>
                           <div className='paletColor-container'>
@@ -187,7 +197,7 @@ const NewEvent = props => {
                             <p className='typography-Roboto'>Roboto</p>
                           </div>
                           <Link onClick={openModalDos}>
-                            <h5>Preview Plantilla 2</h5>
+                            <h5>Vista Previa</h5>
                           </Link>
                           <ModalPreview
                             isOpen={showModalDos}
