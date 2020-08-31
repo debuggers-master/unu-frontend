@@ -56,6 +56,7 @@ const EditInfo = props => {
     fr.onload = evn => {
       setInputValues({ ...inputValues, [fieldName]: fr.result })
       setLoader(false)
+      console.log(fr.result)
       img[fieldName].current.style.backgroundImage = `url(${fr.result})`
     }
     fr.readAsDataURL(evn.target.files[0])
