@@ -1,14 +1,19 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import { create } from 'react-test-renderer'
 import { BrowserRouter, Switch } from 'react-router-dom'
 import AddCollaborator from '../../../containers/AddCollaborator'
 import ProviderMock from '../../../mocks/providerMock'
 
-describe('<Header />', () => {
-  test('Header logo image', () => {
-    it('renders without crashing', () => {
-      shallow(<AddCollaborator />)
-    })
+describe('<AddCollaborator />', () => {
+  const addCollaborator = mount(
+    <ProviderMock>
+      <BrowserRouter>
+        <AddCollaborator match={{ params: '' }} />
+      </BrowserRouter>
+    </ProviderMock>
+  )
+  test('Renders without crashing', () => {
+    expect(addCollaborator.length).toEqual(1)
   })
 })

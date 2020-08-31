@@ -103,6 +103,7 @@ const EditTalk = props => {
       })
 
       console.log('Modificados exitosamente')
+      setStatus({ error: false })
       // window.location.href = `/dashboard/  ${organizationName}/${eventId}/edit/schedule/${dayId}`
       setLoader(false)
     } catch (error) {

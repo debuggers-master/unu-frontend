@@ -1,4 +1,4 @@
-@import "../../styles/base";
+@import '../../styles/base';
 
 .NewEvent {
   max-height: 100vh;
@@ -191,5 +191,11 @@
         height: fit-content;
       }
     }
+  }
+}
+.template-button {
+  background-color: #fafafa;
+  &:active {
+    background-color: #e2e0e0;
   }
 }
