@@ -1,7 +1,7 @@
-@import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
-@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import "../../../main.scss"; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import "../../styles.module.scss"; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
-$template: '';
+$template: "";
 
 .banner {
   @include section-full;
@@ -16,27 +16,27 @@ $template: '';
     width: 100%;
     height: 100%;
     @include section;
-    @if $template == 'two' {
+    @if $template == "two" {
       grid-template-areas:
-        'title title countdown'
-        'title title countdown'
-        'days days countdown';
+        "title title countdown"
+        "title title countdown"
+        "days days countdown";
     } @else {
       grid-template-areas:
-        'title title title'
-        'title title title'
-        'days countdown countdown';
+        "title title title"
+        "title title title"
+        "days countdown countdown";
     }
   }
   &__title {
     text-align: center;
     grid-area: title;
-    @include raleway('xxg');
+    @include raleway("xxg");
   }
   &__days {
     grid-area: days;
     text-transform: capitalize;
-    @include raleway('sm');
+    @include raleway("sm");
   }
   &__img {
     position: absolute;
@@ -49,6 +49,20 @@ $template: '';
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .banner {
+    padding: $gap-4;
+  }
+}
+
+@media (max-width: 500px) {
+  .banner {
+    &__title {
+      font-size: 50px;
     }
   }
 }

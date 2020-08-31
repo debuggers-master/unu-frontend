@@ -12,4 +12,7 @@ describe('<Header />', () => {
   test('Render header component', () => {
     expect(header.length).toEqual(1)
   })
+  test('Header have 4 anchors', () => {
+    expect(header.find('Link')).toHaveLength(4)
+  })
 })

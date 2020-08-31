@@ -1,14 +1,25 @@
-@import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
-@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import "../../../main.scss"; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import "../../styles.module.scss"; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
-$template: '';
+$template: "";
 .associates {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: $gap-6;
-  @include section @if $template == 'two' {
+  @include section @if $template == "two" {
     grid-template-columns: 1fr 1fr 1fr;
     max-width: 800px;
     margin: 0 auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .associates {
+    margin-bottom: $gap-3;
+  }
+}
+@media (max-width: 900px) {
+  .associates {
+    grid-template-columns: 1fr;
   }
 }

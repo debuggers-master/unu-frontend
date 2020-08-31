@@ -1,4 +1,4 @@
-@import '../main.scss';
+@import "../main.scss";
 $color-1: #32e0c4;
 $color-2: #3b6978;
 $color-3: #ffcd3c;
@@ -26,4 +26,9 @@ $color-6: #222831;
 }
 $header-height: 100px;
 $color-white: white;
-$template: 'one';
+$template: "one";
+
+@media (max-width: 900px) {
+}
+@media (max-width: 500px) {
+}

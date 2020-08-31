@@ -1,7 +1,7 @@
-@import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import "../../../main.scss"; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
-@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
-$template: 'two';
+@import "../../styles.module.scss"; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+$template: "two";
 .meet {
   display: grid;
   place-items: center;
@@ -10,7 +10,7 @@ $template: 'two';
   border-bottom: 4px solid $color-3;
   padding-bottom: $gap-5;
   margin-bottom: $gap-5;
-  @if $template == 'two' {
+  @if $template == "two" {
     @include section;
     margin-bottom: $gap-5;
     display: flex;
@@ -21,7 +21,7 @@ $template: 'two';
     flex-direction: row-reverse;
   }
   &__left {
-    @if $template == 'two' {
+    @if $template == "two" {
       height: 305px;
       width: 20%;
     }
@@ -31,7 +31,7 @@ $template: 'two';
     grid-auto-rows: 50px 50px auto;
     place-items: center;
     width: 100%;
-    @if $template == 'two' {
+    @if $template == "two" {
       width: 80%;
       padding: 0px $gap-6;
     }
@@ -44,12 +44,12 @@ $template: 'two';
       height: 30px;
     }
     h2 {
-      @include roboto('md');
+      @include roboto("md");
       margin-right: 0.5em;
       color: $color-4;
     }
     h3 {
-      @include roboto('sm');
+      @include roboto("sm");
       margin-right: 0.5em;
       color: $color-5;
     }
@@ -57,19 +57,33 @@ $template: 'two';
   &__img {
     display: flex;
     justify-content: center;
-    @if $template == 'two' {
+    @if $template == "two" {
       height: 100%;
     }
     img {
       width: 190px;
       height: 190px;
       border-radius: 50%;
-      @if $template == 'two' {
+      @if $template == "two" {
         object-fit: cover;
         width: 100%;
         height: 100%;
         border-radius: 20px;
       }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .meet {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 36px;
+    &__left {
+      width: 100%;
+    }
+    &__right {
+      padding: 0px;
     }
   }
 }

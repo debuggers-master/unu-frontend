@@ -1,14 +1,14 @@
-@import '../../../main.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
-@import '../../styles.module.scss'; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import "../../../main.scss"; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
+@import "../../styles.module.scss"; //this file will be wheter EventTemplates/main.scss or EventTemplates/main.scss
 
-$template: ''; //one or two
+$template: ""; //one or two
 
 .event-hero {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 480px auto;
   @include section;
-  @if $template == 'two' {
+  @if $template == "two" {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 480px auto;
   }
@@ -25,8 +25,14 @@ $template: ''; //one or two
     display: grid;
     place-items: center;
     padding: $gap-4 0;
-    @if $template == 'two' {
+    @if $template == "two" {
       padding: 0 $gap-4;
     }
+  }
+}
+
+@media (max-width: 900px) {
+  .event-hero {
+    padding: $gap-4;
   }
 }
