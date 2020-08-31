@@ -1,21 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import ModalAction from '../ModalAction'
 import './styles.scss'
 
 const NavRigthEvent = (props) => {
   const openBtn = props.isOpen
-  const [showModal, setShowModal] = useState(false)
-  const openModal = () => {
-    setShowModal(true)
-  }
-  const closeModal = () => {
-    setShowModal(false)
-  }
-  function handleLogout () {
-    window.sessionStorage.removeItem('myData')
-    window.location.replace('/')
-  }
+  const handleClick = props.handleClick
+
   return (
     <ul className={
       openBtn
@@ -24,20 +14,17 @@ const NavRigthEvent = (props) => {
     }
     >
       <li>
-        <Link to='/Dashboard'>Inicio</Link>
+        <Link to='/Dashboard' onClick={handleClick}>Inicio</Link>
       </li>
       <li>
-        <Link to='/dashboard/NewEvent'>Nuevo evento</Link>
+        <Link to='/dashboard/NewEvent' onClick={handleClick}>Que es?</Link>
       </li>
       <li>
-        <button onClick={openModal}>Cerrar sesión</button>
+        <Link to='/CalendarPage' onClick={handleClick}>Agenda</Link>
       </li>
-      <ModalAction
-        isOpen={showModal}
-        handleCloseModal={closeModal}
-        handleAction={handleLogout}
-        nameAction='Salir'
-      />
+      <li>
+        <Link to='/CalendarPage' onClick={handleClick}>Inscribete</Link>
+      </li>
     </ul>
   )
 }

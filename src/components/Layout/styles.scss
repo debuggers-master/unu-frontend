@@ -84,6 +84,34 @@
   }
 }
 
+@media (max-width: 900px) {
+  .layout {
+    grid-template:
+      "menu " 1fr
+      "content " 1fr/ 1fr;
+    &-menu {
+      padding: 0;
+      &__mobile {
+        display: flex;
+        background-color: $color-primary;
+        height: 75px;
+        padding-left: 32px;
+        align-items: center;
+        position: fixed;
+        width: 100%;
+        & img {
+          width: 60px;
+        }
+      }
+      &__container {
+        display: none;
+      }
+    }
+    &-content {
+      padding-top: 60px;
+    }
+  }
+}
 @media (max-width: 500px) {
   .layout {
     grid-template:

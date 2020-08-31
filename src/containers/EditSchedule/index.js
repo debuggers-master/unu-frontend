@@ -45,7 +45,18 @@ const EditSchedule = props => {
         <div className='editSchedule'>
           <h2>{organizationName}</h2>
           <div className='editSchedule-container'>
-            <h2>Editar Agenda </h2>
+            <div className='editSchedule-title'>
+              <h2>Editar Agenda </h2>
+              <div className='check-action'>
+                <Link
+                  to={`/dashboard/${organizationName}/${eventId}/edit`}
+                >
+                  <button className='check-action__btnLeft'>
+                    <p>Regresar</p>
+                  </button>
+                </Link>
+              </div>
+            </div>
             <ul>
               {loader && <Loader />}
               {isEmpty &&

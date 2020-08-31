@@ -90,7 +90,7 @@ const EditEvent = props => {
       })
       setStatus({
         error: false,
-        success: `Tu sitio ha sido publicado en http://localhost:3000/${orgUrl}/${evnUrl}`
+        success: `Tu sitio ha sido publicado en unu.vercel.app/${orgUrl}/${evnUrl}`
       })
     } catch (error) {
       setStatus({ error: 'Ups parece que hubo un error' })
@@ -113,7 +113,7 @@ const EditEvent = props => {
                     to={`/dashboard/${organizationName}/${eventId}/edit/info`}
                   >
                     <li>
-                      <p>Editar - Información General del evento</p>
+                      <p>Editar - Información General </p>
                       <img src={_edit} alt='icono editar' />
                     </li>
                   </Link>

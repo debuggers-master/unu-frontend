@@ -28,3 +28,24 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 900px) {
+  .ModalPreview {
+    &-container {
+      & img {
+        max-height: 75%;
+        margin-bottom: 50px;
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  .ModalPreview {
+    &-container {
+      & img {
+        max-height: 44%;
+        margin: 100px 0px;
+      }
+    }
+  }
+}

@@ -23,6 +23,13 @@
     margin: 0px;
     margin-bottom: $gap-4;
   }
+  &-title {
+    h2 {
+      font-size: 24px;
+      width: 100%;
+    }
+    display: flex;
+  }
   &-container {
     h2 {
       font-size: 24px;
@@ -31,7 +38,7 @@
     min-height: 85vh;
     gap: 28px;
     grid-template-columns: 1fr;
-    grid-template-rows: 55px 1fr 72px;
+    grid-template-rows: 50px 1fr;
     @include cardDasboard;
   }
   &__Actions {

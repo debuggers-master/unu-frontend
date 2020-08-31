@@ -4,6 +4,7 @@ import './styles.scss'
 
 const NavRigth = (props) => {
   const openBtn = props.isOpen
+  const handleClick = props.handleClick
   return (
     <ul className={
       openBtn
@@ -12,16 +13,16 @@ const NavRigth = (props) => {
     }
     >
       <li>
-        <Link to='/'>Inicio</Link>
+        <Link to='/' onClick={handleClick}>Inicio</Link>
       </li>
       <li>
-        <Link to='/eventos'>Eventos</Link>
+        <Link to='/events'>Eventos</Link>
       </li>
       <li>
-        <Link to='/CalendarPage'>Calendario</Link>
+        <Link to='/' onClick={handleClick}>Equipo</Link>
       </li>
       <li>
-        <Link to='/'>Cerrar sesión</Link>
+        <Link to='/login'>Login</Link>
       </li>
     </ul>
   )

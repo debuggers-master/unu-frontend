@@ -6,12 +6,13 @@
   padding: 32px;
   &-header {
     display: flex;
-    width: fit-content;
+    width: inherit;
     align-items: center;
     margin-bottom: 32px;
     h2 {
       margin-bottom: 0;
       margin-right: 32px;
+      width: 100%;
     }
     .check-action {
       @include checkButtons;
@@ -58,6 +59,8 @@
         max-height: 87%;
         overflow: scroll;
         padding: 0px $gap-4;
+        text-align: center;
+        font-size: 20px;
       }
     }
     &__bottomLeft {
@@ -67,6 +70,32 @@
         color: $color-primary;
         font-size: 18px;
         margin-top: $gap-4;
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .OrgPreview {
+    max-height: 100%;
+    width: 100%;
+    padding: 16px;
+    padding-top: 32px;
+    &-container {
+      gap: $gap-2;
+      &__Right {
+        max-height: 93vh;
+        &-container {
+          padding: 0px;
+        }
+      }
+      .formEdit {
+        &-container {
+          max-height: 100%;
+          display: grid;
+          column-gap: $gap-5;
+        }
+        @include presetsform;
       }
     }
   }

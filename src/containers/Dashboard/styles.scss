@@ -81,6 +81,46 @@
   }
 }
 
+@media (max-width: 900px) {
+  .dashboard {
+    max-height: 100%;
+    width: 100%;
+    padding: 32px 8px;
+    h2 {
+      font-size: 30px;
+    }
+    &-container {
+      gap: 12px;
+      &__topLeft {
+        grid-area: topLeft;
+        display: grid;
+        max-height: 55vh;
+        grid-template:
+          "title title" 80px
+          "infoOrg newOrg" 1fr
+          "infoOrg newOrg" 1fr/1fr 0px;
+        &-infoOrg {
+          grid-area: infoOrg;
+          text-align: center;
+          max-height: 24vh;
+          overflow: scroll;
+          padding: 0;
+        }
+      }
+      &__Right {
+        padding: 16px;
+        padding-top: 25px;
+        max-height: 91vh;
+        &-container {
+          padding: 0;
+        }
+      }
+      &__bottomLeft {
+        max-height: 100%;
+      }
+    }
+  }
+}
 @media (max-width: 500px) {
   .dashboard {
     max-height: 100%;

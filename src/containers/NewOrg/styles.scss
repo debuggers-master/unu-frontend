@@ -12,7 +12,7 @@
     box-shadow: none;
     &__card {
       @include cardDasboard;
-      height: 320px;
+      height: fit-content;
       width: 577px;
       display: flex;
       flex-wrap: wrap;

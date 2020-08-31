@@ -4,7 +4,7 @@ import NavRigthEvent from '../NavRigthEvent'
 import NavRigthUser from '../NavRigthUser'
 import './styles.scss'
 
-const BurguerButton = ({ typeOf }) => {
+const BurguerButton = ({ typeOf, handleClick }) => {
   const [showMenu, setShowMenu] = useState(true)
   const openModal = () => {
     setShowMenu(false)
@@ -25,9 +25,9 @@ const BurguerButton = ({ typeOf }) => {
       return <NavRigthUser isOpen={showMenu} />
     }
     if (typeOf === 'event') {
-      return <NavRigthEvent isOpen={showMenu} />
+      return <NavRigthEvent isOpen={showMenu} handleClick={handleClick} />
     } else {
-      return <NavRigth isOpen={showMenu} />
+      return <NavRigth isOpen={showMenu} handleClick={handleClick} />
     }
   }
   return (

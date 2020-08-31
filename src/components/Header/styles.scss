@@ -1,4 +1,4 @@
-@import '../../styles/base';
+@import "../../styles/base";
 
 .header {
   position: fixed;
@@ -9,6 +9,8 @@
   justify-content: center;
   height: $header-height;
   color: $color-white;
+  z-index: 5;
+  background: linear-gradient(90deg, #194c85 14.02%, #67c1c2 103.63%);
   a {
     cursor: pointer;
     text-decoration: none;
@@ -16,14 +18,13 @@
       color: white;
     }
   }
-  @include paragraph('lg');
+  @include paragraph("lg");
   &__container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
     width: 100%;
-    margin: 0 auto;
   }
   &__left {
   }
@@ -46,6 +47,27 @@
     img {
       width: 100%;
       height: 100%;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    &__left {
+      padding-left: 16px;
+    }
+    &__right {
+      display: none;
+    }
+  }
+}
+@media (max-width: 500px) {
+  .header {
+    &__left {
+      padding-left: 16px;
+    }
+    &__right {
+      display: none;
     }
   }
 }

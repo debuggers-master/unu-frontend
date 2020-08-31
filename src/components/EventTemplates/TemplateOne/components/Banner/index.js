@@ -2,7 +2,8 @@ import React from 'react'
 import styles from './styles.module.scss'
 import CountDown from '../CountDown'
 const Banner = props => {
-  const { imageHeader, agenda } = props.data
+  console.log(props)
+  const { imageHeader, agenda, titleHeader } = props.data
   const startDate = new Date(props.data.startDate)
   let endDate = new Date()
 
@@ -32,7 +33,7 @@ const Banner = props => {
       </div>
       <div className={styles.banner__container}>
         <div className={styles.banner__title}>
-          <h1>{props.event_title || 'Platzi Conf'}</h1>
+          <h1>{titleHeader}</h1>
         </div>
         <CountDown time={startDate} />
         <div className={styles.banner__days}>{str()}</div>

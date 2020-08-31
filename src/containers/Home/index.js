@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
@@ -6,20 +6,33 @@ import _d1 from '../../assets/images/D1.svg'
 import _d2 from '../../assets/images/D2.svg'
 import _d3 from '../../assets/images/D3.svg'
 import _e1 from '../../assets/images/E1.svg'
+import _e2 from '../../assets/images/iconCount.svg'
+import _e3 from '../../assets/images/iconEmail-white.svg'
+import _t1 from '../../assets/images/T1.png'
+import _t2 from '../../assets/images/T2.png'
+import _t3 from '../../assets/images/T3.png'
+import _t4 from '../../assets/images/T4.png'
+import BurguerButton from '../../components/BurguerButton'
 import './styles.scss'
 const Home = () => {
-  useEffect(() => {
-    window.addEventListener('scroll', console.log)
-  })
+  const home = useRef(null)
+  const team = useRef(null)
+  const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop - 100)
+  const executeScroll = evn => {
+    const link = evn.currentTarget.textContent
+    link === 'Inicio' && scrollToRef(home)
+    link === 'Equipo' && scrollToRef(team)
+  }
   return (
     <>
-      <Header />
+      <Header handleClick={executeScroll} />
+      <BurguerButton typeOf='home' handleClick={executeScroll} />
       <section className='create-event-section section'>
         <div className='create-event-section__title'>
           <h2>Crea tu evento</h2>
         </div>
       </section>
-      <section className='home-section section'>
+      <section className='home-section section' ref={home}>
         <div className='hero-home'>
           <div>
             <h1>
@@ -53,7 +66,7 @@ const Home = () => {
         <div>
           Con Unu no hay de que preocuparse si es un evento muy grande, o si se
           va a hacer en disitintas partes, pues podrás añadir a tu aquipo como
-          parte de
+          parte del evento
         </div>
       </section>
       <section className='choose-design-section section'>
@@ -75,6 +88,7 @@ const Home = () => {
         </div>
       </section>
       <section className='featuring-section section'>
+        <h1>PLUS</h1>
         <div className='featuring-section__grid'>
           <div className='featuring-section__card'>
             <div className='featuring-section__container'>
@@ -87,17 +101,92 @@ const Home = () => {
           <div className='featuring-section__card'>
             <div className='featuring-section__container'>
               <div className='featuring-section__image'>
-                <img src={_e1} alt='caracteristica 2' />
+                <img src={_e2} alt='caracteristica 2' />
               </div>
-              <div className='featuring-section__label'>RECORDATORIOS</div>
+              <div className='featuring-section__label'>CONTEO REGRESIVO</div>
             </div>
           </div>
           <div className='featuring-section__card'>
             <div className='featuring-section__container'>
               <div className='featuring-section__image'>
-                <img src={_e1} alt='caracteristica 3' />
+                <img src={_e3} alt='caracteristica 3' />
               </div>
-              <div className='featuring-section__label'>RECORDATORIOS</div>
+              <div className='featuring-section__label'>EMAILS DIRECTOS</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className='team-section section' ref={team}>
+        <h1>
+          EQUIPO<span> The Debbugers</span>
+        </h1>
+        <div className='team-section__grid'>
+          <div className='team-section__card'>
+            <div className='team-section__container'>
+              <div className='team-section__image'>
+                <img src={_t1} alt='foto de Daniel Valderrama' />
+              </div>
+              <div className='team-section__label'>
+                <h4>Miguel de la Rosa</h4>
+                <a
+                  rel='noopener noreferrer'
+                  target='_blank'
+                  href='https://github.com/devacran'
+                >
+                  <p>devacran</p>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className='team-section__card'>
+            <div className='team-section__container'>
+              <div className='team-section__image'>
+                <img src={_t2} alt='foto de Daniel Valderrama' />
+              </div>
+              <div className='team-section__label'>
+                <h4>Emanuel Osoario</h4>
+                <a
+                  rel='noopener noreferrer'
+                  target='_blank'
+                  href='https://github.com/emanuelosva'
+                >
+                  <p>emanuelosva</p>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className='team-section__card'>
+            <div className='team-section__container'>
+              <div className='team-section__image'>
+                <img src={_t3} alt='foto de Daniel Valderrama' />
+              </div>
+              <div className='team-section__label'>
+                <h4>Mario Barbosa</h4>
+                <a
+                  rel='noopener noreferrer'
+                  target='_blank'
+                  href='https://github.com/mariobarbosa777'
+                >
+                  <p>mariobarbosa777</p>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className='team-section__card'>
+            <div className='team-section__container'>
+              <div className='team-section__image'>
+                <img src={_t4} alt='foto de Daniel Valderrama' />
+              </div>
+              <div className='team-section__label'>
+                <h4>Daniel Valderrama</h4>
+                <a
+                  rel='noopener noreferrer'
+                  target='_blank'
+                  href='https://github.com/DanielVM19'
+                >
+                  <p>DanielVM19</p>
+                </a>
+              </div>
             </div>
           </div>
         </div>

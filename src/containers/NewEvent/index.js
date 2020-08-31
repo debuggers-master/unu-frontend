@@ -238,7 +238,6 @@ const NewEvent = props => {
 const mapDispatchToProps = {
   createEvent
 }
-
 const mapStateToProps = s => ({
   organizationsList: s.user.organizations
 })
