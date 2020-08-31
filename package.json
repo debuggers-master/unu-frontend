@@ -47,7 +47,9 @@
     "ignore": [
       "build/*",
       "serviceWorker.js",
-      "__test__"
+      "src/__test__/*",
+      "src/__mocks__/*",
+      "src/mocks/*"
     ]
   },
   "eslintConfig": {
@@ -57,6 +59,12 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint"
+    }
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|svg|gif)$": "<rootDir>/src/__mocks__/fileMock.js",
+      "\\.(scss|css|sass)$": "<rootDir>/src/__mocks__/styleMock.js"
     }
   }
 }
