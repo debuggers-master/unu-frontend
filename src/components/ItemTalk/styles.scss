@@ -7,6 +7,15 @@
     color: $color-brand;
     align-items: center;
     padding: 0 $gap-6;
+    & button {
+      background: none;
+      margin-left: 32px;
+      font-size: 18px;
+      font-family: $font-primary;
+      font-weight: 400;
+      text-decoration: underline;
+      cursor: pointer;
+    }
     &__Count {
       text-align: left;
       & p {
