@@ -29,7 +29,6 @@ function App ({ isAuth }) {
         <Signup exact path='/signup' />
         <Login exact path='/login' />
         <Route exact path='/dashboard' component={isAuth ? Dashboard : Login} />
-
         <Route
           exact
           path='/dashboard/NewEvent'

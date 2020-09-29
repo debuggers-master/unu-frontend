@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { API_URL } from '../config'
+import ApiService from '../utils/ApiService'
 
 export const registerRequest = payload => ({
   type: 'REGISTER_REQUEST',
@@ -46,11 +45,7 @@ export const deleteOrganization = payload => ({
 export const registerUser = (payload, redirectUrl) => {
   return async dispatch => {
     try {
-      const { data } = await axios({
-        url: `${API_URL}/auth/signup`,
-        method: 'post',
-        data: payload
-      })
+      const data = await ApiService.registerUser(payload)
       dispatch(registerRequest(data.user))
       document.cookie = `token=${data.access_token}`
       document.cookie = `userID=${data.user.userId}`
@@ -69,11 +64,7 @@ export const registerUser = (payload, redirectUrl) => {
 export const loginUser = (payload, redirectUrl) => {
   return async dispatch => {
     try {
-      const { data } = await axios({
-        url: `${API_URL}/auth/login`,
-        method: 'post',
-        data: payload
-      })
+      const data = await ApiService.loginUser(payload)
       dispatch(loginRequest(data.user))
       document.cookie = `token=${data.access_token}`
       document.cookie = `userID=${data.user.userId}`
@@ -89,24 +80,3 @@ export const loginUser = (payload, redirectUrl) => {
     }
   }
 }
-// "user": {
-//     "email": "name_lasta@organization.com",
-//     "firstName": "Mario",
-//     "lastName": "Barbosa",
-//     "userId": "caf1e98a-c84f-4a8e-9f88-81f6ab3db4a8",
-//     "organizations": [],
-//     "collaborations": []
-//   }
-//
-// try {
-//   {data, status} = axios({})
-//   -....
-// } catch (err) {
-//   if err.response.status === 409 {
-//     logica para decirle al usuario que el correo ya está registrado
-//   } else if err.response.status === 400 {
-//     lógica para decirle que los datos no están completos
-//   } else {
-//     lógica para decirle al usuario que ocurrió un error (server error). Intentelo más tarde
-//   }
-// }
