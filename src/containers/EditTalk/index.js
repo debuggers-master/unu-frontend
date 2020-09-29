@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import getCookie from '../../utils/getCookie'
-import { API_URL } from '../../config.js'
+import ApiService from '../../utils/ApiService'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 import ModalState from '../../components/ModalState'
@@ -27,11 +25,9 @@ const EditTalk = props => {
   useEffect(() => {
     async function getTalk () {
       try {
-        const { data } = await axios(`${API_URL}/api/v1/events`, {
-          params: {
-            eventId,
-            filters: 'agenda'
-          }
+        const data = await ApiService.getTalk({
+          eventId,
+          filters: 'agenda'
         })
         const dayData = data.agenda.filter(day => day.dayId === dayId).shift()
         const talkData = dayData.conferences
@@ -84,35 +80,28 @@ const EditTalk = props => {
       startHour: String(new Date(startHour)),
       twitter: inputValues.twitter
     }
-    console.log({
-      data: {
-        eventId,
-        dayId,
-        conferenceData
-      }
-    })
     try {
-      await axios(`${API_URL}/api/v1/events/conference`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: conferenceId ? 'PUT' : 'POST',
-        data: {
+      if (conferenceId) {
+        ApiService.updateConference({
           eventId,
           dayId,
           conferenceData
-        }
-      })
-
+        })
+      } else {
+        ApiService.newConference({
+          eventId,
+          dayId,
+          conferenceData
+        })
+      }
       console.log('Modificados exitosamente')
       setStatus({ error: false })
-      // window.location.href = `/dashboard/  ${organizationName}/${eventId}/edit/schedule/${dayId}`
       setLoader(false)
     } catch (error) {
       console.log(error)
       setStatus({ error: 'Ups parece que hubo un error' })
       setLoader(false)
     }
-    // vaildate fields
-    // send data to appState
   }
 
   return (

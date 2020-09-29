@@ -12,7 +12,6 @@ const Dashboard = ({ user }) => {
   const isEmptyCollaborators = user.collaborations.length > 0
   const isEmptyEvents = user.myEvents.length > 0
   const isEmpty = isEmptyCollaborators === isEmptyEvents
-  console.log(user.collaborations)
   const emptyOrganization = user.organizations.length > 0
   return (
     <>

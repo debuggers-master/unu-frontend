@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import getCookie from '../../utils/getCookie'
-import { API_URL } from '../../config.js'
+import ApiService from '../../utils/ApiService'
 import Layout from '../../components/Layout'
 import ModalState from '../../components/ModalState'
 
@@ -16,24 +14,23 @@ const EditDate = props => {
   const handleSubmit = async evn => {
     evn.preventDefault()
     try {
-      console.log({
-        eventId,
-        dayData: {
-          dayId: dayId || null,
-          date: String(new Date(inputValues.date))
-        }
-      })
-      await axios(`${API_URL}/api/v1/events/day`, {
-        method: dayId ? 'PUT' : 'POST', // If there is a dayId is an update
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        data: {
+      if (dayId) {
+        ApiService.updateDay({
           eventId,
           dayData: {
             dayId,
             date: inputValues.date
           }
-        }
-      })
+        })
+      } else {
+        ApiService.createDay({
+          eventId,
+          dayData: {
+            dayId,
+            date: inputValues.date
+          }
+        })
+      }
       props.history.goBack()
     } catch (error) {
       console.log(error)

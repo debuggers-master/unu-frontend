@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
-import axios from 'axios'
-import getCookie from '../../utils/getCookie'
+import ApiService from '../../utils/ApiService'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
-import { API_URL } from '../../config.js'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 import ModalState from '../../components/ModalState'
@@ -24,10 +22,7 @@ const EditInfo = props => {
   useEffect(() => {
     async function getEventInfo () {
       try {
-        const { data } = await axios(`${API_URL}/api/v1/events`, {
-          headers: { Authorization: `Bearer ${getCookie('token')}` },
-          params: { eventId }
-        })
+        const data = await ApiService.getEventInfo({ eventId })
         const values = {
           name: data.name,
           titleHeader: data.titleHeader,
@@ -86,13 +81,9 @@ const EditInfo = props => {
       }
     })
     try {
-      await axios(`${API_URL}/api/v1/events`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: 'PUT',
-        data: {
-          eventId,
-          eventData
-        }
+      await ApiService.updateEvent({
+        eventId,
+        eventData
       })
       setStatus({ error: false })
       setLoader(false)
@@ -101,8 +92,6 @@ const EditInfo = props => {
       setStatus({ error: 'Ups parece que hubo un error' })
       setLoader(false)
     }
-    // vaildate fields
-    // send data to appState
   }
 
   return (

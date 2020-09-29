@@ -11,6 +11,15 @@ class ApiService {
     return data
   }
 
+  async registerCollab (body) {
+    const { response } = await axios(`${API_URL}/api/v1/events/collaborators`, {
+      headers: { Authorization: `Bearer ${getCookie('token')}` },
+      data: body,
+      method: 'POST'
+    })
+    return response
+  }
+
   async loginUser (body) {
     const { data } = await axios({
       url: `${API_URL}/auth/login`,
@@ -33,6 +42,15 @@ class ApiService {
     const { response } = await axios(`${API_URL}/api/v1/organizations`, {
       headers: { Authorization: `Bearer ${getCookie('token')}` },
       method: 'DELETE',
+      data: body
+    })
+    return response
+  }
+
+  async updateEvent (body) {
+    const { response } = await axios(`${API_URL}/api/v1/events`, {
+      headers: { Authorization: `Bearer ${getCookie('token')}` },
+      method: 'PUT',
       data: body
     })
     return response
@@ -80,6 +98,11 @@ class ApiService {
     return data
   }
 
+  async getPublishedEvents () {
+    const { data } = await axios(`${API_URL}/api/v1/events/list`)
+    return data
+  }
+
   async getEventInfo (query) {
     const { data } = await axios(`${API_URL}/api/v1/events`, {
       headers: { Authorization: `Bearer ${getCookie('token')}` },
@@ -124,6 +147,31 @@ class ApiService {
   }
 
   async getTalk (query) {
+    const { data } = await axios(`${API_URL}/api/v1/events`, {
+      params: query
+    })
+    return data
+  }
+
+  async createDay (body) {
+    const { response } = await axios(`${API_URL}/api/v1/events/day`, {
+      method: 'POST', // If there is a dayId is an update
+      headers: { Authorization: `Bearer ${getCookie('token')}` },
+      data: body
+    })
+    return response
+  }
+
+  async updateDay (body) {
+    const { response } = await axios(`${API_URL}/api/v1/events/day`, {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${getCookie('token')}` },
+      data: body
+    })
+    return response
+  }
+
+  async getAllTalks (query) {
     const { data } = await axios(`${API_URL}/api/v1/events`, {
       params: query
     })

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { API_URL } from '../../config.js'
-
+import ApiService from '../../utils/ApiService'
 import Layout from '../../components/Layout'
 import { ItemDay } from '../../components/ItemDay'
 import Loader from '../../components/Loader'
@@ -18,11 +16,9 @@ const EditSchedule = props => {
   useEffect(() => {
     async function getSchedule () {
       try {
-        const { data } = await axios(`${API_URL}/api/v1/events`, {
-          params: {
-            eventId,
-            filters: 'agenda'
-          }
+        const data = await ApiService.getSchedule({
+          eventId,
+          filters: 'agenda'
         })
         setDaysList(data.agenda)
         setLoader(false)
@@ -48,9 +44,7 @@ const EditSchedule = props => {
             <div className='editSchedule-title'>
               <h2>Editar Agenda </h2>
               <div className='check-action'>
-                <Link
-                  to={`/dashboard/${organizationName}/${eventId}/edit`}
-                >
+                <Link to={`/dashboard/${organizationName}/${eventId}/edit`}>
                   <button className='check-action__btnLeft'>
                     <p>Regresar</p>
                   </button>

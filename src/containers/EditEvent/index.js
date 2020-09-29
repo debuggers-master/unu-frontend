@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
-import getCookie from '../../utils/getCookie'
-import { API_URL } from '../../config.js'
+import ApiService from '../../utils/ApiService'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
 import { deleteEvent } from '../../actions'
@@ -36,12 +34,9 @@ const EditEvent = props => {
   useEffect(() => {
     async function getCollaborators () {
       try {
-        const { data } = await axios(`${API_URL}/api/v1/events`, {
-          headers: { Authorization: `Bearer ${getCookie('token')}` },
-          params: {
-            eventId,
-            filters: 'collaborators'
-          }
+        const data = await ApiService.getColabs({
+          eventId,
+          filters: 'collaborators'
         })
         console.log(data)
         setCollaboratorsList(data.collaborators)
@@ -62,13 +57,7 @@ const EditEvent = props => {
   }
   const deleteEvent = async () => {
     try {
-      await axios(`${API_URL}/api/v1/events`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: 'DELETE',
-        params: {
-          eventId
-        }
-      })
+      await ApiService.deleteEvent({ eventId })
       props.history.push('/dashboard')
       props.deleteEvent(eventId)
     } catch (error) {
@@ -80,13 +69,9 @@ const EditEvent = props => {
     const orgUrl = organizationName.replace(/ /g, '-')
     const evnUrl = name.replace(/ /g, '-')
     try {
-      await axios(`${API_URL}/api/v1/events/change-status`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: 'PUT',
-        params: {
-          actualStatus: false,
-          eventId
-        }
+      await ApiService.publishEvent({
+        actualStatus: false,
+        eventId
       })
       setStatus({
         error: false,

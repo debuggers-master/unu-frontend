@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import ApiService from '../../utils/ApiService'
 import { connect } from 'react-redux'
-import getCookie from '../../utils/getCookie'
-import { API_URL } from '../../config.js'
 import { createEvent } from '../../actions'
 import Layout from '../../components/Layout'
 import ModalState from '../../components/ModalState'
@@ -27,19 +25,15 @@ const NewEvent = props => {
       organizationName: inputValues.organizationName
     }
     try {
-      const res = await axios(`${API_URL}/api/v1/events`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        data,
-        method: 'POST'
-      })
+      const res = await ApiService.newEvent(data)
       console.log('creado Exitosamente')
       props.createEvent({
-        eventId: res.data.eventId,
+        eventId: res.eventId,
         name: data.name,
         organizationName: data.organizationName
       })
       props.history.push(
-        `/dashboard/${organizationName}/${res.data.eventId}/edit/info`
+        `/dashboard/${organizationName}/${res.eventId}/edit/info`
       )
       setError(false)
     } catch (error) {

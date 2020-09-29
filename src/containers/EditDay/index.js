@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { API_URL } from '../../config.js'
+import ApiService from '../../utils/ApiService'
 import Layout from '../../components/Layout'
 import Loader from '../../components/Loader'
 import { ItemTalk } from '../../components/ItemTalk'
@@ -16,11 +15,9 @@ const EditDay = props => {
   useEffect(() => {
     async function getTalks () {
       try {
-        const { data } = await axios(`${API_URL}/api/v1/events`, {
-          params: {
-            eventId,
-            filters: 'agenda'
-          }
+        const data = await ApiService.getAllTalks({
+          eventId,
+          filters: 'agenda'
         })
         const dayData = data.agenda.filter(day => day.dayId === dayId).shift()
 

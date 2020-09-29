@@ -1,15 +1,14 @@
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { API_URL } from '../../config.js'
 import { connect } from 'react-redux'
+import { createOrganization } from '../../actions'
+import ApiService from '../../utils/ApiService'
 import Layout from '../../components/Layout'
 import ModalState from '../../components/ModalState'
-import getCookie from '../../utils/getCookie'
-import { createOrganization } from '../../actions'
-import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
+import _plus from '../..//assets/images/iconPlus.svg'
 const FileReader = window.FileReader
+
 const NewOrg = ({ user, createOrganization }) => {
   const userId = user.userId
   const [inputValues, setInputValues] = useState({})
@@ -32,24 +31,15 @@ const NewOrg = ({ user, createOrganization }) => {
       organizationName: inputValues.organizationName,
       organizationLogo: inputValues.organizationLogo || ''
     }
-    console.log({
-      data: {
+    try {
+      const res = await ApiService.newOrg({
         userId,
         organizationData
-      }
-    })
-    try {
-      const res = await axios(`${API_URL}/api/v1/organizations`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: 'POST',
-        data: {
-          userId,
-          organizationData
-        }
       })
+      console.log(res)
       createOrganization({
         organizationName: organizationData.organizationName,
-        organizationId: res.data.organizationId
+        organizationId: res.organizationId
       })
       openModal()
     } catch (error) {
