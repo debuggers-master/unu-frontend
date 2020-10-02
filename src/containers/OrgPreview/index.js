@@ -37,7 +37,7 @@ const OrgPreview = props => {
   const deleteOrganization = async () => {
     try {
       ApiService.deleteOrg({
-        userId: props.user.userId,
+        userId: props.user.data.userId,
         organizationId
       })
       props.history.push('/dashboard')
@@ -156,7 +156,7 @@ const OrgPreview = props => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user.data
   }
 }
 const mapDispatchToProps = {

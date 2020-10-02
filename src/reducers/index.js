@@ -1,5 +1,9 @@
+import editEventReducer from './editEventReducer'
+import userReducer from './userReducer'
+import { combineReducers } from 'redux'
+
 const sessionStorage = window.sessionStorage
-const reducers = (state, action) => {
+export const reducerAntiguo = (state, action) => {
   let newState
   switch (action.type) {
     case 'REGISTER_REQUEST':
@@ -78,4 +82,8 @@ const reducers = (state, action) => {
   }
 }
 
-export default reducers
+const reducer = combineReducers({
+  user: userReducer,
+  editEvent: editEventReducer
+})
+export default reducer

@@ -1,7 +1,7 @@
 /* Issue: when a input field is selected by tabs */
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { loginUser } from '../../actions'
+import { loginRequest } from '../../actions'
 import { useHistory } from 'react-router-dom'
 const LoginForm = props => {
   const [inputValues, setInputValues] = useState({})
@@ -11,7 +11,7 @@ const LoginForm = props => {
       email: inputValues.email,
       password: inputValues.password
     }
-    props.loginUser(form, '/dashboard')
+    props.loginRequest(form, '/dashboard')
   }
 
   const history = useHistory()
@@ -77,10 +77,10 @@ const LoginForm = props => {
   )
 }
 const mapDispatchToProps = {
-  loginUser
+  loginRequest
 }
 const mapStateToProps = state => ({
   redirectTo: state.redirectTo,
-  loginError: state.errors.loginError
+  loginError: state.user.error.loginError
 })
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)

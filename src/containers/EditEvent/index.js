@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ApiService from '../../utils/ApiService'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
-import { deleteEvent } from '../../actions'
+import { deleteEvent, setCurrentEvent } from '../../actions'
 import { ItemCollaborator } from '../../components/ItemCollaborate'
 import ModalAction from '../../components/ModalAction'
 import ModalState from '../../components/ModalState'
@@ -32,6 +32,14 @@ const EditEvent = props => {
   const emptyList = collaboratorsList.length < 1
 
   useEffect(() => {
+    // async function getEventInfo () {
+    //   try {
+    //     const data = await ApiService.getEventInfo({ eventId })
+    //     props.setCurrentEvent(data)
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
     async function getCollaborators () {
       try {
         const data = await ApiService.getColabs({
@@ -202,11 +210,12 @@ const EditEvent = props => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user.data
   }
 }
 const mapDispatchToProps = {
-  deleteEvent
+  deleteEvent,
+  setCurrentEvent
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditEvent)

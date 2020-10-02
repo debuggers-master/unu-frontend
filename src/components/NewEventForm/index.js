@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import fieldValidator from '../../utils/formValidator'
-import { registerUser } from '../../actions'
+import { registerRequest } from '../../actions'
 import { connect } from 'react-redux'
 const NewEventForm = props => {
   const [inputValues, setInputValues] = useState({})
@@ -102,7 +102,9 @@ const NewEventForm = props => {
         <div
           onBlur={handleBur}
           className={
-            errors.email ? 'formNewEvent-field formNewEvent-field--error' : 'formNewEvent-field'
+            errors.email
+              ? 'formNewEvent-field formNewEvent-field--error'
+              : 'formNewEvent-field'
           }
         >
           <label className='formNewEvent-field__label'>Email</label>
@@ -129,7 +131,9 @@ const NewEventForm = props => {
           )}
         </div>
         <div onBlur={handleBur} className='formNewEvent-field'>
-          <label className='formNewEvent-field__label'>Confirmar Contraseña</label>
+          <label className='formNewEvent-field__label'>
+            Confirmar Contraseña
+          </label>
           <input
             onFocus={handleFocus}
             onChange={handleChange}
@@ -137,7 +141,9 @@ const NewEventForm = props => {
             name='passwordConfirm'
           />
           {errors.passwordConfirm && (
-            <div className='formNewEvent-field__error'>{errors.passwordConfirm}</div>
+            <div className='formNewEvent-field__error'>
+              {errors.passwordConfirm}
+            </div>
           )}
         </div>
         <div className='signup__button'>
@@ -154,6 +160,6 @@ const NewEventForm = props => {
   )
 }
 const mapDispatchToProps = {
-  registerUser
+  registerRequest
 }
 export default connect(null, mapDispatchToProps)(NewEventForm)
