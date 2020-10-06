@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import ModalAction from '../../components/ModalAction'
 import ModalState from '../../components/ModalState'
 import ApiService from '../../utils/ApiService'
-import { deleteOrgRequest } from '../../actions'
+import { deleteOrgRequest, setUserStatus } from '../../actions'
 import { CardEvento } from '../../components/CardEvento'
 import './styles.scss'
 
@@ -13,8 +13,10 @@ const OrgPreview = props => {
   const { organizationName } = props.match.params || {}
   const { organizationId } = props.location.state || ''
   const { events } = props.location.state || []
+  const { setUserStatus, userStatus } = props
   const [publishedEvents, setPublishedEvents] = useState([])
   const [status, setStatus] = useState()
+
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
@@ -24,8 +26,6 @@ const OrgPreview = props => {
         const publishedEvnsList = data.filter(
           event => event.organizationName === organizationName
         )
-
-        console.log(publishedEvnsList)
         setPublishedEvents(publishedEvnsList)
       } catch (error) {
         console.log(error)
@@ -34,17 +34,25 @@ const OrgPreview = props => {
     getPublishedEvents()
   }, [organizationName])
 
-  const deleteOrganization = async () => {
-    try {
-      props.history.push('/dashboard')
-      props.deleteOrgRequest({
-        userId: props.user.data.userId,
-        organizationId
-      })
-    } catch (error) {
-      console.log(error)
-      setStatus({ error: 'Ups parece que hubo un error' })
+  useEffect(() => {
+    if (userStatus === 'error') {
+      setStatus({ error: 'Ups! parece que hubo un error' })
     }
+    if (userStatus === 'loading') {
+
+    }
+    if (userStatus === 'success') {
+      setUserStatus('idle')
+      props.history.push('/dashboard')
+    }
+  }, [userStatus, setStatus, setUserStatus, props])
+
+  const deleteOrganization = () => {
+    closeModal()
+    props.deleteOrgRequest({
+      userId: props.user.userId,
+      organizationId
+    })
   }
   const emptyEvents = events.length < 1
   const emptyPublicEvents = publishedEvents.length < 1
@@ -141,12 +149,14 @@ const OrgPreview = props => {
         <ModalState
           isOpen
           handleAction={() => {
-            closeModal()
+            props.setUserStatus('idle')
             setStatus(null)
           }}
           nameAction='Entendido'
-          messageModal={status.error}
-          stateModal='check'
+          messageModal={
+            status.error ? status.error : 'Modificada exitosamente!'
+          }
+          stateModal={status.error ? 'check' : 'cross'}
         />
       )}
     </>
@@ -155,11 +165,13 @@ const OrgPreview = props => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.data
+    user: state.user.data,
+    userStatus: state.user.status
   }
 }
 const mapDispatchToProps = {
-  deleteOrgRequest
+  deleteOrgRequest,
+  setUserStatus
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrgPreview)

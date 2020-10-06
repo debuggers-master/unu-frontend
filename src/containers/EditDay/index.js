@@ -13,7 +13,7 @@ const EditDay = props => {
   const { date } = props.location.state || {}
   const { agenda, editEventStatus, setEditEventStatus } = props
   const [conferencesList, setConferencesList] = useState([])
-  const [loader, setLoader] = useState(true)
+  const [loader, setLoader] = useState(null)
   const [status, setStatus] = useState()
   const isEmpty = conferencesList.length < 1
   useEffect(() => {
@@ -29,6 +29,9 @@ const EditDay = props => {
     if (editEventStatus === 'error') {
       setStatus({ error: 'Ups! parece que hubo un error' })
       setLoader(false)
+    }
+    if (editEventStatus === 'loading') {
+      setLoader(true)
     }
     if (editEventStatus === 'success') {
       setStatus({ success: 'Eliminado Exitosamente' })

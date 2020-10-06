@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { newOrgRequest, setUserStatus } from '../../actions'
+import { newOrgRequest, setUserStatus, setRedirectUrl } from '../../actions'
 import Layout from '../../components/Layout'
 import ModalState from '../../components/ModalState'
 import './styles.scss'
@@ -54,10 +54,14 @@ const NewOrg = ({
       setStatus({ error: 'Ups! parece que hubo un error' })
     }
     if (userStatus === 'success') {
-      props.history.push('/dashboard')
       setUserStatus('idle')
     }
   }, [userStatus, setUserStatus, props])
+
+  if (props.redirectUrl) {
+    setRedirectUrl(null)
+    props.history.push('/dashboard')
+  }
   return (
     <>
       <Layout active='home'>
@@ -142,12 +146,14 @@ const NewOrg = ({
 const mapStateToProps = state => {
   return {
     user: state.user.data,
-    userStatus: state.user.status
+    userStatus: state.user.status,
+    redirectUrl: state.redirect
   }
 }
 const mapDispatchToProps = {
   newOrgRequest,
-  setUserStatus
+  setUserStatus,
+  setRedirectUrl
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewOrg)

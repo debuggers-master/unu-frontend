@@ -236,7 +236,13 @@ export const deleteCollaboratorRequest = payload => {
 
 // ------------- Starts Org Actions --------------
 
-export const deleteOrgRequest = payload => {}
+export const deleteOrgRequest = payload => {
+  return userRequest(async dispatch => {
+    await ApiService.deleteOrg(payload)
+    dispatch(getUserInfoRequest())
+    dispatch(setRedirectUrl(true))
+  })
+}
 // ------------- Ends Org Actions --------------
 
 // ------------- Starts User Actions --------------
