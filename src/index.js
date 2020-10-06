@@ -11,12 +11,17 @@ import reducers from './reducers'
 const initialState = {
   /*eslint-disable */
   user: {
-    status: '',
+    status: 'IDLE',
     data: JSON.parse(sessionStorage.getItem('myData')) || {},
-    error: { signError: '', loginError: '' }
+    error: { signError: '', loginError: '', userError: '' }
   },
   /* eslint-enable */
-  editEvent: {}
+  editEvent: {
+    status: 'IDLE',
+    data: {},
+    error: null
+  },
+  redirect: null
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

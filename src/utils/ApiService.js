@@ -2,10 +2,19 @@ import axios from 'axios'
 import { API_URL } from '../config'
 import getCookie from './getCookie'
 class ApiService {
+  async getUserInfo () {
+    const { data } = await axios({
+      url: `${API_URL}/api/v1/users`,
+      headers: { Authorization: `Bearer ${getCookie('token')}` },
+      method: 'GET'
+    })
+    return data
+  }
+
   async registerUser (body) {
     const { data } = await axios({
       url: `${API_URL}/auth/signup`,
-      method: 'post',
+      method: 'POST',
       data: body
     })
     return data
@@ -16,6 +25,15 @@ class ApiService {
       headers: { Authorization: `Bearer ${getCookie('token')}` },
       data: body,
       method: 'POST'
+    })
+    return response
+  }
+
+  async removeCollab (body) {
+    const { response } = await axios(`${API_URL}/api/v1/events/collaborators`, {
+      headers: { Authorization: `Bearer ${getCookie('token')}` },
+      data: body,
+      method: 'DELETE'
     })
     return response
   }
@@ -112,9 +130,9 @@ class ApiService {
   }
 
   async getSchedule (query) {
-    const { data } = await axios(`${API_URL}/api/v1/events`, {
-      params: query
-    })
+    const { data } = await axios(
+      `${API_URL}/api/v1/events?eventId=${query.eventId}&filters=agenda`
+    )
     return data
   }
 
@@ -132,6 +150,15 @@ class ApiService {
     const { data } = await axios(`${API_URL}/api/v1/events/associates`, {
       headers: { Authorization: `Bearer ${getCookie('token')}` },
       method: 'POST',
+      data: body
+    })
+    return data
+  }
+
+  async deleteAssociate (body) {
+    const { data } = await axios(`${API_URL}/api/v1/events/associates`, {
+      headers: { Authorization: `Bearer ${getCookie('token')}` },
+      method: 'DELETE',
       data: body
     })
     return data
@@ -155,7 +182,17 @@ class ApiService {
 
   async createDay (body) {
     const { response } = await axios(`${API_URL}/api/v1/events/day`, {
-      method: 'POST', // If there is a dayId is an update
+      method: 'POST',
+      headers: { Authorization: `Bearer ${getCookie('token')}` },
+      data: body
+    })
+    return response
+  }
+
+  async deleteDay (body) {
+    console.log(body)
+    const { response } = await axios(`${API_URL}/api/v1/events/day`, {
+      method: 'DELETE',
       headers: { Authorization: `Bearer ${getCookie('token')}` },
       data: body
     })
@@ -178,7 +215,8 @@ class ApiService {
     return data
   }
 
-  async newConference (body) {
+  async newTalk (body) {
+    console.log('new talk api service', body)
     await axios(`${API_URL}/api/v1/events/conference`, {
       headers: { Authorization: `Bearer ${getCookie('token')}` },
       method: 'POST',
@@ -186,10 +224,19 @@ class ApiService {
     })
   }
 
-  async updateConference (body) {
+  async updateTalk (body) {
     await axios(`${API_URL}/api/v1/events/conference`, {
       headers: { Authorization: `Bearer ${getCookie('token')}` },
       method: 'PUT',
+      data: body
+    })
+  }
+
+  async deleteTalk (body) {
+    console.log('body en api service', body)
+    await axios(`${API_URL}/api/v1/events/conference`, {
+      headers: { Authorization: `Bearer ${getCookie('token')}` },
+      method: 'DELETE',
       data: body
     })
   }

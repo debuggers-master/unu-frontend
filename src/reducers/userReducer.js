@@ -5,6 +5,11 @@ const userReducer = (state = {}, action) => {
         ...state,
         data: action.payload
       }
+    case 'SET_USER_ERROR':
+      return {
+        ...state,
+        error: { ...state.error, userError: action.payload }
+      }
     case 'SET_USER_STATUS':
       return {
         ...state,
@@ -24,6 +29,11 @@ const userReducer = (state = {}, action) => {
       return {
         ...state,
         error: { loginError: action.payload }
+      }
+    case 'DATA_ERROR':
+      return {
+        ...state,
+        error: { dataError: action.payload }
       }
     default:
       return state

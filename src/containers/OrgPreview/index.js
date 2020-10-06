@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import ModalAction from '../../components/ModalAction'
 import ModalState from '../../components/ModalState'
 import ApiService from '../../utils/ApiService'
-import { deleteOrganization } from '../../actions'
+import { deleteOrgRequest } from '../../actions'
 import { CardEvento } from '../../components/CardEvento'
 import './styles.scss'
 
@@ -36,12 +36,11 @@ const OrgPreview = props => {
 
   const deleteOrganization = async () => {
     try {
-      ApiService.deleteOrg({
+      props.history.push('/dashboard')
+      props.deleteOrgRequest({
         userId: props.user.data.userId,
         organizationId
       })
-      props.history.push('/dashboard')
-      props.deleteOrganization(organizationId)
     } catch (error) {
       console.log(error)
       setStatus({ error: 'Ups parece que hubo un error' })
@@ -160,7 +159,7 @@ const mapStateToProps = state => {
   }
 }
 const mapDispatchToProps = {
-  deleteOrganization
+  deleteOrgRequest
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrgPreview)

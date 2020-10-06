@@ -1,42 +1,42 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import ApiService from '../../utils/ApiService'
+import { connect } from 'react-redux'
+import { deleteTalkRequest, setEditEventStatus } from '../../actions'
 import Layout from '../../components/Layout'
 import Loader from '../../components/Loader'
+import ModalState from '../../components/ModalState'
 import { ItemTalk } from '../../components/ItemTalk'
 import './styles.scss'
 
 const EditDay = props => {
   const { organizationName, eventId, dayId } = props.match.params
   const { date } = props.location.state || {}
+  const { agenda, editEventStatus, setEditEventStatus } = props
   const [conferencesList, setConferencesList] = useState([])
   const [loader, setLoader] = useState(true)
+  const [status, setStatus] = useState()
   const isEmpty = conferencesList.length < 1
   useEffect(() => {
-    async function getTalks () {
-      try {
-        const data = await ApiService.getAllTalks({
-          eventId,
-          filters: 'agenda'
-        })
-        const dayData = data.agenda.filter(day => day.dayId === dayId).shift()
-
-        setConferencesList(dayData.conferences)
-        setLoader(false)
-      } catch (error) {
-        console.log(error)
-        setLoader(true)
-      }
+    try {
+      const dayData = agenda.filter(day => day.dayId === dayId).shift()
+      setConferencesList(dayData.conferences)
+    } catch (e) {
+      console.log(e)
     }
-    getTalks()
-  }, [eventId, dayId])
+  }, [agenda, dayId, setConferencesList])
 
-  const deleteConference = conferenceId => {
-    const listConferences = conferencesList.filter(
-      conference => conference.conferenceId !== conferenceId
-    )
-    setConferencesList(listConferences)
-  }
+  useEffect(() => {
+    if (editEventStatus === 'error') {
+      setStatus({ error: 'Ups! parece que hubo un error' })
+      setLoader(false)
+    }
+    if (editEventStatus === 'success') {
+      setStatus({ success: 'Eliminado Exitosamente' })
+      setLoader(false)
+      setEditEventStatus('idle')
+    }
+  }, [editEventStatus, setStatus, setEditEventStatus])
+
   return (
     <>
       <Layout active='home'>
@@ -60,17 +60,16 @@ const EditDay = props => {
               {!isEmpty &&
                 conferencesList.map(day => {
                   return (
-                    <>
-                      <ItemTalk
-                        organizationName={organizationName}
-                        eventId={eventId}
-                        dayId={dayId}
-                        conferenceId={day.conferenceId}
-                        name={day.name}
-                        deleteConference={deleteConference}
-                        date={date}
-                      />
-                    </>
+                    <ItemTalk
+                      key={day.conferenceId}
+                      organizationName={organizationName}
+                      eventId={eventId}
+                      dayId={dayId}
+                      conferenceId={day.conferenceId}
+                      name={day.name}
+                      deleteConference={props.deleteTalkRequest}
+                      date={date}
+                    />
                   )
                 })}
               <Link
@@ -84,9 +83,30 @@ const EditDay = props => {
             </ul>
           </div>
         </div>
+        {status && (
+          <ModalState
+            isOpen
+            handleAction={() => {
+              props.setEditEventStatus('idle')
+              setStatus(null)
+            }}
+            nameAction='Entendido'
+            messageModal={
+              status.error ? status.error : 'Modificada exitosamente!'
+            }
+            stateModal={status.error ? 'check' : 'cross'}
+          />
+        )}
       </Layout>
     </>
   )
 }
-
-export default EditDay
+const mapStateToProps = state => ({
+  agenda: state.editEvent.data.agenda || [],
+  editEventStatus: state.editEvent.status
+})
+const mapDispatchToProps = {
+  setEditEventStatus,
+  deleteTalkRequest
+}
+export default connect(mapStateToProps, mapDispatchToProps)(EditDay)

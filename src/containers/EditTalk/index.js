@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
-import ApiService from '../../utils/ApiService'
+import { connect } from 'react-redux'
+import {
+  updateTalkRequest,
+  addTalkRequest,
+  setEditEventStatus
+} from '../../actions'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 import ModalState from '../../components/ModalState'
@@ -11,6 +16,7 @@ const FileReader = window.FileReader
 
 const EditTalk = props => {
   const { conferenceId, organizationName, eventId, dayId } = props.match.params
+  const { agenda } = props
   const date = new Date(props.location.state.date)
   const [inputValues, setInputValues] = useState({})
   const [status, setStatus] = useState()
@@ -23,27 +29,28 @@ const EditTalk = props => {
   }
 
   useEffect(() => {
-    async function getTalk () {
+    function getTalk () {
       try {
-        const data = await ApiService.getTalk({
-          eventId,
-          filters: 'agenda'
-        })
-        const dayData = data.agenda.filter(day => day.dayId === dayId).shift()
+        const dayData = agenda.filter(day => day.dayId === dayId).shift()
         const talkData = dayData.conferences
           .filter(conf => conf.conferenceId === conferenceId)
           .shift()
-        console.log(talkData)
         setInputValues(talkData)
-        setLoader(false)
       } catch (error) {
-        console.log(error)
         setStatus({ error: 'Ups parece que hubo un error' })
-        setLoader(false)
       }
     }
     conferenceId && getTalk()
-  }, [conferenceId, dayId, eventId])
+  }, [agenda, conferenceId, dayId])
+
+  useEffect(() => {
+    if (props.editEventStatus === 'error') {
+      setStatus({ error: 'Ups! parece que hubo un error' })
+    }
+    if (props.editEventStatus === 'success') {
+      setStatus({ success: 'Modificado Exitosamente' })
+    }
+  }, [props.editEventStatus])
 
   const handleChange = evn => {
     const fieldName = evn.target.name
@@ -80,27 +87,19 @@ const EditTalk = props => {
       startHour: String(new Date(startHour)),
       twitter: inputValues.twitter
     }
-    try {
-      if (conferenceId) {
-        ApiService.updateConference({
-          eventId,
-          dayId,
-          conferenceData
-        })
-      } else {
-        ApiService.newConference({
-          eventId,
-          dayId,
-          conferenceData
-        })
-      }
-      console.log('Modificados exitosamente')
-      setStatus({ error: false })
-      setLoader(false)
-    } catch (error) {
-      console.log(error)
-      setStatus({ error: 'Ups parece que hubo un error' })
-      setLoader(false)
+
+    if (conferenceId) {
+      props.updateTalkRequest({
+        eventId,
+        dayId,
+        conferenceData
+      })
+    } else {
+      props.addTalkRequest({
+        eventId,
+        dayId,
+        conferenceData
+      })
     }
   }
 
@@ -315,7 +314,10 @@ const EditTalk = props => {
       {status && (
         <ModalState
           isOpen
-          handleAction={() => props.history.goBack()}
+          handleAction={() => {
+            props.setEditEventStatus('idle')
+            setStatus(null)
+          }}
           nameAction='Entendido'
           messageModal={
             status.error ? status.error : 'Modificada exitosamente!'
@@ -327,4 +329,13 @@ const EditTalk = props => {
   )
 }
 
-export default EditTalk
+const mapStateToProps = state => ({
+  agenda: state.editEvent.data.agenda || [],
+  editEventStatus: state.editEvent.status
+})
+const mapDispatchToProps = {
+  setEditEventStatus,
+  addTalkRequest,
+  updateTalkRequest
+}
+export default connect(mapStateToProps, mapDispatchToProps)(EditTalk)

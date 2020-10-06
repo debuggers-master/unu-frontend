@@ -1,5 +1,6 @@
 import editEventReducer from './editEventReducer'
 import userReducer from './userReducer'
+import redirectReducer from './redirectReducer'
 import { combineReducers } from 'redux'
 
 const sessionStorage = window.sessionStorage
@@ -84,6 +85,7 @@ export const reducerAntiguo = (state, action) => {
 
 const reducer = combineReducers({
   user: userReducer,
-  editEvent: editEventReducer
+  editEvent: editEventReducer,
+  redirect: redirectReducer
 })
 export default reducer

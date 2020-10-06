@@ -1,20 +1,23 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { createOrganization } from '../../actions'
-import ApiService from '../../utils/ApiService'
+import { newOrgRequest, setUserStatus } from '../../actions'
 import Layout from '../../components/Layout'
 import ModalState from '../../components/ModalState'
 import './styles.scss'
 import _plus from '../..//assets/images/iconPlus.svg'
 const FileReader = window.FileReader
 
-const NewOrg = ({ user, createOrganization }) => {
+const NewOrg = ({
+  user,
+  newOrgRequest,
+  userStatus,
+  setUserStatus,
+  ...props
+}) => {
   const userId = user.userId
   const [inputValues, setInputValues] = useState({})
-  const [showModal, setShowModal] = useState(false)
-  const [error, setError] = useState(false)
-
+  const [status, setStatus] = useState()
   const logoImg = useRef(null)
   const img = {
     organizationLogo: logoImg
@@ -31,22 +34,10 @@ const NewOrg = ({ user, createOrganization }) => {
       organizationName: inputValues.organizationName,
       organizationLogo: inputValues.organizationLogo || ''
     }
-    try {
-      const res = await ApiService.newOrg({
-        userId,
-        organizationData
-      })
-      console.log(res)
-      createOrganization({
-        organizationName: organizationData.organizationName,
-        organizationId: res.organizationId
-      })
-      openModal()
-    } catch (error) {
-      console.log(error)
-      setError(true)
-      openModal()
-    }
+    newOrgRequest({
+      userId,
+      organizationData
+    })
   }
   const handleUpload = async evn => {
     const fieldName = evn.target.name
@@ -58,15 +49,15 @@ const NewOrg = ({ user, createOrganization }) => {
     }
     fr.readAsDataURL(evn.target.files[0])
   }
-
-  const openModal = () => {
-    setShowModal(true)
-  }
-
-  const GoBack = () => {
-    window.history.back()
-  }
-
+  useEffect(() => {
+    if (userStatus === 'error') {
+      setStatus({ error: 'Ups! parece que hubo un error' })
+    }
+    if (userStatus === 'success') {
+      props.history.push('/dashboard')
+      setUserStatus('idle')
+    }
+  }, [userStatus, setUserStatus, props])
   return (
     <>
       <Layout active='home'>
@@ -125,17 +116,20 @@ const NewOrg = ({ user, createOrganization }) => {
                   <button className='check-action__btnRight'>
                     <p>Crear</p>
                   </button>
-                  <ModalState
-                    isOpen={showModal}
-                    handleAction={GoBack}
-                    nameAction='Entendido'
-                    messageModal={
-                      error
-                        ? '¡Oh, no! Hubo un problema'
-                        : 'Ha sido creada con exito!'
-                    }
-                    stateModal={error ? 'check' : 'cross'}
-                  />
+                  {status && (
+                    <ModalState
+                      isOpen
+                      handleAction={() => {
+                        setUserStatus('idle')
+                        setStatus(null)
+                      }}
+                      nameAction='Entendido'
+                      messageModal={
+                        status.error ? status.error : status.success
+                      }
+                      stateModal={status.error ? 'check' : 'cross'}
+                    />
+                  )}
                 </div>
               </form>
             </div>
@@ -147,11 +141,13 @@ const NewOrg = ({ user, createOrganization }) => {
 }
 const mapStateToProps = state => {
   return {
-    user: state.user.data
+    user: state.user.data,
+    userStatus: state.user.status
   }
 }
 const mapDispatchToProps = {
-  createOrganization
+  newOrgRequest,
+  setUserStatus
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewOrg)

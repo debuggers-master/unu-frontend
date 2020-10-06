@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import ApiService from '../../utils/ApiService'
+import React, { useState, useEffect } from 'react'
+import { Redirect, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { createEvent } from '../../actions'
+import { newEventRequest, setRedirectUrl, setUserStatus } from '../../actions'
 import Layout from '../../components/Layout'
 import ModalState from '../../components/ModalState'
-import { Link } from 'react-router-dom'
+
 import _template1 from '../../assets/images/PreviewPlantilla1.png'
 import _template2 from '../../assets/images/PreviewPlantilla2.png'
 import ModalPreview from '../../components/ModalPreview'
@@ -13,8 +13,9 @@ import './styles.scss'
 
 const NewEvent = props => {
   const [inputValues, setInputValues] = useState({})
-  const [error, setError] = useState(false)
+  const [status, setStatus] = useState()
   const organizationName = 'Starlink'
+  const { userStatus } = props
   const handleSubmit = async evn => {
     evn.preventDefault()
     const data = {
@@ -24,23 +25,16 @@ const NewEvent = props => {
       startDate: String(new Date(inputValues.startDate)),
       organizationName: inputValues.organizationName
     }
-    try {
-      const res = await ApiService.newEvent(data)
-      console.log('creado Exitosamente')
-      props.createEvent({
-        eventId: res.eventId,
-        name: data.name,
-        organizationName: data.organizationName
-      })
-      props.history.push(
-        `/dashboard/${organizationName}/${res.eventId}/edit/info`
-      )
-      setError(false)
-    } catch (error) {
-      setError(true)
-      console.log(error)
-    }
+    await props.newEventRequest(data, '/dashboard')
   }
+  useEffect(() => {
+    if (userStatus === 'error') {
+      setStatus({ error: 'Ups! parece que hubo un error' })
+    }
+    if (userStatus === 'success') {
+      setUserStatus('idle')
+    }
+  }, [userStatus])
 
   const handleChange = evn => {
     const fieldName = evn.target.name
@@ -67,6 +61,14 @@ const NewEvent = props => {
   const closeModalDos = () => {
     setShowModalDos(false)
   }
+  if (props.redirect) {
+    props.setRedirectUrl(null)
+    return (
+      <Redirect
+        to={`/dashboard/${organizationName}/${props.redirect}/edit/info`}
+      />
+    )
+  }
   return (
     <>
       <Layout active='new'>
@@ -88,11 +90,12 @@ const NewEvent = props => {
                       defaultValue='DEFAULT'
                     >
                       <option value='DEFAULT' disabled />
-                      {props.organizationsList.map((o, index) => (
-                        <option key={index} value={o.organizationName}>
-                          {o.organizationName}
-                        </option>
-                      ))}
+                      {props.organizationsList &&
+                        props.organizationsList.map((o, index) => (
+                          <option key={index} value={o.organizationName}>
+                            {o.organizationName}
+                          </option>
+                        ))}
                     </select>
                   </div>
                   <div className='formEdit-field'>
@@ -219,20 +222,31 @@ const NewEvent = props => {
           </div>
         </div>
       </Layout>
-      <ModalState
-        isOpen={error}
-        handleAction={() => props.history.goBack()}
-        nameAction='Entendido'
-        messageModal='Oh no hubo un problema'
-        stateModal={error ? 'check' : 'cross'}
-      />
+      {status && (
+        <ModalState
+          isOpen
+          handleAction={() => {
+            setUserStatus('idle')
+            setStatus(null)
+          }}
+          nameAction='Entendido'
+          messageModal={status.error ? status.error : status.success}
+          stateModal={status.error ? 'check' : 'cross'}
+        />
+      )}
     </>
   )
 }
 const mapDispatchToProps = {
-  createEvent
+  newEventRequest,
+  setRedirectUrl,
+  setUserStatus
 }
 const mapStateToProps = s => ({
-  organizationsList: s.user.organizations
+  organizationsList: s.user.data.organizations,
+  eventId: s.editEvent.eventId,
+  redirect: s.redirect,
+  user: s.user,
+  userStatus: s.user.status
 })
 export default connect(mapStateToProps, mapDispatchToProps)(NewEvent)

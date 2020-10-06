@@ -1,7 +1,30 @@
 import ApiService from '../utils/ApiService'
-
-export const redirect = payload => ({
-  type: 'REDIRECT_TO_URL',
+const eventRequest = cb => {
+  return async dispatch => {
+    dispatch(setEditEventStatus('loading'))
+    try {
+      await cb(dispatch)
+      dispatch(setEditEventStatus('success'))
+    } catch (e) {
+      console.log(e)
+      dispatch(setEditEventStatus('error', e))
+    }
+  }
+}
+const userRequest = cb => {
+  return async dispatch => {
+    dispatch(setUserStatus('loading'))
+    try {
+      await cb(dispatch)
+      dispatch(setUserStatus('success'))
+    } catch (e) {
+      dispatch(setUserStatus('error', 'Ups! Ocurrio un error'))
+    }
+  }
+}
+// ------------- Start Auth Actions --------------
+export const setRedirectUrl = payload => ({
+  type: 'SET_REDIRECT_URL',
   payload
 })
 export const signError = payload => ({
@@ -25,36 +48,238 @@ export const setUserData = payload => ({
   type: 'SET_USER_DATA',
   payload
 })
-export const setUserStatus = payload => ({
-  type: 'SET_USER_STATUS',
+export const setUserStatus = (payload, error) => {
+  return async dispatch => {
+    dispatch({
+      type: 'SET_USER_STATUS',
+      payload
+    })
+    if (payload === 'success') {
+      dispatch(setUserError(null))
+    }
+    if (payload === 'loading') {
+      dispatch(setUserError(null))
+    }
+    if (payload === 'idle') {
+      dispatch(setUserError(null))
+    }
+    if (payload === 'error') {
+      dispatch(setUserError(error))
+    }
+  }
+}
+export const setUserError = payload => ({
+  type: 'SET_USER_ERROR',
+  payload
+})
+// ------------- Ends Auth Actions --------------
+
+// ------------- Start Event Actions --------------
+export const setEditEventError = payload => ({
+  type: 'SET_EDIT_EVENT_ERROR',
+  payload
+})
+export const setEditEventStatus = (payload, error) => {
+  return async dispatch => {
+    dispatch({
+      type: 'SET_EDIT_EVENT_STATUS',
+      payload
+    })
+    if (payload === 'success') {
+      dispatch(setEditEventError(null))
+    }
+    if (payload === 'loading') {
+      dispatch(setEditEventError(null))
+    }
+    if (payload === 'idle') {
+      dispatch(setEditEventError(null))
+    }
+    if (payload === 'error') {
+      dispatch(setEditEventError(error))
+    }
+  }
+}
+export const setEditEvent = payload => ({
+  type: 'SET_EDIT_EVENT',
+  payload
+})
+export const updateEventInfo = payload => ({
+  type: 'UPDATE_EVENT_INFO',
   payload
 })
 
-export const addCollaboration = payload => ({
-  type: 'ADD_COLLABORATION',
+export const addAssociate = payload => ({
+  type: 'ADD_ASSOCIATE',
   payload
 })
-export const createEvent = payload => ({
-  type: 'CREATE_EVENT',
+export const updateAssociate = payload => ({
+  type: 'UPDATE_ASSOCIATE',
+  payload: payload
+})
+export const deleteAssociate = payload => ({
+  type: 'DELETE_ASSOCIATE',
   payload
 })
-export const setCurrentEvent = payload => ({
-  type: 'SET_CURRENT_EVENT',
+export const updateAgenda = payload => ({
+  type: 'UPDATE_AGENDA',
   payload
 })
-export const deleteEvent = payload => ({
-  type: 'DELETE_EVENT',
+export const addCollaborator = payload => ({
+  type: 'ADD_COLLABORATOR',
   payload
 })
-export const createOrganization = payload => ({
-  type: 'CREATE_ORGANIZATION',
+export const deleteCollaborator = payload => ({
+  type: 'DELETE_COLLABORATOR',
   payload
 })
-export const deleteOrganization = payload => ({
-  type: 'DELETE_ORGANIZATION',
-  payload
-})
+export const setEditEventRequest = payload => {
+  return eventRequest(async dispatch => {
+    const res = await ApiService.getEventInfo(payload)
+    dispatch(setEditEvent(res))
+  })
+}
+export const updateEventInfoRequest = payload => {
+  return eventRequest(async dispatch => {
+    await ApiService.updateEvent(payload)
+    dispatch(updateEventInfo(payload))
+    dispatch(getUserInfoRequest())
+  })
+}
+export const addAssociateRequest = payload => {
+  return eventRequest(async dispatch => {
+    const res = await ApiService.addAssociate(payload)
+    const _payload = { ...payload, eventId: res.eventId }
+    dispatch(addAssociate(_payload))
+  })
+}
+export const updateAssociateRequest = payload => {
+  return eventRequest(async dispatch => {
+    const res = await ApiService.updateAssociate(payload)
+    const _payload = res.associateData
+    dispatch(updateAssociate(_payload))
+  })
+}
+export const deleteAssociateRequest = payload => {
+  return eventRequest(async dispatch => {
+    const res = await ApiService.deleteAssociate(payload)
+    dispatch(deleteAssociate(payload, res))
+  })
+}
+export const addEventDayRequest = payload => {
+  return eventRequest(async dispatch => {
+    await ApiService.createDay(payload)
+    const { agenda } = await ApiService.getSchedule({
+      eventId: payload.eventId
+    })
+    dispatch(updateAgenda(agenda))
+  })
+}
+export const updateEventDayRequest = payload => {
+  return eventRequest(async dispatch => {
+    await ApiService.updateDay(payload)
+    const { agenda } = await ApiService.getSchedule({
+      eventId: payload.eventId
+    })
+    dispatch(updateAgenda(agenda))
+  })
+}
+export const deleteEventDayRequest = payload => {
+  return eventRequest(async dispatch => {
+    await ApiService.deleteDay(payload)
+    const { agenda } = await ApiService.getSchedule({
+      eventId: payload.eventId
+    })
+    dispatch(updateAgenda(agenda))
+  })
+}
+export const addTalkRequest = payload => {
+  return eventRequest(async dispatch => {
+    await ApiService.newTalk(payload)
+    const { agenda } = await ApiService.getSchedule({
+      eventId: payload.eventId
+    })
+    dispatch(updateAgenda(agenda))
+  })
+}
+export const updateTalkRequest = payload => {
+  return eventRequest(async dispatch => {
+    await ApiService.updateTalk(payload)
+    const { agenda } = await ApiService.getSchedule({
+      eventId: payload.eventId
+    })
+    dispatch(updateAgenda(agenda))
+  })
+}
+export const deleteTalkRequest = payload => {
+  return eventRequest(async dispatch => {
+    await ApiService.deleteTalk(payload)
+    const { agenda } = await ApiService.getSchedule({
+      eventId: payload.eventId
+    })
+    dispatch(updateAgenda(agenda))
+  })
+}
+export const addCollaboratorRequest = payload => {
+  return eventRequest(async dispatch => {
+    const res = await ApiService.registerCollab(payload)
+    dispatch(addCollaborator(payload, res))
+  })
+}
+export const deleteCollaboratorRequest = payload => {
+  return eventRequest(async dispatch => {
+    const res = await ApiService.removeCollab(payload)
+    dispatch(deleteCollaborator(payload, res))
+  })
+}
 
+// ------------- Ends Event Actions --------------
+
+// ------------- Starts Org Actions --------------
+
+export const deleteOrgRequest = payload => {}
+// ------------- Ends Org Actions --------------
+
+// ------------- Starts User Actions --------------
+export const newOrgRequest = payload => {
+  return userRequest(async dispatch => {
+    await ApiService.newOrg(payload)
+    dispatch(getUserInfoRequest())
+    dispatch(setRedirectUrl(true))
+  })
+}
+export const newEventRequest = payload => {
+  return userRequest(async dispatch => {
+    const { eventId } = await ApiService.newEvent(payload)
+    dispatch(getUserInfoRequest())
+    dispatch(setEditEventRequest({ eventId }))
+    dispatch(setRedirectUrl(eventId))
+  })
+}
+export const deleteEventRequest = payload => {
+  return userRequest(async dispatch => {
+    await ApiService.deleteEvent(payload)
+    dispatch(getUserInfoRequest())
+  })
+}
+
+export const getUserInfoRequest = () => {
+  return async dispatch => {
+    try {
+      dispatch(setUserStatus('loading'))
+      const res = await ApiService.getUserInfo()
+      dispatch(setUserData(res))
+      /*eslint-disable */
+      sessionStorage.setItem('myData', JSON.stringify(res))
+      /* eslint-enable */
+      dispatch(setUserStatus('success'))
+    } catch (e) {
+      dispatch(setUserStatus('error'))
+    }
+  }
+}
+// ------------- Ends User Actions --------------
+
+// ------------- Start Auth Actions --------------
 export const registerRequest = (payload, redirectUrl) => {
   return async dispatch => {
     try {

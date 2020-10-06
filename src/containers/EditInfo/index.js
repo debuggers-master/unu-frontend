@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import ApiService from '../../utils/ApiService'
+import { connect } from 'react-redux'
+import { setEditEventStatus, updateEventInfoRequest } from '../../actions'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
 import _plus from '../..//assets/images/iconPlus.svg'
@@ -10,39 +11,46 @@ const FileReader = window.FileReader
 
 const EditInfo = props => {
   const { eventId, organizationName } = props.match.params
+  const { editEventStatus, setEditEventStatus } = props
   const [inputValues, setInputValues] = useState({})
   const [status, setStatus] = useState()
-  const [loader, setLoader] = useState(true)
+  const [loader, setLoader] = useState(null)
   const headerImg = useRef(null)
   const eventImg = useRef(null)
   const img = {
     imageHeader: headerImg,
     imageEvent: eventImg
   }
+
   useEffect(() => {
-    async function getEventInfo () {
-      try {
-        const data = await ApiService.getEventInfo({ eventId })
-        const values = {
-          name: data.name,
-          titleHeader: data.titleHeader,
-          organizationName: data.organizationName,
-          localTime: data.localTime,
-          shortDescription: data.shortDescription,
-          description: data.description,
-          imageHeader: data.imageHeader,
-          imageEvent: data.imageEvent
-        }
-        setInputValues(values)
-        setLoader(false)
-      } catch (error) {
-        setStatus({ error: 'Parece que hubo un error :(' })
-        setLoader(false)
-        console.log(error)
-      }
+    if (editEventStatus === 'error') {
+      setStatus({ error: 'Ups! parece que hubo un error' })
+      setLoader(false)
     }
-    getEventInfo()
-  }, [eventId])
+    if (editEventStatus === 'loading') {
+      setLoader(true)
+    }
+    if (editEventStatus === 'success') {
+      setStatus({ success: 'Modificado Exitosamente' })
+      setLoader(false)
+      setEditEventStatus('idle')
+    }
+  }, [editEventStatus, setEditEventStatus])
+
+  useEffect(() => {
+    const data = props.eventData
+    const values = {
+      name: data.name,
+      titleHeader: data.titleHeader,
+      organizationName: data.organizationName,
+      localTime: data.localTime,
+      shortDescription: data.shortDescription,
+      description: data.description,
+      imageHeader: data.imageHeader,
+      imageEvent: data.imageEvent
+    }
+    setInputValues(values)
+  }, [props.eventData])
 
   const handleUpload = async evn => {
     setLoader(true)
@@ -51,7 +59,6 @@ const EditInfo = props => {
     fr.onload = evn => {
       setInputValues({ ...inputValues, [fieldName]: fr.result })
       setLoader(false)
-      console.log(fr.result)
       img[fieldName].current.style.backgroundImage = `url(${fr.result})`
     }
     fr.readAsDataURL(evn.target.files[0])
@@ -62,8 +69,8 @@ const EditInfo = props => {
     const fieldValue = evn.target.value
     setInputValues({ ...inputValues, [fieldName]: fieldValue })
   }
+
   const handleSubmit = async evn => {
-    setLoader(true)
     evn.preventDefault()
     const eventData = {
       name: inputValues.name,
@@ -74,24 +81,10 @@ const EditInfo = props => {
       imageHeader: inputValues.imageHeader,
       imageEvent: inputValues.imageEvent
     }
-    console.log({
-      data: {
-        eventId,
-        eventData
-      }
+    props.updateEventInfoRequest({
+      eventId,
+      eventData
     })
-    try {
-      await ApiService.updateEvent({
-        eventId,
-        eventData
-      })
-      setStatus({ error: false })
-      setLoader(false)
-      console.log('Modificados exitosamente')
-    } catch (error) {
-      setStatus({ error: 'Ups parece que hubo un error' })
-      setLoader(false)
-    }
   }
 
   return (
@@ -261,11 +254,12 @@ const EditInfo = props => {
       {status && (
         <ModalState
           isOpen
-          handleAction={() => props.history.goBack()}
+          handleAction={() => {
+            props.setEditEventStatus(null)
+            setStatus(null)
+          }}
           nameAction='Entendido'
-          messageModal={
-            status.error ? status.error : 'Modificada exitosamente!'
-          }
+          messageModal={status.error ? status.error : status.success}
           stateModal={status.error ? 'check' : 'cross'}
         />
       )}
@@ -273,4 +267,15 @@ const EditInfo = props => {
   )
 }
 
-export default EditInfo
+const mapStateToProps = state => {
+  return {
+    eventData: state.editEvent.data,
+    editEventStatus: state.editEvent.status,
+    userError: state.user.error.userError
+  }
+}
+const mapDispatchToProps = {
+  setEditEventStatus,
+  updateEventInfoRequest
+}
+export default connect(mapStateToProps, mapDispatchToProps)(EditInfo)
