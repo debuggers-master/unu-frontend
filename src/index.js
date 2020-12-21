@@ -10,10 +10,18 @@ import reducers from './reducers'
 
 const initialState = {
   /*eslint-disable */
-  user: JSON.parse(sessionStorage.getItem('myData')) || {},
+  user: {
+    status: 'IDLE',
+    data: JSON.parse(sessionStorage.getItem('myData')) || {},
+    error: { signError: '', loginError: '', userError: '' }
+  },
   /* eslint-enable */
-  newEvent: {},
-  errors: {}
+  editEvent: {
+    status: 'IDLE',
+    data: {},
+    error: null
+  },
+  redirect: null
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -26,7 +34,7 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App isAuth={initialState.user.userId} />
+      <App isAuth={initialState.user.data.userId} />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

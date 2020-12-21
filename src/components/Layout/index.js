@@ -118,6 +118,6 @@ const Layout = props => {
   )
 }
 const mapStateToProps = state => ({
-  organizationsList: state.user.organizations
+  organizationsList: state.user.data.organizations
 })
 export default connect(mapStateToProps, null)(Layout)

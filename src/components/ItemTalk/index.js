@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import getCookie from '../../utils/getCookie'
-import { API_URL } from '../../config'
 import ModalAction from '../../components/ModalAction'
 import ModalState from '../../components/ModalState'
 
@@ -21,22 +18,13 @@ export const ItemTalk = props => {
   const [openPrompt, setOpenPrompt] = useState(false)
   const [status, setStatus] = useState()
 
-  const deleteTalk = async () => {
-    try {
-      await axios(`${API_URL}/api/v1/events/conference`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: 'DELETE',
-        data: {
-          dayId,
-          eventId,
-          conferenceId
-        }
-      })
-      deleteConference(conferenceId)
-    } catch (error) {
-      console.log(error)
-      setStatus({ error: 'Ups parece que hubo un error' })
-    }
+  const deleteTalk = () => {
+    closePrompt()
+    deleteConference({
+      eventId,
+      dayId,
+      conferenceId
+    })
   }
   const closePrompt = () => setOpenPrompt(false)
   const showPrompt = () => setOpenPrompt(true)

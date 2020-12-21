@@ -1,21 +1,23 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { API_URL } from '../../config.js'
 import { connect } from 'react-redux'
+import { newOrgRequest, setUserStatus, setRedirectUrl } from '../../actions'
 import Layout from '../../components/Layout'
 import ModalState from '../../components/ModalState'
-import getCookie from '../../utils/getCookie'
-import { createOrganization } from '../../actions'
-import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
+import _plus from '../..//assets/images/iconPlus.svg'
 const FileReader = window.FileReader
-const NewOrg = ({ user, createOrganization }) => {
+
+const NewOrg = ({
+  user,
+  newOrgRequest,
+  userStatus,
+  setUserStatus,
+  ...props
+}) => {
   const userId = user.userId
   const [inputValues, setInputValues] = useState({})
-  const [showModal, setShowModal] = useState(false)
-  const [error, setError] = useState(false)
-
+  const [status, setStatus] = useState()
   const logoImg = useRef(null)
   const img = {
     organizationLogo: logoImg
@@ -32,31 +34,10 @@ const NewOrg = ({ user, createOrganization }) => {
       organizationName: inputValues.organizationName,
       organizationLogo: inputValues.organizationLogo || ''
     }
-    console.log({
-      data: {
-        userId,
-        organizationData
-      }
+    newOrgRequest({
+      userId,
+      organizationData
     })
-    try {
-      const res = await axios(`${API_URL}/api/v1/organizations`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: 'POST',
-        data: {
-          userId,
-          organizationData
-        }
-      })
-      createOrganization({
-        organizationName: organizationData.organizationName,
-        organizationId: res.data.organizationId
-      })
-      openModal()
-    } catch (error) {
-      console.log(error)
-      setError(true)
-      openModal()
-    }
   }
   const handleUpload = async evn => {
     const fieldName = evn.target.name
@@ -68,15 +49,19 @@ const NewOrg = ({ user, createOrganization }) => {
     }
     fr.readAsDataURL(evn.target.files[0])
   }
+  useEffect(() => {
+    if (userStatus === 'error') {
+      setStatus({ error: 'Ups! parece que hubo un error' })
+    }
+    if (userStatus === 'success') {
+      setUserStatus('idle')
+    }
+  }, [userStatus, setUserStatus, props])
 
-  const openModal = () => {
-    setShowModal(true)
+  if (props.redirectUrl) {
+    setRedirectUrl(null)
+    props.history.push('/dashboard')
   }
-
-  const GoBack = () => {
-    window.history.back()
-  }
-
   return (
     <>
       <Layout active='home'>
@@ -135,17 +120,20 @@ const NewOrg = ({ user, createOrganization }) => {
                   <button className='check-action__btnRight'>
                     <p>Crear</p>
                   </button>
-                  <ModalState
-                    isOpen={showModal}
-                    handleAction={GoBack}
-                    nameAction='Entendido'
-                    messageModal={
-                      error
-                        ? '¡Oh, no! Hubo un problema'
-                        : 'Ha sido creada con exito!'
-                    }
-                    stateModal={error ? 'check' : 'cross'}
-                  />
+                  {status && (
+                    <ModalState
+                      isOpen
+                      handleAction={() => {
+                        setUserStatus('idle')
+                        setStatus(null)
+                      }}
+                      nameAction='Entendido'
+                      messageModal={
+                        status.error ? status.error : status.success
+                      }
+                      stateModal={status.error ? 'check' : 'cross'}
+                    />
+                  )}
                 </div>
               </form>
             </div>
@@ -157,11 +145,15 @@ const NewOrg = ({ user, createOrganization }) => {
 }
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user.data,
+    userStatus: state.user.status,
+    redirectUrl: state.redirect
   }
 }
 const mapDispatchToProps = {
-  createOrganization
+  newOrgRequest,
+  setUserStatus,
+  setRedirectUrl
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewOrg)

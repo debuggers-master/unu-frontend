@@ -1,36 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
 import ModalAction from '../../components/ModalAction'
 import ModalState from '../../components/ModalState'
-
-import { API_URL } from '../../config.js'
-import getCookie from '../../utils/getCookie'
-import { deleteOrganization } from '../../actions'
+import ApiService from '../../utils/ApiService'
+import { deleteOrgRequest, setUserStatus } from '../../actions'
 import { CardEvento } from '../../components/CardEvento'
-// import _user from '../../assets/images/iconPerson.svg'
 import './styles.scss'
 
 const OrgPreview = props => {
   const { organizationName } = props.match.params || {}
   const { organizationId } = props.location.state || ''
   const { events } = props.location.state || []
+  const { setUserStatus, userStatus } = props
   const [publishedEvents, setPublishedEvents] = useState([])
-  // const [count, setCount] = useState([])
   const [status, setStatus] = useState()
+
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     async function getPublishedEvents () {
       try {
-        const { data } = await axios(`${API_URL}/api/v1/events/list`)
+        const data = await ApiService.getPublishedEvents()
         const publishedEvnsList = data.filter(
           event => event.organizationName === organizationName
         )
-
-        console.log(publishedEvnsList)
         setPublishedEvents(publishedEvnsList)
       } catch (error) {
         console.log(error)
@@ -39,22 +34,25 @@ const OrgPreview = props => {
     getPublishedEvents()
   }, [organizationName])
 
-  const deleteOrganization = async () => {
-    try {
-      await axios(`${API_URL}/api/v1/organizations`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: 'DELETE',
-        data: {
-          userId: props.user.userId,
-          organizationId
-        }
-      })
-      props.history.push('/dashboard')
-      props.deleteOrganization(organizationId)
-    } catch (error) {
-      console.log(error)
-      setStatus({ error: 'Ups parece que hubo un error' })
+  useEffect(() => {
+    if (userStatus === 'error') {
+      setStatus({ error: 'Ups! parece que hubo un error' })
     }
+    if (userStatus === 'loading') {
+
+    }
+    if (userStatus === 'success') {
+      setUserStatus('idle')
+      props.history.push('/dashboard')
+    }
+  }, [userStatus, setStatus, setUserStatus, props])
+
+  const deleteOrganization = () => {
+    closeModal()
+    props.deleteOrgRequest({
+      userId: props.user.userId,
+      organizationId
+    })
   }
   const emptyEvents = events.length < 1
   const emptyPublicEvents = publishedEvents.length < 1
@@ -151,12 +149,14 @@ const OrgPreview = props => {
         <ModalState
           isOpen
           handleAction={() => {
-            closeModal()
+            props.setUserStatus('idle')
             setStatus(null)
           }}
           nameAction='Entendido'
-          messageModal={status.error}
-          stateModal='check'
+          messageModal={
+            status.error ? status.error : 'Modificada exitosamente!'
+          }
+          stateModal={status.error ? 'check' : 'cross'}
         />
       )}
     </>
@@ -165,11 +165,13 @@ const OrgPreview = props => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user.data,
+    userStatus: state.user.status
   }
 }
 const mapDispatchToProps = {
-  deleteOrganization
+  deleteOrgRequest,
+  setUserStatus
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrgPreview)

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import fieldValidator from '../../utils/formValidator'
-import { registerUser } from '../../actions'
+import { registerRequest } from '../../actions'
 import { connect } from 'react-redux'
 const SignupForm = props => {
   const [inputValues, setInputValues] = useState({})
@@ -21,7 +21,7 @@ const SignupForm = props => {
       lastName: inputValues.lastName,
       password: inputValues.password
     }
-    props.registerUser(form, '/dashboard')
+    props.registerRequest(form, '/dashboard')
   }
 
   const handleFocus = evn => {
@@ -149,9 +149,9 @@ const SignupForm = props => {
   )
 }
 const mapDispatchToProps = {
-  registerUser
+  registerRequest
 }
 const mapStateToProps = state => ({
-  signError: state.errors.signError
+  signError: state.user.error.signError
 })
 export default connect(mapStateToProps, mapDispatchToProps)(SignupForm)

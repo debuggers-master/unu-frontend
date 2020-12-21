@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import axios from 'axios'
-import getCookie from '../../utils/getCookie'
+import ApiService from '../../utils/ApiService'
 import { Link } from 'react-router-dom'
-import { API_URL } from '../../config.js'
 import './styles.scss'
 import Layout from '../../components/Layout'
 import ModalState from '../../components/ModalState'
@@ -24,16 +22,10 @@ const EditSponsor = props => {
   useEffect(() => {
     async function getAssociates () {
       try {
-        const { data } = await axios(
-          `${API_URL}/api/v1/events?eventId=${eventId}&filters=associates`,
-          {
-            headers: { Authorization: `Bearer ${getCookie('token')}` }
-          }
-        )
+        const data = await ApiService.getAssociates({ eventId })
         const sponsor = data.associates
           .filter(associate => associate.associatedId === associatedId)
           .shift()
-        console.log('sponsor info', sponsor)
         associatedId && setInputValues(sponsor)
       } catch (error) {
         setStatus({ error: 'Parece que hubo un error :(' })
@@ -51,21 +43,18 @@ const EditSponsor = props => {
       url: inputValues.url,
       logo: inputValues.logo
     }
-    console.log({
-      data: {
-        eventId,
-        associatedData
-      }
-    })
     try {
-      await axios(`${API_URL}/api/v1/events/associates`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: associatedId ? 'PUT' : 'POST',
-        data: {
+      if (associatedId) {
+        ApiService.updateAssociate({
           eventId,
           associatedData
-        }
-      })
+        })
+      } else {
+        ApiService.addAssociate({
+          eventId,
+          associatedData
+        })
+      }
       setStatus({ error: false, success: 'Modificado Exitosamente' })
     } catch (error) {
       console.log(error)

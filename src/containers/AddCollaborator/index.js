@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import ApiService from '../../utils/ApiService'
 import fieldValidator from '../../utils/formValidator'
-import axios from 'axios'
-import getCookie from '../../utils/getCookie'
 import { Link } from 'react-router-dom'
-import { API_URL } from '../../config.js'
 import './styles.scss'
 import Layout from '../../components/Layout'
 
@@ -46,11 +44,7 @@ const AddCollaborator = props => {
   }
   const registerCollaborator = async (data, redirectUrl) => {
     try {
-      await axios(`${API_URL}/api/v1/events/collaborators`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        data,
-        method: 'POST'
-      })
+      ApiService.registerCollab(data)
       console.log('Colaborador creado exitosamente')
       window.location.href = `/dashboard/organizationName/${eventId}/edit/`
     } catch (error) {

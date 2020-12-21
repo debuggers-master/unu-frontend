@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import getCookie from '../../utils/getCookie'
-import { API_URL } from '../../config'
 import ModalAction from '../../components/ModalAction'
-import ModalState from '../../components/ModalState'
 
 import './styles.scss'
 export const ItemDay = ({
@@ -16,7 +12,6 @@ export const ItemDay = ({
   deleteDay
 }) => {
   const [openPrompt, setOpenPrompt] = useState(false)
-  const [status, setStatus] = useState()
 
   const localDate = new Date(date)
     .toLocaleString('es-MX', {
@@ -26,21 +21,8 @@ export const ItemDay = ({
     })
     .toUpperCase()
   const handleDelete = async () => {
-    try {
-      await axios(`${API_URL}/api/v1/events/day`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: 'DELETE',
-        data: {
-          eventId,
-          dayId
-        }
-      })
-      deleteDay(dayId)
-      console.log('Eliminado exitosamente')
-    } catch (error) {
-      console.log(error)
-      setStatus({ error: 'Ups parece que hubo un error' })
-    }
+    deleteDay({ eventId, dayId })
+    closePrompt()
   }
   const showPrompt = () => setOpenPrompt(true)
   const closePrompt = () => setOpenPrompt(false)
@@ -78,20 +60,6 @@ export const ItemDay = ({
         handleAction={handleDelete}
         handleCloseModal={closePrompt}
       />
-      {status && (
-        <ModalState
-          isOpen
-          handleAction={() => {
-            closePrompt()
-            setStatus(null)
-          }}
-          nameAction='Entendido'
-          messageModal={
-            status.error ? status.error : 'Modificada exitosamente!'
-          }
-          stateModal={status.error ? 'check' : 'cross'}
-        />
-      )}
     </>
   )
 }

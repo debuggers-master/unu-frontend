@@ -1,43 +1,46 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { API_URL } from '../../config.js'
+import { connect } from 'react-redux'
+import { setEditEventStatus, deleteEventDayRequest } from '../../actions'
 
 import Layout from '../../components/Layout'
 import { ItemDay } from '../../components/ItemDay'
+import ModalState from '../../components/ModalState'
 import Loader from '../../components/Loader'
 import './styles.scss'
 
 const EditSchedule = props => {
-  const { eventId, organizationName } = props.match.params
+  const {
+    eventId,
+    organizationName,
+    agenda,
+    editEventStatus,
+    setEditEventStatus
+  } = props
   const [daysList, setDaysList] = useState([])
-  const [loader, setLoader] = useState(true)
+  const [status, setStatus] = useState()
+  const [loader, setLoader] = useState(null)
 
   const isEmpty = daysList.length > 0
 
   useEffect(() => {
-    async function getSchedule () {
-      try {
-        const { data } = await axios(`${API_URL}/api/v1/events`, {
-          params: {
-            eventId,
-            filters: 'agenda'
-          }
-        })
-        setDaysList(data.agenda)
-        setLoader(false)
-      } catch (error) {
-        console.log(error)
-        setLoader(false)
-      }
-    }
-    getSchedule()
-  }, [eventId])
+    setDaysList(agenda)
+  }, [agenda])
 
-  const deleteDay = dayId => {
-    const list = daysList.filter(day => day.dayId !== dayId)
-    setDaysList(list)
-  }
+  useEffect(() => {
+    if (editEventStatus === 'error') {
+      setStatus({ error: 'Ups! parece que hubo un error' })
+      setLoader(false)
+    }
+    if (editEventStatus === 'loading') {
+      setLoader(true)
+    }
+    if (editEventStatus === 'success') {
+      setStatus({ success: 'Eliminado Exitosamente' })
+      setLoader(false)
+      setEditEventStatus('idle')
+    }
+  }, [editEventStatus, setEditEventStatus])
 
   return (
     <>
@@ -48,9 +51,7 @@ const EditSchedule = props => {
             <div className='editSchedule-title'>
               <h2>Editar Agenda </h2>
               <div className='check-action'>
-                <Link
-                  to={`/dashboard/${organizationName}/${eventId}/edit`}
-                >
+                <Link to={`/dashboard/${organizationName}/${eventId}/edit`}>
                   <button className='check-action__btnLeft'>
                     <p>Regresar</p>
                   </button>
@@ -68,7 +69,7 @@ const EditSchedule = props => {
                     eventId={eventId}
                     dayId={day.dayId}
                     date={day.date}
-                    deleteDay={deleteDay}
+                    deleteDay={props.deleteEventDayRequest}
                   />
                 ))}
               <Link
@@ -79,9 +80,33 @@ const EditSchedule = props => {
             </ul>
           </div>
         </div>
+        {status && (
+          <ModalState
+            isOpen
+            handleAction={() => {
+              props.setEditEventStatus('idle')
+              setStatus(null)
+            }}
+            nameAction='Entendido'
+            messageModal={
+              status.error ? status.error : 'Modificada exitosamente!'
+            }
+            stateModal={status.error ? 'check' : 'cross'}
+          />
+        )}
       </Layout>
     </>
   )
 }
 
-export default EditSchedule
+const mapStateToProps = state => ({
+  agenda: state.editEvent.data.agenda || [],
+  editEventStatus: state.editEvent.status,
+  eventId: state.editEvent.data.eventId,
+  organizationName: state.editEvent.data.organizationName
+})
+const mapDispatchToProps = {
+  setEditEventStatus,
+  deleteEventDayRequest
+}
+export default connect(mapStateToProps, mapDispatchToProps)(EditSchedule)

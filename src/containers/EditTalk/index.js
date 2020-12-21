@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Layout from '../../components/Layout'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import getCookie from '../../utils/getCookie'
-import { API_URL } from '../../config.js'
+import { connect } from 'react-redux'
+import {
+  updateTalkRequest,
+  addTalkRequest,
+  setEditEventStatus
+} from '../../actions'
 import _plus from '../..//assets/images/iconPlus.svg'
 import './styles.scss'
 import ModalState from '../../components/ModalState'
@@ -13,6 +16,7 @@ const FileReader = window.FileReader
 
 const EditTalk = props => {
   const { conferenceId, organizationName, eventId, dayId } = props.match.params
+  const { agenda } = props
   const date = new Date(props.location.state.date)
   const [inputValues, setInputValues] = useState({})
   const [status, setStatus] = useState()
@@ -25,29 +29,28 @@ const EditTalk = props => {
   }
 
   useEffect(() => {
-    async function getTalk () {
+    function getTalk () {
       try {
-        const { data } = await axios(`${API_URL}/api/v1/events`, {
-          params: {
-            eventId,
-            filters: 'agenda'
-          }
-        })
-        const dayData = data.agenda.filter(day => day.dayId === dayId).shift()
+        const dayData = agenda.filter(day => day.dayId === dayId).shift()
         const talkData = dayData.conferences
           .filter(conf => conf.conferenceId === conferenceId)
           .shift()
-        console.log(talkData)
         setInputValues(talkData)
-        setLoader(false)
       } catch (error) {
-        console.log(error)
         setStatus({ error: 'Ups parece que hubo un error' })
-        setLoader(false)
       }
     }
     conferenceId && getTalk()
-  }, [conferenceId, dayId, eventId])
+  }, [agenda, conferenceId, dayId])
+
+  useEffect(() => {
+    if (props.editEventStatus === 'error') {
+      setStatus({ error: 'Ups! parece que hubo un error' })
+    }
+    if (props.editEventStatus === 'success') {
+      setStatus({ success: 'Modificado Exitosamente' })
+    }
+  }, [props.editEventStatus])
 
   const handleChange = evn => {
     const fieldName = evn.target.name
@@ -84,35 +87,20 @@ const EditTalk = props => {
       startHour: String(new Date(startHour)),
       twitter: inputValues.twitter
     }
-    console.log({
-      data: {
+
+    if (conferenceId) {
+      props.updateTalkRequest({
         eventId,
         dayId,
         conferenceData
-      }
-    })
-    try {
-      await axios(`${API_URL}/api/v1/events/conference`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: conferenceId ? 'PUT' : 'POST',
-        data: {
-          eventId,
-          dayId,
-          conferenceData
-        }
       })
-
-      console.log('Modificados exitosamente')
-      setStatus({ error: false })
-      // window.location.href = `/dashboard/  ${organizationName}/${eventId}/edit/schedule/${dayId}`
-      setLoader(false)
-    } catch (error) {
-      console.log(error)
-      setStatus({ error: 'Ups parece que hubo un error' })
-      setLoader(false)
+    } else {
+      props.addTalkRequest({
+        eventId,
+        dayId,
+        conferenceData
+      })
     }
-    // vaildate fields
-    // send data to appState
   }
 
   return (
@@ -326,7 +314,10 @@ const EditTalk = props => {
       {status && (
         <ModalState
           isOpen
-          handleAction={() => props.history.goBack()}
+          handleAction={() => {
+            props.setEditEventStatus('idle')
+            setStatus(null)
+          }}
           nameAction='Entendido'
           messageModal={
             status.error ? status.error : 'Modificada exitosamente!'
@@ -338,4 +329,13 @@ const EditTalk = props => {
   )
 }
 
-export default EditTalk
+const mapStateToProps = state => ({
+  agenda: state.editEvent.data.agenda || [],
+  editEventStatus: state.editEvent.status
+})
+const mapDispatchToProps = {
+  setEditEventStatus,
+  addTalkRequest,
+  updateTalkRequest
+}
+export default connect(mapStateToProps, mapDispatchToProps)(EditTalk)

@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import getCookie from '../../utils/getCookie'
-import { API_URL } from '../../config.js'
+import { connect } from 'react-redux'
+import {
+  setEditEventStatus,
+  updateEventDayRequest,
+  addEventDayRequest
+} from '../../actions'
 import Layout from '../../components/Layout'
 import ModalState from '../../components/ModalState'
 
@@ -15,31 +18,34 @@ const EditDate = props => {
 
   const handleSubmit = async evn => {
     evn.preventDefault()
-    try {
-      console.log({
+    if (dayId) {
+      props.updateEventDayRequest({
         eventId,
         dayData: {
-          dayId: dayId || null,
-          date: String(new Date(inputValues.date))
+          dayId,
+          date: inputValues.date
         }
       })
-      await axios(`${API_URL}/api/v1/events/day`, {
-        method: dayId ? 'PUT' : 'POST', // If there is a dayId is an update
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        data: {
-          eventId,
-          dayData: {
-            dayId,
-            date: inputValues.date
-          }
+    } else {
+      props.addEventDayRequest({
+        eventId,
+        dayData: {
+          dayId,
+          date: inputValues.date
         }
       })
-      props.history.goBack()
-    } catch (error) {
-      console.log(error)
-      setStatus({ error: 'Ups parece que hubo un error' })
     }
   }
+
+  useEffect(() => {
+    if (props.editEventStatus === 'error') {
+      setStatus({ error: 'Ups! parece que hubo un error' })
+    }
+    if (props.editEventStatus === 'success') {
+      setStatus({ success: 'Modificado Exitosamente' })
+    }
+  }, [props.editEventStatus])
+
   const handleChange = evn => {
     const fieldName = evn.target.name
     const fieldValue = evn.target.value
@@ -89,7 +95,10 @@ const EditDate = props => {
       {status && (
         <ModalState
           isOpen
-          handleAction={() => props.history.goBack()}
+          handleAction={() => {
+            props.setEditEventStatus('idle')
+            props.history.goBack()
+          }}
           nameAction='Entendido'
           messageModal={
             status.error ? status.error : 'Modificada exitosamente!'
@@ -101,4 +110,13 @@ const EditDate = props => {
   )
 }
 
-export default EditDate
+const mapStateToProps = state => ({
+  editEventStatus: state.editEvent.status
+})
+const mapDispatchToProps = {
+  setEditEventStatus,
+  updateEventDayRequest,
+  addEventDayRequest
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditDate)

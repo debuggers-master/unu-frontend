@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
-import getCookie from '../../utils/getCookie'
-import { API_URL } from '../../config.js'
+import ApiService from '../../utils/ApiService'
 import Layout from '../../components/Layout'
-import { Link } from 'react-router-dom'
-import { deleteEvent } from '../../actions'
+import { Link, Redirect } from 'react-router-dom'
+import {
+  deleteEventRequest,
+  setEditEventRequest,
+  setUserStatus,
+  setEditEventStatus
+} from '../../actions'
 import { ItemCollaborator } from '../../components/ItemCollaborate'
 import ModalAction from '../../components/ModalAction'
 import ModalState from '../../components/ModalState'
@@ -18,41 +21,47 @@ import './styles.scss'
 
 const EditEvent = props => {
   const { eventId } = props.match.params
-  const isMyEvent = props.user.myEvents
+  const isMyEvent = props.user.data.myEvents
     .filter(event => event.eventId === eventId)
     .shift()
-  const isCollaboration = props.user.collaborations
+  const isCollaboration = props.user.data.collaborations
     .filter(event => event.eventId === eventId)
     .shift()
-  const { organizationName, name } = isMyEvent || isCollaboration
-
+  const {
+    setEditEventRequest,
+    collaborators,
+    editEventStatus,
+    setEditEventStatus
+  } = props
   const [openPrompt, setOpenPrompt] = useState(false)
   const [status, setStatus] = useState()
-  const [collaboratorsList, setCollaboratorsList] = useState([])
   const [loader, setLoader] = useState(true)
-
-  const emptyList = collaboratorsList.length < 1
+  const [collaboratorsList, setCollaboratorsList] = useState([])
+  useEffect(() => {
+    setCollaboratorsList(collaborators)
+  }, [collaborators])
 
   useEffect(() => {
-    async function getCollaborators () {
-      try {
-        const { data } = await axios(`${API_URL}/api/v1/events`, {
-          headers: { Authorization: `Bearer ${getCookie('token')}` },
-          params: {
-            eventId,
-            filters: 'collaborators'
-          }
-        })
-        console.log(data)
-        setCollaboratorsList(data.collaborators)
-        setLoader(false)
-      } catch (error) {
-        console.log(error)
-        setLoader(false)
-      }
+    setEditEventRequest({ eventId })
+  }, [setEditEventRequest, eventId])
+
+  useEffect(() => {
+    if (editEventStatus === 'error') {
+      setStatus({ error: 'Ups! parece que hubo un error' })
+      setLoader(false)
     }
-    getCollaborators()
-  }, [eventId, setCollaboratorsList])
+    if (editEventStatus === 'success') {
+      setEditEventStatus('idle')
+      setLoader(false)
+    }
+  }, [editEventStatus, setEditEventStatus])
+
+  if (!isMyEvent && !isCollaboration) {
+    return <Redirect to='/dashboard' />
+  }
+  const { organizationName, name } = isMyEvent || isCollaboration
+
+  const emptyList = collaboratorsList.length < 1
 
   const deleteItemCollaborator = email => {
     const listCollaborator = collaboratorsList.filter(
@@ -61,32 +70,16 @@ const EditEvent = props => {
     setCollaboratorsList(listCollaborator)
   }
   const deleteEvent = async () => {
-    try {
-      await axios(`${API_URL}/api/v1/events`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: 'DELETE',
-        params: {
-          eventId
-        }
-      })
-      props.history.push('/dashboard')
-      props.deleteEvent(eventId)
-    } catch (error) {
-      console.log(error)
-      setStatus({ error: 'Ups parece que hubo un error' })
-    }
+    closePrompt()
+    props.deleteEventRequest({ eventId })
   }
   const publishEvent = async () => {
     const orgUrl = organizationName.replace(/ /g, '-')
     const evnUrl = name.replace(/ /g, '-')
     try {
-      await axios(`${API_URL}/api/v1/events/change-status`, {
-        headers: { Authorization: `Bearer ${getCookie('token')}` },
-        method: 'PUT',
-        params: {
-          actualStatus: false,
-          eventId
-        }
+      await ApiService.publishEvent({
+        actualStatus: false,
+        eventId
       })
       setStatus({
         error: false,
@@ -204,6 +197,8 @@ const EditEvent = props => {
           isOpen
           handleAction={() => {
             closePrompt()
+            props.setUserStatus('idle')
+            props.setEditEventStatus('idle')
             setStatus(null)
           }}
           nameAction='Entendido'
@@ -217,11 +212,17 @@ const EditEvent = props => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    userError: state.user.error.dataError,
+    collaborators: state.editEvent.data.collaborators || [],
+    editEventStatus: state.editEvent.status
   }
 }
 const mapDispatchToProps = {
-  deleteEvent
+  deleteEventRequest,
+  setEditEventRequest,
+  setUserStatus,
+  setEditEventStatus
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditEvent)
